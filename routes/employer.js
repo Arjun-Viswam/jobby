@@ -116,13 +116,33 @@ router.post('/emp-otp-login',async(req,res)=>{
 
 
 router.get('/emp-signup',(req,res)=>{
-    res.render('employer/emp-signup',{log:true})
-})
+    res.render('employer/emp-signup',{nomatch: req.session.nomatch,log:true,formIn:true, existing : req.session.existing, mobileExist : req.session.mobileExist})
+    req.session.nomatch = false;
+    req.session.existing = false
+    req.session.mobileExist = false
+  })
 
 
 router.post('/emp-signup',(req,res)=>{
       let serviceId =  process.env.TWILIO_SERVICE_ID
-  
+      employerHelpers.checkdata(req.body).then((response)=>{
+        req.session.nomatch = false;
+        req.session.existing = false
+        req.session.mobileExist = false
+        if (response.nomatch) {
+          req.session.nomatch = true
+          req.session.nomatch = response.nomatch;
+          res.redirect("/employer/emp-signup");
+        } else if (response.existing){
+          req.session.existing = true
+          req.session.existing = response.existing
+          res.redirect("/employer/emp-signup")
+        }else if (response.mobileExist){
+          req.session.mobileExist = true
+          req.session.mobileExist = response.mobileExist
+          res.redirect("/employer/emp-signup")
+        }else{
+      
       client.verify
         .services(serviceId)
         .verifications.create({ to: req.body.full, channel: "sms" })
@@ -131,7 +151,9 @@ router.post('/emp-signup',(req,res)=>{
   })
   data = req.body
   res.render('employer/emp-signup-code',{log:true,data})
+   }
   })
+})
     
   router.post("/emp-signup-code", (req, res) => {
     let serviceId =  process.env.TWILIO_SERVICE_ID
@@ -146,10 +168,7 @@ router.post('/emp-signup',(req,res)=>{
               req.session.empLoggedIn = true;
               req.session.emp = response.data;
               res.redirect("/employer");
-            } else if (response.nomatch) {
-              req.session.nomatch = response.nomatch;
-              res.redirect("/employer/emp-signup");
-            } 
+            }
           });
         }else{
           req.session.nomatch = response.nomatch;
@@ -167,7 +186,11 @@ router.post('/emp-signup',(req,res)=>{
 router.get('/dashboard',verifyLogin,async(req,res)=>{
   let employers = await employerHelpers.getEmployerDetails(req.session.emp._id)
   let jobcount = await employerHelpers.getjobcount(req.session.emp._id)
-    res.render('employer/dashboard',{employer:true,employers,jobcount})
+  let activeCount = await employerHelpers.getActiveCount(req.session.emp._id)
+  let expiredCount = await employerHelpers.getExpiredCount(req.session.emp._id)
+  let pieChart = [jobcount,activeCount,expiredCount]
+  let notes = await employerHelpers.getNotes(req.session.emp._id)
+    res.render('employer/dashboard',{employer:true,employers,jobcount,notes,activeCount,expiredCount,pieChart})
 })
 
 router.get('/emp-profile',verifyLogin,async(req,res)=>{
@@ -270,6 +293,8 @@ router.post('/postjob',verifyLogin,async(req,res)=>{
     let planDetails = req.session.planDetails
     employerHelpers.verifyPayment(req.body,jobDetails,employerID,planDetails).then(() => {  
       employerHelpers.updateOrder(req.body,req.session.emp,planDetails).then(()=>{
+        req.session.jobDetails = null
+        req.session.planDetails = null
         res.json({ status: true });
       })  
       })
@@ -285,6 +310,8 @@ router.post('/postjob',verifyLogin,async(req,res)=>{
     let planDetails = req.session.planDetails
     employerHelpers.verifyPaypalPayment(req.body,jobDetails,employerID,planDetails).then(()=>{
       employerHelpers.updatePaypalOrder(req.body,req.session.emp,planDetails).then(()=>{
+        req.session.jobDetails = null
+        req.session.planDetails = null
       res.json({ status : true})
     })
   })

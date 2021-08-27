@@ -72,12 +72,26 @@ router.post('/login',(req,res)=>{
 });
 
 router.get("/signup", (req, res) => {
-  res.render("user/signup", {nomatch: req.session.nomatch,log:true,formIn:true});
+  res.render("user/signup", {nomatch: req.session.nomatch,log:true,formIn:true, existing : req.session.existing, mobileExist : req.session.mobileExist});
   req.session.nomatch = false;
+  req.session.existing = false
+  req.session.mobileExist = false
 });   
  
 router.post('/signup',(req,res)=>{
     let serviceId =  process.env.TWILIO_SERVICE_ID
+    userHelpers.checkdata(req.body).then((response)=>{
+      if (response.nomatch) {
+        req.session = true
+        req.session.nomatch = response.nomatch;
+        res.redirect("/signup");
+      } else if (response.existing){
+        req.session.existing = response.existing
+        res.redirect("/signup")
+      }else if (response.mobileExist){
+        req.session.mobileExist = response.mobileExist
+        res.redirect("/signup")
+      }else{
     client.verify
       .services(serviceId)
       .verifications.create({ to: req.body.full, channel: "sms" })
@@ -86,6 +100,9 @@ router.post('/signup',(req,res)=>{
 
 data = req.body
 res.render('user/signup-code',{log:true,data})
+      
+})
+      }
 })
 })
   
@@ -97,16 +114,12 @@ router.post("/signup-code", (req, res) => {
     .then((verification_check) => {
       if (verification_check.status !="pending") {
         userHelpers.doSignup(req.body).then((response) => {
-          console.log(req.body);
           if (response.status) {
             req.session.userLoggedIn = true;
             req.session.user = response.data;
             console.log(req.session.user);
             res.redirect("/");
-          } else if (response.nomatch) {
-            req.session.nomatch = response.nomatch;
-            res.redirect("/signup");
-          } 
+          }
         });
       }
     });

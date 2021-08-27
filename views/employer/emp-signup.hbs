@@ -22,11 +22,21 @@
         <div class="col-md-6">
             <label class="label15">Mobile*</label>
 <input type="tel" id="phone" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="job-input" name="mobile" placeholder="Enter the Mobile Number">
+<div>
+    <label style="display: none;" id="phone-error" class="error" for="phone">This field is required.</label>
+    {{#if mobileExist}}
+<p style="color: red;">Mobile Already Exist</p>
+{{/if}}
+
+</div>
 </div>
 <div class="col-md-6">
     <label class="label15">Email*</label>
 <input type="text" class="job-input" name="email" placeholder="Enter the Email">
-</div>
+
+{{#if existing}}
+<p style="color: red;">Email Already exist</p>
+{{/if}}</div>
 </div>
 </div>
 <div class="form-group">

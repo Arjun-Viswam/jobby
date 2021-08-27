@@ -8,9 +8,25 @@ const { JobInstance } = require('twilio/lib/rest/bulkexports/v1/export/job')
 
 
 module.exports = {
+
+    checkdata: (userData)=>{
+        console.log(userData);
+        return new Promise(async(resolve,reject)=>{
+        let user = await db.get().collection(collection.USER_COLLECTION).findOne({email: userData.email})
+        let mobile = await db.get().collection(collection.USER_COLLECTION).findOne({mobile : userData.full})
+        if(user){
+            resolve({existing:true})
+        }else if(mobile){
+            resolve({mobileExist:true})
+        }else if (userData.password != userData.password2) {
+          resolve({ nomatch: true });
+        }else{
+          resolve()
+        }
+      })
+      },
     doSignup: (userData) => {
         return new Promise(async (resolve, reject) => {
-            if(userData.password == userData.password2){
                 let userDetails = {}
                 userData.password = await bcrypt.hash(userData.password, 10)
                 userDetails.firstname = userData.firstname
@@ -27,9 +43,6 @@ module.exports = {
                 db.get().collection(collection.USER_COLLECTION).insertOne(userDetails).then((data) => {
                     resolve({data:data.ops[0],status:true})
                 })
-            }else{
-                resolve({nomatch:true})
-            }
         })
     },
     doLogin: (userData) => {

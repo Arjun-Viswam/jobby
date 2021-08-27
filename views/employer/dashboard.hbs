@@ -1,0 +1,415 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.4.1/dist/chart.min.js"></script>
+
+
+<div class="account_tabs">
+<ul class="nav nav-tabs">
+<li class="nav-item">
+<a class="nav-link active" href="/employer/dashboard">Dashboard</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/employer/emp-profile">Profile</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/employer/postjob">Post Job</a>
+</li>
+ <li class="nav-item">
+<a class="nav-link" href="/employer/postedjob">Posted Jobs</a>
+</li>
+{{!--<li class="nav-item">
+<a class="nav-link" href="my_freelancer_messages.html">Messages</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_bookmarks.html">Bookmarks</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_jobs.html">Jobs</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_bids.html">Bids</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_reviews.html">Reviews</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_payments.html">Payment</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_setting.html"><i class="fas fa-cog"></i></a>
+</li> --}}
+</ul>
+</div>
+
+
+<div class="total_1254">
+<div class="row">
+<div class="col-lg-4 col-12">
+<div class="collection_item">
+<div class="coll_icon">
+<i class="fas fa-suitcase col_icon1"></i>
+</div>
+<h4>Jobs Posted</h4>
+<span>{{jobcount}}</span>
+</div>
+</div>
+<div class="col-lg-4 col-12">
+<div class="collection_item">
+<div class="coll_icon">
+  <i class="fas fa-heart col_icon3"></i>
+</div>
+<h4>Active Jobs</h4>
+<span>{{activeCount}}</span>
+</div>
+</div>
+<div class="col-lg-4 col-12">
+<div class="collection_item">
+<div class="coll_icon">
+<i class="fas fa-bullseye col_icon2"></i>
+</div>
+<h4>Expired Jobs</h4>
+<span>{{expiredCount}}</span>
+</div>
+</div>
+</div>
+</div>
+{{!-- <div class="view_chart">
+<div class="view_chart_header">
+<h4 class="mt-2">Your Profile View</h4>
+<div class="date_selector">
+<div class="ui selection dropdown skills-search vchrt-dropdown">
+<input name="gender" type="hidden" value="default">
+<i class="dropdown icon d-icon"></i>
+<div class="text">Last 6 Months</div>
+<div class="menu">
+<div class="item" data-value="0">Last 6 Months</div>
+<div class="item" data-value="1">This Year</div>
+<div class="item" data-value="2">This Month</div>
+</div>
+</div>
+</div>
+</div>
+<div class="view_chart_body">
+<canvas id="chart" width="890" height="300" class="chartjs-render-monitor"></canvas>
+</div>
+</div> --}}
+<div class="dsh150">
+<div class="row">
+<div class="col-lg-6">
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Static Analytics</h4>
+</div>
+<div class="view_chart_body">
+<div class="pie_chart_view">
+<canvas id="myPieChart" width="400" height="200" class="chartjs-render-monitor"></canvas>
+</div>
+<ul class="static_list">
+<li>
+</li>
+<li>
+<div class="static_items">
+<div class="static_left">
+<div class="color_box" style="background-color: #49d086;"></div>
+<h6>Posted Jobs</h6>
+</div>
+<div class="static_right">
+<span>{{jobcount}}</span>
+</div>
+</div>
+</li>
+<li>
+<div class="static_items">
+<div class="static_left">
+<div class="color_box" style="background-color: #b81b7f;"></div>
+<h6>Active Jobs</h6>
+</div>
+<div class="static_right">
+<span>{{activeCount}}</span>
+</div>
+</div>
+</li>
+<li>
+{{!-- <div class="static_items">
+<div class="static_left">
+<div class="color_box" style="background-color: #efa80f;"></div>
+<h6>Favourite Jobs</h6>
+</div>
+<div class="static_right">
+<span>20</span>
+</div>
+</div> --}}
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Notes</h4>
+</div>
+<div class="view_chart_body" style="height: 426px;">
+<ul class="all_notes scrollstyle_4" style="height: 396px;">
+    {{#each notes}}
+<li>
+<div class="note_item">
+<div class="note_left">
+{{priorty this.priorty}}
+</div>
+<div class="note_right">
+<button class="note_btn"><a href="/employer/deleteNote/{{this._id}}"  onclick="return confirm('confirm delete this Note')"><i class="far fa-trash-alt"></i></a></button>
+</div>
+<p>{{this.discription}}</p>
+</div>
+</li>
+{{/each}}
+{{!-- <li>
+<div class="note_item">
+<div class="note_left">
+<div class="priorty priorty_low">Low Priorty</div>
+</div>
+<div class="note_right">
+<button class="note_btn"><i class="far fa-edit"></i></button>
+<button class="note_btn"><i class="far fa-trash-alt"></i></button>
+</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis accumsan mi.</p>
+</div>
+</li>
+<li>
+<div class="note_item">
+<div class="note_left">
+<div class="priorty">High Priorty</div>
+</div>
+<div class="note_right">
+<button class="note_btn"><i class="far fa-edit"></i></button>
+<button class="note_btn"><i class="far fa-trash-alt"></i></button>
+</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis accumsan mi.</p>
+</div>
+</li>
+<li>
+<div class="note_item">
+<div class="note_left">
+<div class="priorty priorty_medium">Medium Priorty</div>
+</div>
+<div class="note_right">
+<button class="note_btn"><i class="far fa-edit"></i></button>
+<button class="note_btn"><i class="far fa-trash-alt"></i></button>
+</div>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis accumsan mi.</p>
+</div>
+</li> --}}
+</ul>
+</div>
+<div class="add_note">
+<button class="add_note_btn" type="button" data-toggle="modal" data-target="#addnoteModal">Add Note</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+{{!-- <div class="dsh150">
+<div class="row">
+<div class="col-lg-7">
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Applied Jobs</h4>
+</div>
+<div class="view_applied_jobs_body">
+<ul class="all_applied_jobs scrollstyle_4">
+<li>
+<div class="applied_item">
+<a href="#">Wordpress Developer</a>
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
+<li><div class="vw1254"><i class="fas fa-briefcase"></i>Full Time</div></li>
+<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$599 - Manual</div></li>
+<li><div class="vw1254"><i class="far fa-clock"></i>1 day ago</div></li>
+</ul>
+<div class="btn_link23">
+<button class="apled_btn50">Applied</button>
+</div>
+</div>
+</li>
+<li>
+<div class="applied_item">
+<a href="#">Front End Developer</a>
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
+<li><div class="vw1254"><i class="fas fa-briefcase"></i>Part Time</div></li>
+<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$50 / hr</div></li>
+<li><div class="vw1254"><i class="far fa-clock"></i>2 day ago</div></li>
+</ul>
+<div class="btn_link23">
+<button class="apled_btn50">Applied</button>
+</div>
+</div>
+</li>
+<li>
+<div class="applied_item">
+<a href="#">Back End Developer</a>
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>India</div></li>
+<li><div class="vw1254"><i class="fas fa-briefcase"></i>Full Time</div></li>
+<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$1200 - Fixed</div></li>
+<li><div class="vw1254"><i class="far fa-clock"></i>4 day ago</div></li>
+</ul>
+<div class="btn_link23">
+<button class="apled_btn50">Applied</button>
+</div>
+</div>
+</li>
+<li>
+<div class="applied_item">
+<a href="#">Wordpress Developer</a>
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
+<li><div class="vw1254"><i class="fas fa-briefcase"></i>Full Time</div></li>
+<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$700 - Manual</div></li>
+<li><div class="vw1254"><i class="far fa-clock"></i>5 day ago</div></li>
+</ul>
+<div class="btn_link23">
+<button class="apled_btn50">Applied</button>
+</div>
+</div>
+</li>
+</ul>
+<a href="#" class="btn-veiw10">View All</a>
+</div>
+</div>
+</div> --}}
+{{!-- <div class="col-lg-5">
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Order Plans Summery</h4>
+</div>
+<div class="view_applied_jobs_body">
+<ul class="all_paid_plans scrollstyle_4">
+<li>
+<div class="plan_dts">
+<div class="plan_dt_left">
+<h4>Professional Plans</h4>
+<p>Order No : #12345</p>
+<p>Date : 10 October 2018</p>
+</div>
+<div class="plan_dt_right">
+<button class="paid_btn">Paid</button>
+</div>
+</div>
+</li>
+<li>
+<div class="plan_dts">
+<div class="plan_dt_left">
+<h4>Professional Plans</h4>
+<p>Order No : #12358</p>
+<p>Date : 10 September 2018</p>
+</div>
+<div class="plan_dt_right">
+<button class="paid_btn">Paid</button>
+</div>
+</div>
+</li>
+<li>
+<div class="plan_dts">
+<div class="plan_dt_left">
+<h4>Professional Plans</h4>
+<p>Order No : #12358</p>
+<p>Date : 10 August 2018</p>
+</div>
+<div class="plan_dt_right">
+<button class="paid_btn">Paid</button>
+</div>
+</div>
+</li>
+<li>
+<div class="plan_dts">
+<div class="plan_dt_left">
+<h4>Professional Plans</h4>
+<p>Order No : #12365</p>
+<p>Date : 10 July 2018</p>
+</div>
+<div class="plan_dt_right">
+<button class="paid_btn">Paid</button>
+</div>
+</div>
+</li>
+</ul>
+</div> --}}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="addnoteModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content--> 
+      <div class="modal-content">
+          <form method="POST" action="/employer/saveNote">
+        <div class="modal-header">
+          <h4 class="modal-title">Add Note</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-lg-12">
+<div class="form-group">
+    <select name="priorty" class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;" required id="">
+<option class="item" >High priorty</option>
+<option class="item" >Medium priorty</option>
+<option class="item" >Low priorty</option>
+</select>
+<textarea style="margin-top: 5px;" class="textarea_input" name="discription" placeholder="Type Description"></textarea>
+</div>
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default" >Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </form>
+      </div>     
+    </div>
+  </div>
+  
+<script>
+var ctx = document.getElementById('myPieChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ['Jobs','Active','Expired'],
+        datasets: [{
+            label: 'Jobs',
+            data: [{{pieChart}}],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+</script>

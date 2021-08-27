@@ -1,0 +1,154 @@
+
+
+<main class="browse-section">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 col-md-4">
+<div class="account_dt_left">
+<div class="job-center-dt">
+    {{#if company.status}}
+    <img id="imgview1" src="/profile-photos/{{company._id}}.jpg" alt="">
+    {{else}}
+    <img id="imgview2" src="/images/profile_dp.jpg" alt="">
+    {{/if}}
+    <div class="job-urs-dts">
+<h4>{{company.companyname}}</h4>
+<span>{{company.field}}</span>
+<div class="avialable">Available Full Time</div>
+</div>
+</div>
+<div class="my_websites">
+<ul>
+{{#if company.link1}}
+<li><a href="{{company.link1}}" class="web_link"><i class="fas fa-globe"></i>{{company.link1}}</a></li>
+{{/if}}
+{{#if company.link2}}
+<li><a href="{{company.link2}}" class="web_link"><i class="far fa-edit"></i>{{company.link2}}</a></li>
+{{/if}}
+{{#if company.link3}}
+<li><a href="{{company.link3}}" class="web_link"><i class="far fa-edit"></i>{{company.link3}}</a></li>
+{{/if}}
+</ul>
+</div>
+
+
+<div class="rlt_section">
+
+
+
+<ul class="rlt_section2">
+<li>
+<div class="rtl_left2">
+<h6>Launch Date</h6>
+</div>
+<div class="rtl_right2">
+<span>{{company.launch_date}}</span>
+</div>
+</li>
+<li>
+<div class="rtl_left2">
+<h6>Contact</h6>
+</div>
+<div class="rtl_right2">
+<span>{{company.mobile}}</span>
+</div>
+</li>
+<li>
+<div class="rtl_left2">
+<h6>Area of Involvment</h6>
+</div>
+<div class="rtl_right2">
+<span>{{company.field}}</span>
+</div>
+</li>
+<li>
+<div class="rtl_left2">
+<h6>Location</h6>
+</div>
+<div class="rtl_right2">
+<span>{{company.location}}</span>
+</div>
+</li>
+</ul>
+</div>
+<div class="social_section3 mb80">
+<div class="social_leftt3">
+<h6>Contact Social Account</h6>
+</div>
+<div class="social_right3">
+</div>
+<ul class="social_accounts">
+    {{#if company.facebook}}
+<li><a href="{{company.facebook}}" class="social_links"><i class="fab fa-facebook-f f1"></i>{{company.facebook}}</a></li>
+{{/if}}
+{{#if company.twitter}}
+<li><a href="{{company.twitter}}" class="social_links"><i class="fab fa-twitter t1"></i>{{company.twitter}}</a></li>
+{{/if}}
+{{#if company.linkedin}}
+<li><a href="{{company.linkedin}}" class="social_links"><i class="fab fa-linkedin-in l1"></i>{{company.linkedin}}</a></li>
+{{/if}}
+{{#if company.instagram}}
+<li><a href="{{company.instagram}}" class="social_links"><i class="fab fa-dribbble d1"></i>{{company.instagram}}</a></li>
+{{/if}}
+{{#if company.github}}
+<li><a href="{{company.github}}" class="social_links"><i class="fab fa-github g1"></i>{{company.github}}</a></li>
+{{/if}}
+</ul>
+</div>
+</div>
+</div>
+
+<div class="col-lg-9 col-md-8 mainpage">
+  <div class="account_tabs">
+<ul class="nav nav-tabs">
+<li class="nav-item">
+<a class="nav-link active" href="/emp-profileview/{{company._id}}">Profile</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/postedjob/{{company._id}}">Jobs Posted</a>
+</li>
+</ul>
+</div>
+
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>About</h4>
+</div>
+<div class="view_chart_body">
+<p class="user_about_des">{{company.discription}}</p>
+</div>
+</div>
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Skills</h4>
+</div>
+<div class="view_chart_body">
+<div class="job-skills">
+{{#each skills}}
+<a class="more-skills">{{this}}</a>
+{{/each}}
+</div>
+</div>
+</div>
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Language</h4>
+</div>
+<div class="view_chart_body">
+<div class="job-skills">
+{{#each language}}
+<a class="more-skills">{{this}}</a>
+{{/each}}
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+
+
+
+
+

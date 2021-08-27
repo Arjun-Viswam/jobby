@@ -1,0 +1,348 @@
+{{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
+
+
+<div class="modal srch-model fade" id="searchModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-xl" role="document">
+<div class="modal-content">
+<div class="modal-header sheader">
+<button type="button" class="close srch-close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+<input type="text" class="srch-input" placeholder="Search Keywords...">
+</div>
+</div>
+</div>
+</div>
+
+
+<header>
+<div class="top-header">
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12">
+<div class="top-header-full">
+<div class="top-left-hd">
+<ul>
+<li><div class="wlcm-text">Welcome to Jobby</div></li>
+
+</ul>
+</div>
+<div class="top-right-hd">
+<ul>
+{{!-- <li class="dropdown">
+<a href="#" class="icon14 dropdown-toggle-no-caret" role="button" data-toggle="dropdown">
+<i class="fas fa-envelope"></i><div class="circle-alrt"></div>
+</a>
+<div class="dropdown-menu message-dropdown dropdown-menu-right">
+<div class="user-request-list">
+<div class="request-users">
+<div class="user-request-dt">
+<a href="#"><img src="/images/user-dp-1.jpg" alt="">
+<div class="user-title1">Jassica William </div>
+<span>Hey How are you John Doe...</span>
+</a>
+</div>
+<div class="time5">2 min ago</div>
+</div>
+</div>
+<div class="user-request-list">
+<div class="request-users">
+<div class="user-request-dt">
+<a href="#"><img src="/images/user-dp-1.jpg" alt="">
+<div class="user-title1">Rock Smith </div>
+<span>Interesting Event! I will join this...</span>
+</a>
+</div>
+<div class="time5">5 min ago</div>
+</div>
+</div>
+<div class="user-request-list">
+<div class="request-users">
+<div class="user-request-dt">
+<a href="#"><img src="/images/user-dp-1.jpg" alt="">
+<div class="user-title1">Joy Doe </div>
+<span>Hey Sir! What about you...</span>
+</a>
+</div>
+<div class="time5">10 min ago</div>
+</div>
+</div>
+<div class="user-request-list">
+<a href="my_freelancer_messages.html" class="view-all">View All Messages</a>
+</div>
+</div>
+</li>
+<li class="dropdown">
+<a href="#" class="icon14 dropdown-toggle-no-caret" role="button" data-toggle="dropdown">
+<i class="fas fa-bell"></i><div class="circle-alrt"></div>
+</a>
+<div class="dropdown-menu message-dropdown dropdown-menu-right">
+<div class="user-request-list">
+<div class="request-users">
+<div class="user-request-dt">
+<a href="#">
+<div class="noti-icon"><i class="fas fa-users"></i></div>
+<div class="user-title1">Rock William </div>
+<span>applied for a <ins class="noti-p-link">Php Developer</ins>.</span>
+</a>
+</div>
+</div>
+</div>
+<div class="user-request-list">
+<div class="request-users">
+<div class="user-request-dt">
+<a href="#">
+<div class="noti-icon"><i class="fas fa-bullseye"></i></div>
+<div class="user-title1">Johnson Smith</div>
+<span>placed a bid on your <ins class="noti-p-link">I Need a ...</ins></span>
+</a>
+</div>
+</div>
+</div>
+<div class="user-request-list">
+<div class="request-users">
+<div class="user-request-dt">
+<a href="#">
+<div class="noti-icon"><i class="fas fa-exclamation"></i></div>
+<span class="pt-2">Your job listing <ins class="noti-p-link">Wordpress Developer</ins> is expiring.</span>
+</a>
+</div>
+</div>
+</div>
+<div class="user-request-list">
+<a href="my_freelancer_notifications.html" class="view-all">View All Notifications</a>
+</div>
+</div>
+</li> --}}
+
+<li>
+<div class="account order-1 dropdown">
+<a href="#" class="account-link dropdown-toggle-no-caret" role="button" data-toggle="dropdown">
+<div class="user-dp"><img src="/profile-photos/{{employers._id}}.jpg" alt=""></div>
+<span>{{employers.companyname}}</span>
+<i class="fas fa-sort-down"></i>
+</a>
+<div class="dropdown-menu account-dropdown dropdown-menu-right">
+{{!-- <a class="link-item" href="my_freelancer_dashboard.html">Dashboard</a>
+<a class="link-item" href="my_freelancer_setting.html">Setting</a>
+<a class="link-item" href="my_freelancer_messages.html">My Messages</a>
+<a class="link-item" href="my_freelancer_jobs.html">My Jobs</a>
+<a class="link-item" href="my_freelancer_bids.html">My Bids</a>
+<a class="link-item" href="my_freelancer_portfolio.html">My Portfolio</a>
+<a class="link-item" href="my_freelancer_bookmarks.html">My Bookmarks</a>
+<a class="link-item" href="my_freelancer_payments.html">Payments</a> --}}
+<a class="link-item" href="/employer/emp-logout">Logout</a>
+</div>
+</div>
+</li>
+
+
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sub-header">
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-12 col-sm-12" >
+<nav class="navbar navbar-expand-lg navbar-light bg-dark1 justify-content-sm-start">
+<a class="order-1 order-lg-0 ml-lg-0 ml-3 mr-auto" href="/employer"><img src="/images/logo.svg" alt=""></a>
+<button class="navbar-toggler align-self-start" type="button">
+<i class="fas fa-bars"></i>
+</button>
+<div class="collapse navbar-collapse d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end bg-dark1 p-3 p-lg-0 mt1-5 mt-lg-0 mobileMenu" style="justify-content: center !important;"id="navbarSupportedContent">
+<ul class="navbar-nav align-self-stretch">
+<li class="nav-item active">
+
+
+
+</div>
+<div class="responsive-search order-1">
+<input type="text" class="rsp-search" placeholder="Search...">
+<i class="fas fa-search r-sh1"></i>
+</div>
+</nav>
+<div class="overlay"></div>
+</div>
+</div>
+</div>
+</div>
+</header>
+
+{{#if formIn}}
+
+{{else}}
+
+<main class="browse-section">
+<div class="container">
+<div class="row">
+<div class="col-lg-3 col-md-4">
+<div class="account_dt_left">
+<div class="job-center-dt">
+    {{#if employers.status}}
+    <img src="/profile-photos/{{employers._id}}.jpg" alt="">
+    {{else}}
+    <img src="/images/profile_dp.jpg" alt="">
+    {{/if}}
+<div class="job-urs-dts">
+
+<h4>{{employers.companyname}}</h4>
+<span>{{employers.field}}</span>
+<div class="avialable">Available Full Time</div>
+</div>
+</div>
+<div class="my_websites">
+<ul>
+    {{#if employers.link1}}
+<li><a href="{{employers.link1}}" class="web_link"><i class="fas fa-globe"></i>{{employers.link1}}</a></li>
+{{/if}}
+{{#if employers.link2}}
+<li><a href="{{employers.link2}}" class="web_link"><i class="far fa-edit"></i>{{employers.link2}}</a></li>
+{{/if}}
+{{#if employers.link3}}
+<li><a href="{{employers.link3}}" class="web_link"><i class="far fa-edit"></i>{{employers.link3}}</a></li>
+{{/if}}
+
+</ul>
+</div>
+
+
+<div class="rlt_section">
+
+
+
+<ul class="rlt_section2">
+<li>
+<div class="rtl_left2">
+<h6>Launch Date</h6>
+</div>
+<div class="rtl_right2">
+<span>{{employers.launch_date}}</span>
+</div>
+</li>
+<li>
+<div class="rtl_left2">
+<h6>Contact</h6>
+</div>
+<div class="rtl_right2">
+<span>{{employers.mobile}}</span>
+</div>
+</li>
+<li>
+<div class="rtl_left2">
+<h6>Area of Involvment</h6>
+</div>
+<div class="rtl_right2">
+<span>{{employers.field}}</span>
+</div>
+</li>
+<li>
+<div class="rtl_left2">
+<h6>Location</h6>
+</div>
+<div class="rtl_right2">
+<span>{{employers.location}}</span>
+</div>
+</li>
+</ul>
+</div>
+<div class="social_section3 mb80">
+<div class="social_leftt3">
+<h6>Contact Social Account</h6>
+</div>
+<div class="social_right3">
+<a href="#" data-toggle="modal" data-target="#myModal"><i class="far fa-edit"></i></a>
+</div>
+<ul class="social_accounts">
+    {{#if employers.facebook}}
+<li><a href="{{employers.facebook}}"  class="social_links"><i class="fab fa-facebook-f f1"></i>http://facebook.com/</a></li>
+{{/if}}
+{{#if employers.twitter}}
+<li><a href="{{employers.twitter}}" class="social_links"><i class="fab fa-twitter t1"></i>http://twitter.com/</a></li>
+{{/if}}
+{{#if employers.linkedin}}
+<li><a href="{{employers.linkedin}}" class="social_links"><i class="fab fa-linkedin-in l1"></i>http://linkedin.com/</a></li>
+{{/if}}
+{{#if employers.instagram}}
+<li><a href="{{employers.instagram}}" class="social_links"><i class="fab fa-dribbble d1"></i>http://instagram.com/</a></li>
+{{/if}}
+{{#if employers.github}}
+<li><a href="{{employers.github}}" class="social_links"><i class="fab fa-github g1"></i>http://github.com/</a></li>
+{{/if}}
+</ul>
+</div>
+</div>
+</div>
+<div class="col-lg-9 col-md-8 mainpage">
+<div class="account_heading">
+<div class="account_hd_left">
+<h2>Manage Your Account</h2>
+</div>
+<div class="account_hd_right">
+<a href="/employer/emp-logout" class="main_lg_btn">Logout</a>
+</div>
+</div>
+
+
+{{/if}}
+
+
+
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+          <form method="POST" action="/employer/sociallink">
+        <div class="modal-header">
+          <h4 class="modal-title">Link your Social profiles</h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Social links*</label>
+<div class="smm_input5">
+<input type="text" class="website-input" name="facebook" value="{{employers.facebook}}" placeholder="http://facebook.com/">
+<div class="loc_icon5"><i class="fab fa-facebook-square"></i></div>
+</div>
+<div class="smm_input5">
+<input type="text" class="website-input" name="twitter" value="{{employers.twitter}}" placeholder="http://twitter.com/">
+<div class="loc_icon5"><i class="fab fa-twitter-square"></i></div>
+</div>
+<div class="smm_input5">
+<input type="text" class="website-input" name="linkedin" value="{{employers.linkedin}}" placeholder="http://linkedin.com/">
+<div class="loc_icon5"><i class="fab fa-linkedin"></i></div>
+</div>
+<div class="smm_input5">
+<input type="text" class="website-input" name="github" value="{{employers.github}}" placeholder="http://github.com/">
+<div class="loc_icon5"><i class="fab fa-github-square"></i></div>
+</div>
+<div class="smm_input5">
+<input type="text" class="website-input" name="instagram" value="{{employers.instagram}}" placeholder="http://instagram.com/">
+<div class="loc_icon5"><i class="fab fa-instagram"></i></div>
+</div>
+</div>
+</div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default" >Submit</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </form>
+      </div>     
+    </div>
+  </div>
+  
+
+

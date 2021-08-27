@@ -1,0 +1,117 @@
+
+        <div class="page-wrapper" style="min-height: 250px;">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Category</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ms-auto">
+                                <li><a href="/admin" class="fw-normal">Dashboard</a></li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+     
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="white-box">
+                            <!-- Page Content -->
+<div id="page-wrapper">
+  <div class="container-fluid">
+  
+    <!-- row -->
+
+    <div class="white-box">
+
+      <form id="coupon" >
+        <div class="row">
+
+          <div class="col-lg-6" style="max-width: 30em; ">
+            <div class="form-group">
+              <label for="formGroupExampleInput">CATEGORY</label>
+              <input
+                type="text"
+                class="form-control"
+                name="category"
+                placeholder="category"
+                required
+              />
+            </div>
+
+          </div>
+
+          <div class="col-lg-6" style="max-width: 10em; padding-top: 30px; ">
+            <div class="form-group">
+              <button class="btn btn-light" style="border-radius: 5px; border-color: #c0c9c98f;;" id="submit">add</button>
+            </div>
+
+          </div>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="white-box">
+          <div class="table-responsive">
+            <table class="table" id="myTable">
+              <thead>
+                <tr>
+                  <th >#</th>
+                  <th >CATEGORY</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each category}}
+                  <tr>
+                    <td>{{@index}}</td>
+                    <td>{{this.category}}</td>   
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container-fluid -->
+</div>
+
+<!-- /#wrapper -->
+
+                        </div>
+                    </div>
+              </div>
+            </div>
+           
+        </div>
+ 
+<script>
+
+  $("#coupon").submit((e) => { 
+      e.preventDefault() 
+      
+      $.ajax({ url:'/admin/add-category',
+       method: 'POST', 
+       data: $('#coupon').serialize(), 
+       success:(response) => { 
+           location.reload()
+            } 
+      }) 
+  })
+</script>
+ 

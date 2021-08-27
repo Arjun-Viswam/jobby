@@ -1,0 +1,250 @@
+<style>
+    .plan_btn button:hover {
+    background: #242424;
+    color: #fff !important;
+}
+.plan_btn button {
+    float: left;
+    width: 100%;
+    height: 50px;
+    background: #ff4500;
+    border-radius: 3px;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: roboto,sans-serif;
+    padding: 15px 0;
+}
+button:hover {
+    text-decoration: none !important;
+}
+</style>
+<main class="browse-section">
+<div class="container">
+<div class="row">
+<div class="col-md-12">
+<div class="main-heading">
+<h2>Pricing Plans</h2>
+<div class="line-shape1">
+<img src="/images/line.svg" alt="">
+</div>
+</div>
+<div class="account_tabs all_plans">
+
+<div class="tab-content" id="myTabContent">
+<div class="tab-pane fade show active" id="monthly_tab" role="tabpanel">
+<div class="plans150">
+<div class="row">
+<div class="col-lg-4 col-md-4">
+<div class="plan_item">
+<div class="plan_icon">
+<i class="far fa-dot-circle"></i>
+</div>
+<h4>BASIC PLANS</h4>
+<div class="plan_price">
+<span><i class="fas fa-rupee-sign" ></i>100</span><ins>week</ins>
+</div>
+<ul class="plan_dt">
+<li><p>10 days visibility</p></li>
+</ul>
+<div class="plan_btn">
+    <form action="/employer/ChoosePlan" method="POST">
+    <input name="name" value="Basic plan" hidden>
+    <input name="type" value="10 days" hidden>
+    <input name="price" value="100" hidden>
+<button type="submit">Purchase Now</button>
+</form>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-4">
+<div class="plan_item">
+<div class="plan_icon">
+<i class="far fa-moon"></i>
+</div>
+<h4>STANDARD PLANS</h4>
+<div class="plan_price">
+<span><i class="fas fa-rupee-sign" ></i>250</span><ins>Month</ins>
+</div>
+<ul class="plan_dt">
+<li><p>30 days visibility</p></li>
+</ul>
+<div class="plan_btn">
+<form action="/employer/ChoosePlan" method="POST">
+    <input name="name" value="Standard plan" hidden>
+    <input name="type" value="30 days" hidden>
+    <input name="price" value="250" hidden>
+<button type="submit">Purchase Now</button>
+</form>
+</div>
+</div>
+</div>
+<div class="col-lg-4 col-md-4">
+<div class="plan_item">
+<div class="plan_icon">
+<i class="far fa-gem"></i>
+</div>
+<h4>PROFESSIONAL PLANS</h4>
+<div class="plan_price">
+<span><i class="fas fa-rupee-sign" ></i>500</span><ins>Months</ins>
+</div>
+<ul class="plan_dt">
+<li><p>60 days visibility</p></li>
+</ul>
+<div class="plan_btn">
+<form action="/employer/ChoosePlan" method="POST">
+    <input name="name" value="Professional plan" hidden>
+    <input name="type" value="60 days" hidden>
+    <input name="price" value="500" hidden>
+<button type="submit">Purchase Now</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+{{!-- 
+<div class="col-md-12">
+<div class="statement_table">
+<div class="statement_header">
+<h4>Statements</h4>
+</div>
+<div class="statement_body">
+<div class="table-responsive-md">
+<table class="table table-striped">
+<thead>
+<tr>
+<th scope="col">Date</th>
+<th scope="col">Order ID</th>
+<th scope="col">Details</th>
+<th scope="col">Type</th>
+<th scope="col">Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row">
+<div class="user_dt_trans">
+<p>10 December 2019</p>
+</div>
+</th>
+<td>
+ <div class="user_dt_trans">
+<p>1258963487</p>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<div class="aadd14">Professional Plan</div>
+<a href="#" target="_blank">Invoice : IVIP12023598</a>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<p>Monthly</p>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<p>$200.00</p>
+</div>
+</td>
+</tr>
+<tr>
+<th scope="row">
+<div class="user_dt_trans">
+<p>10 November 2019</p>
+</div>
+</th>
+<td>
+<div class="user_dt_trans">
+<p>1258963369</p>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<div class="aadd14">Professional Plan</div>
+<a href="#">Invoice : IVIP12023499</a>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<p>Monthly</p>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<p>$200.00</p>
+</div>
+</td>
+</tr>
+<tr>
+<th scope="row">
+<div class="user_dt_trans">
+<p>10 October 2019</p>
+</div>
+</th>
+<td>
+<div class="user_dt_trans">
+<p>1258963287</p>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<div class="aadd14">Professional Plan</div>
+<a href="#" target="_blank">Invoice : IVIP11023405</a>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<p>Monthly</p>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<p>$200.00</p>
+</div>
+</td>
+</tr>
+<tr>
+<th scope="row">
+<div class="user_dt_trans">
+<p>10 October 2018</p>
+</div>
+</th>
+<td>
+<div class="user_dt_trans">
+<p>1081.058963287</p>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<div class="aadd14">Professional Plan</div>
+<a href="#" target="_blank">Invoice : IVIP1102587</a>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<p>Yearly</p>
+</div>
+</td>
+<td>
+<div class="user_dt_trans">
+<p>$2000.00</p>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div> --}}
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>

@@ -1,0 +1,128 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<div class="container p-5">
+<div class="view_chart" >
+<div class="view_chart_header" >
+    <div>
+<h4>Ends in&nbsp;</h4>
+</div>
+
+<div class="timer_time">
+<h4 id="timer"></h4>
+</div>
+</div>
+
+<div class="post_job_body">
+<form action="/saveAnswers" method="POST" enctype="multipart/form-data">
+<div class="row">
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">{{tests.question}}</label>
+<input value="{{tests._id}}" id="testID" hidden>
+<input value="{{tests.hour}}" id="hourfrom" hidden>
+<input value="{{tests.minute}}" id="minutefrom" hidden>
+<input value="{{tests.question}}" name="question" hidden>
+<input value="{{tests.jobId}}" name="jobId" hidden>
+
+</div>
+<div class="form-group">
+<label class="label15">Answer*</label>
+<input id="answerKey" type="file" name="answerkey">
+</div>
+</div>
+<div class="col-lg-12">
+<button class="post_jp_btn" onclick="ClearSession()"  type="submit">Save</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</main>
+
+
+
+<script>
+
+if(sessionStorage.getItem("countDown")){
+var x = setInterval(function () {
+
+  var now = new Date().getTime()
+
+  // Find the distance between now and the count down date
+  var distance = sessionStorage.getItem("countDown") - now
+  // Time calculations for days, hours, minutes and seconds
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  // Output the result in an element with id="demo"
+  document.getElementById("timer").innerHTML =  hours + ": " + minutes + ":" + seconds
+
+  if (distance < 0) {
+    sessionStorage.clear()
+    clearInterval(x);
+    alert("time Over")
+    document.getElementById("answerKey").style.display = "none"
+    changeStatus()
+  }
+}, 1000);
+}else{
+//var oldDateObj = new Date();
+var newDateObj = new Date();
+// Set the date we're counting down to
+var hourfrom = document.getElementById("hourfrom").value
+var minutefrom = document.getElementById("minutefrom").value
+
+newDateObj.setHours(newDateObj.getHours() + parseInt(hourfrom));
+newDateObj.setMinutes(newDateObj.getMinutes() + parseInt(minutefrom));
+
+var countDownDate = newDateObj.getTime()
+sessionStorage.setItem("countDown",countDownDate)
+
+// Update the count down every 1 second
+var x = setInterval(function () {
+ 
+  // Get today's date and time
+
+  var now = new Date().getTime()
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now
+    
+  // Time calculations for days, hours, minutes and seconds
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+  // Output the result in an element with id="demo"
+  document.getElementById("timer").innerHTML =  hours + ": " + minutes + ":" + seconds
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    sessionStorage.clear()
+    clearInterval(x);
+    alert("time Over")
+    document.getElementById("answerKey").style.display = "none"
+    changeStatus()
+  }
+}, 1000);
+}
+
+
+   var testId = document.getElementById("testID")
+    function changeStatus(){
+    $.ajax({
+      url:'/changeStatusMT',
+      method:'post',
+      data : { id : testId.value },
+      success:((response)=>{
+        if(response.status){
+        window.location.href = "/"
+        }
+      })
+    })
+   }
+
+function ClearSession(){
+  sessionStorage.clear()
+}
+</script> 
+

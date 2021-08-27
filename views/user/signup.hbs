@@ -1,167 +1,106 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
 
-
-
-
-
-<script>
-		window.addEventListener( "pageshow", function ( event ) {
-  var historyTraversal = event.persisted || 
-                         ( typeof window.performance != "undefined" && 
-                              window.performance.navigation.type === 2 );
-  if ( historyTraversal ) {
-    // Handle page restore.
-    window.location.reload();
-  }
-});
-	</script>
-<style>
-body {
-	color: #fff;
-	background: #f2f4f5;
-}
-.form-control {
-	height: 41px;
-	background: #f2f2f2;
-	box-shadow: none !important;
-	border: none;
-}
-.form-control:focus {
-	background: #e2e2e2;
-}
-.form-control, .btn {        
-	border-radius: 5px;
-}
-.signup-form {
-	width: 400px;
-	margin: 30px auto;
-}
-.signup-form form {
-	color: #999;
-	border-radius: 3px;
-	margin-bottom: 15px;
-	background: #fff;
-	box-shadow: 0px 2px 2px rgba(12, 12, 12, 0.3);
-	padding: 30px;
-}
-.signup-form h2  {
-	color: #333;
-	font-weight: bold;
-	margin-top: 0;
-}
-.signup-form hr  {
-	margin: 0 -30px 20px;
-}    
-.signup-form .form-group {
-	margin-bottom: 20px;
-}
-.signup-form input[type="checkbox"] {
-	margin-top: 3px;
-}
-.signup-form .row div:first-child {
-	padding-right: 10px;
-}
-.signup-form .row div:last-child {
-	padding-left: 10px;
-}
-
-.signup-form a {
-	color: #fff;
-	text-decoration: underline;
-}
-.signup-form a:hover {
-	text-decoration: none;
-}
-.signup-form form a {
-	color: #3598dc;
-	text-decoration: none;
-}	
-.signup-form form a:hover {
-	text-decoration: underline;
-}
-.signup-form .hint-text  {
-	padding-bottom: 15px;
-	text-align: center;
-}
-.sg{
-    background-color: #e6e6e6;
-}
-
-</style>
-
-<div class="signup-form">
-    <form action="/signup" id="user-signup" method="POST">
-		<h2 style="color: #f39f04;">Sign Up</h2>
-		<p>Please fill in this form to create an account!</p>
-		<hr>
-        <div class="form-group">
-			<div class="row">
-				<div class="col"><input type="text" class="form-control" name="first_name" placeholder="First Name" ></div>
-				<div class="col"><input type="text" class="form-control" name="last_name" placeholder="Last Name" .></div>
-			</div>        	
-        </div>
-		 <div class="form-group">
-        	<input type="number" class="form-control" name="mobile1" placeholder="Mobile">
-			{{#if mobileExist}}
-			<p class="error" style="color: #ee0303;">Entered Mobile Number already exist</p>
-			{{/if}}
-        </div>
-        <div class="form-group">
-        	<input type="email" class="form-control" name="email" placeholder="Email">
-			{{#if emailExist}}
-			<p class="error" style="color: #ee0303;">Entered Email already exist</p>
-			{{/if}}
-        </div>
-		<div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" >
-        </div>       
-        <div class="form-group">
-			<label class="form-check-label"><input type="checkbox" > I accept the Terms of Use Privacy Policy</label>
-		</div>
-		<div class="form-group">
-            <button type="submit" class="btn sg btn-lg text-dark">Sign Up</button>
-        </div>
-    </form>
-	<div class="hint-text">Already have an account? <a href="#">Login here</a></div>
+<main class="browse-section">
+<div class="container">
+<div class="row justify-content-md-center">
+<div class="col-md-6">
+<div class="lg_form">
+<div class="main-heading">
+<h2>Sign Up to Jobby</h2>
+<div class="line-shape1">
+<img src="images/line.svg" alt="">
 </div>
-	{{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+</div>
+<form method="POST" id="userSignup" action="/signup">
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6">
+<label class="label15">First Name*</label>
+<input type="text" class="job-input" name="firstname" placeholder="Enter the First Name">
+</div>
+<div class="col-md-6">
+<label class="label15">Last Name*</label>
+<input type="text" class="job-input" name="lastname" placeholder="Enter the Last Name">
+</div>
+</div>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6">
+            <label class="label15">Mobile*</label>
+<input type="tel" id="phone" class="job-input" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="mobile" placeholder="Enter the Mobile Number">
+<div>
+    <label style="display: none;" id="phone-error" class="error" for="phone">This field is required.</label>
+
+</div>
+</div>
+<div class="col-md-6">
+    <label class="label15">Email*</label>
+<input type="text" class="job-input" name="email" placeholder="Enter the Email">
+</div>
+</div>
+</div>
+<div class="form-group">
+<label class="label15">Password*</label>
+<input type="password" class="job-input" name="password" placeholder="Enter Password">
+</div>
+<div class="form-group">
+<label class="label15">Confirm Password*</label>
+<input type="password" class="job-input" name="password2" placeholder="Enter Confirm Password">
+</div>
+{{#if nomatch}}
+<p style="color: red;">password does not match</p>
+{{/if}}
+<div class="ui checkbox apply_check check_out checked">
+<input type="checkbox" tabindex="0" class="hidden" required>
+<label style="color:#242424 !important;">I accept the Terms of Services</label>
+</div>
+<button class="lr_btn" type="submit">Submit</button>
+</form>
+<div class="done140">
+Already have an account?<a href="/login">Sign in Now<i class="fas fa-angle-double-right"></i></a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
 
 <script>
-	$(document).ready(()=>{
-		$("#user-signup").validate({       
+    
+$(document).ready(()=>{
+    
+  $("#userSignup").validate({ 
+
       rules: {
-        first_name: {
+        firstname: {
           required: true,
           minlength: 4,
         },
-        email: {
+        lastname: {
           required: true,
-          email: true,
-        },
-        mobile1:{
-          required:true,
-          minlength:10,
-          maxlength:10
-        },
-        password:{
-          required:true,
-          minlength:8,
-        }   
-      },
-      messages: {
-        first_name: {
-          required: "Enter atleast 8 characters"
+          minlength: 4,
         },
         email:{
-          required: "Enter your email properly "
+          required:true,
+          email:true,
         },
-        mobile1:{
-          required:"Enter atleast 10 characters"
+        mobile:{
+          required:true,
+          minlength:10,
+          maxlength:10,
+          number:true
         },
         password:{
-         required: "Enter alteast 8 characters"
-        }
-      },
-	
+          required:true,
+          minlength:6,
+        },
+        password2:{
+          required:true,
+          minlength:6,
+        },  
+      }
     })
-	})
+     })
 </script>

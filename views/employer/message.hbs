@@ -1,0 +1,37 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/main/css/style.css">
+
+  <div class="chat-container">
+    <header class="chat-header">
+    </header>
+    
+       <input id="from" type="text" value="{{employers._id}}" hidden/>
+        <input id="to" type="text" value="{{candidates.userId}}"  hidden/>
+      
+      
+      <div class="chat-messages">
+					<div class="message"></div>
+      </div>
+    
+    <div class="chat-form-container">
+      <form id="chat-form">
+        <input
+          id="msg"
+          type="text"
+          placeholder="Enter Message"
+          required
+          autocomplete="off"
+        />
+        <button type="submit"  class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+      </form>
+    </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha256-ijqLssetA1NMNjZ+w1zaUafQQLm4IW5OoM8O+4tatME=" crossorigin="anonymous">
+    </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main/js/main.js"></script>
+
+<script>
+  window.onload = storeDetails()
+</script>
+

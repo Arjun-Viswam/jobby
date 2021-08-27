@@ -1,12 +1,14 @@
 const { response } = require("express");
 var express = require("express");
+const { render } = require("../app");
 var router = express.Router();
-var productHelpers = require("../helpers/product-helpers");
+var employerHelpers = require("../helpers/employer-helpers");
 var userHelpers = require("../helpers/user-helpers");
+const passport    = require('passport')
 require('dotenv').config()
-const otp = require("../config/collection")
+
 let accountSid =  process.env.TWILIO_ACCOUNT_SID
-let authToken = process.env.TWILIO_AUTH_TOKEN
+let authToken =  process.env.TWILIO_AUTH_TOKEN
 const client = require("twilio")(accountSid,authToken)
 
 const verifyLogin = (req, res, next) => {
@@ -19,63 +21,50 @@ const verifyLogin = (req, res, next) => {
 
 /* GET home page. */
 router.get("/", async function (req, res, next) {
-  let users = req.session.user;
-  count = null;
-  let total = {};
-  if (req.session.user) {
-    let prodList = await userHelpers.getCartProducts(req.session.user._id);
-    let count = await userHelpers.getCartCount(req.session.user._id);
-    if (count) {
-      total = await userHelpers.getTotalAmount(req.session.user._id);
-    }
-    productHelpers.getRandomProducts().then((products) => {
-      res.render("user/user-products", {
-        user: true,
-        products,
-        users,
-        dropdown: true,
-        prodList,
-        count,
-        total,
-      });
-    });
-  } else {
-    productHelpers.getRandomProducts().then((products) => {
-      res.render("user/user-products", {
-        user: true,
-        products,
-        users,
-        dropdown: true,
-      });
-    });
+  if(req.session.user){
+    let users = req.session.user
+    let jobs = await userHelpers.getAlljobs()
+    let companies = await userHelpers.getAllCompanies()
+    let category = await userHelpers.getAllCategory()
+    let test = await userHelpers.getMachineTest(users._id)
+    userHelpers.getAllThecount().then((counts)=>{
+    // let notification = await userHelpers.checkNotification(req.session.user._id)
+  res.render('user/home',{user:true,search:true,users,jobs,companies,LiveSearch:true,counts,category,test})
+  })
+  }else{
+    res.redirect('/login')
   }
-});
+})  
 
 router.get("/login", (req, res) => {
-  if (req.session.userLoggedIn) {
-    res.redirect("/");
-  } else {
-    res.render("user/login", {
-      loginErr: req.session.userloginErr,
-      block: req.session.userblock,
-    });
-    req.session.userloginErr = false;
-    req.session.userblock = false;
+  if(req.session.user){
+    res.redirect('/')
+  }else{
+  res.render('user/login',{log:true,loginErr: req.session.loginErr,userBlock : req.session.userblock})
+  req.session.loginErr = false
+  req.session.userblock = false
   }
-});
+})
 
-router.post("/login", (req, res) => {
-  userHelpers.doLogin(req.body).then((response) => {
-    if (response.status) {
-      req.session.userLoggedIn = true;
-      req.session.user = response.user;
-      res.redirect("/");
+router.post('/getNumberOfJobs',(req,res)=>{
+  userHelpers.getNumberOfJobs(req.body.companyId).then((count)=>{
+    res.json(count)
+  })
+})
+
+router.post('/login',(req,res)=>{
+  userHelpers.doLogin(req.body).then((response)=>{
+    if(response.status){
+      req.session.userLoggedIn = true
+      req.session.user = response.user
+      console.log(req.session.user);
+      res.redirect('/')
     } else {
       if (response.block) {
         req.session.userblock = response.block;
         res.redirect("/login");
       } else {
-        req.session.userloginErr = "Invalid username or password";
+        req.session.loginErr = "Invalid username or password";
         res.redirect("/login");
       }
     }
@@ -83,29 +72,44 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/signup", (req, res) => {
-  res.render("user/signup", {
-    mobileExist: req.session.mobileExist,
-    emailExist: req.session.emailExist,
-    Nodata:true
-  });
-  req.session.emailExist = false;
-  req.session.mobileExist = false;
-});
+  res.render("user/signup", {nomatch: req.session.nomatch,log:true,formIn:true});
+  req.session.nomatch = false;
+});   
+ 
+router.post('/signup',(req,res)=>{
+    let serviceId =  process.env.TWILIO_SERVICE_ID
+    client.verify
+      .services(serviceId)
+      .verifications.create({ to: req.body.full, channel: "sms" })
+      .then((verification) => {
+        console.log(verification.status);
 
-router.post("/signup", (req, res) => {
-  userHelpers.doSignup(req.body).then((response) => {
-    if (response.status) {
-      req.session.userLoggedIn = true;
-      req.session.user = response;
-      res.redirect("/");
-    } else if (response.emailExist) {
-      req.session.emailExist = response.emailExist;
-      res.redirect("/signup");
-    } else if (response.mobileExist) {
-      req.session.mobileExist = response.mobileExist;
-      res.redirect("/signup");
-    }
-  });
+data = req.body
+res.render('user/signup-code',{log:true,data})
+})
+})
+  
+router.post("/signup-code", (req, res) => {
+  let serviceId =  process.env.TWILIO_SERVICE_ID
+  client.verify
+    .services(serviceId)
+    .verificationChecks.create({ to: req.body.mobile, code: req.body.token })
+    .then((verification_check) => {
+      if (verification_check.status !="pending") {
+        userHelpers.doSignup(req.body).then((response) => {
+          console.log(req.body);
+          if (response.status) {
+            req.session.userLoggedIn = true;
+            req.session.user = response.data;
+            console.log(req.session.user);
+            res.redirect("/");
+          } else if (response.nomatch) {
+            req.session.nomatch = response.nomatch;
+            res.redirect("/signup");
+          } 
+        });
+      }
+    });
 });
 
 router.get("/logout", (req, res) => {
@@ -114,62 +118,9 @@ router.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-router.get("/single/:id", async (req, res) => {
-  let product = await productHelpers.getProductDetails(req.params.id);
-  res.render("user/single", { product, singleview: true });
-});
-
-router.get("/cart", verifyLogin, async (req, res) => {
-  let users = req.session.user; 
-  let total = {};
-  let prodList = await userHelpers.getCartProducts(req.session.user._id);
-  let count = await userHelpers.getCartCount(req.session.user._id);
-  if (count) {
-    total = await userHelpers.getTotalAmount(req.session.user._id);
-    }
-  res.render("user/cart", { user: true, users, prodList, count, total });
-});
-
-router.get("/add-to-cart/:id", verifyLogin, (req, res) => {
-  userHelpers.addToCart(req.params.id, req.session.user._id).then(() => {
-    res.json({ status: true });
-  });
-});
-
-router.post("/change-product-quantity", (req, res, next) => {
-  userHelpers.changeProductQuantity(req.body).then(async (response) => {
-    response.total = await userHelpers.getTotalAmount(req.body.user);
-    res.json(response);
-  });
-});
-
-router.get("/remove-product-fromCart/:id/:productId", (req, res, next) => {
-  userHelpers.deleteProductFromCart(req.params.id,req.params.productId).then(() => {
-    res.redirect('/cart')
-  });
-});
-
-router.get("/profile", verifyLogin, async (req, res) => {
-  let profile = await userHelpers.getUserProfile(req.session.user._id);
-  res.render("user/profile", { profile ,user:true,users:req.session.user});
-});
-
-router.get("/edit-profile/:id", verifyLogin, async (req, res) => {
-  let profile = await userHelpers.getUserProfile(req.params.id);
-  res.render("user/edit-profile", { profile });
-});
-
-router.post("/update-profile/:id", (req, res) => {
-  userHelpers.updateProfile(req.params.id, req.body).then(() => {
-    res.redirect("/profile/");
-  });
-  let image = req.files.image;
-  image.mv("./public/profile-photos/" + req.params.id + ".jpg");
-});
-
-router.get("/otp-login", (req, res) => {
-  res.render("user/otp-login");
-});
+router.get('/otp-login',(req,res)=>{
+  res.render('user/otp-login',{log:true})
+})
 
 router.post("/otp-login", async (req, res) => {
   let user = await userHelpers.getUserDetails(req.body.full);
@@ -183,10 +134,10 @@ router.post("/otp-login", async (req, res) => {
         console.log(verification.status);
       });
     id = req.body.full;
-    res.render("user/otp-code", { id });
+    res.render("user/otp-code", {log:true, id });
   } else {
     loginErr = "This user does not have an account";
-    res.render("user/otp-login", { loginErr });
+    res.render("user/otp-login", {log:true, loginErr });
   }
 });
 
@@ -197,7 +148,7 @@ router.post("/otp-code", async (req, res) => {
     .services(serviceId)
     .verificationChecks.create({ to: req.body.id, code: req.body.token })
     .then((verification_check) => {
-      if (verification_check.status) {
+      if (verification_check.status !="pending") {
         userHelpers.getUserDetails(req.body.id).then((user) => {
           req.session.userLoggedIn = true;
           req.session.user = user;
@@ -207,130 +158,229 @@ router.post("/otp-code", async (req, res) => {
     });
 });
 
-router.get("/password", (req, res) => {
-  res.render("user/password", {
-    message: req.session.message,
-    message1: req.session.message1,
-  });
-  req.session.message = false;
-  req.session.message1 = false;
-});
 
-router.post("/password", (req, res) => {
-  userHelpers
-    .changePassword(req.body, req.session.user._id)
-    .then((response) => {
-      if (response.status) {
-        req.session.message = "password updated successfully";
-        res.redirect("/password");
-      } else {
-        req.session.message1 = "you have entered a wrong password";
-        res.redirect("/password");
+router.get('/profile',verifyLogin,async(req,res)=>{
+  let skills = await userHelpers.getSkills(req.session.user._id)
+  let users = await userHelpers.getUserData(req.session.user._id)
+  let  language = await userHelpers.getLanguage(req.session.user._id)
+  res.render('user/profile',{user:true,users,skills,language})
+})
+
+router.get('/edit-profile/:id',async(req,res)=>{
+  let users = await userHelpers.getUserData(req.params.id)
+  res.render('user/edit-profile',{user:true,formIn:true,users})
+})
+
+router.post('/sasi',async(req,res)=>{
+  let userId = req.body.user
+  let users = await userHelpers.getUserData(userId)
+  res.json(users)
+})
+
+
+router.post('/edit-profile/:id',(req,res)=>{
+  userHelpers.updateProfile(req.body,req.params.id).then(()=>{
+    if(req.files){
+      let image = req.files.image2;
+      userHelpers.addProfileImage(req.params.id)
+    image.mv("./public/profile-photos/" + req.params.id + ".jpg");
       }
-    });
-});
-
-router.get("/myorders/:id", verifyLogin, async (req, res) => {
-  let orderId = req.params.id;
-  let orders = await userHelpers.getUserOrders(req.session.user._id);
-  userHelpers.changePaymentStatus(orderId).then(() => {
-    res.render("user/myorders", {
-      user: true,
-      users: req.session.user,
-      orders,
-    });
-  });
-});
-
-router.get("/myorders", verifyLogin, async (req, res) => {
-  let orders = await userHelpers.getUserOrders(req.session.user._id);
-  res.render("user/myorders", { user: true, users: req.session.user, orders });
-});
-
-router.get("/view-order-products/:id", verifyLogin, async (req, res) => {
-  let products = await userHelpers.getOrderProducts(req.params.id);
-  res.render("user/info", { user: true, users: req.session.user, products });
-});
-
-router.get("/checkout", verifyLogin, async (req, res) => {
-  let total = {};
-  let prodList = await userHelpers.getCartProducts(req.session.user._id);
-  let count = await userHelpers.getCartCount(req.session.user._id);
-  let address = await userHelpers.getUserAddress(req.session.user._id);
-
-  if (count) {
-    let userCart = await userHelpers.getCartDetails(req.session.user._id);
-    if (userCart.status) {
-      total = await userHelpers.getCartAmount(req.session.user._id);
-    } else {
-      total = await userHelpers.getTotalAmount(req.session.user._id);
-    }
-  }
-  res.render("user/checkout", {
-    user: true,
-    total,
-    users: req.session.user,
-    count,
-    prodList,
-    address,
-  });
-});
-
-router.post("/checkout", async (req, res) => {
-  let totalAmount = req.body.total
- let products = await userHelpers.getCartProductList(req.body.userId);
-  userHelpers.placeOrder(req.body, products).then((data) => {
-    if (data.paymentMethod === "COD") {
-      res.json(data);
-    } else if (data.paymentMethod === "Razorpay") {
-      userHelpers.generateRazorpay(data, totalAmount).then((response) => {
-        console.log(response);
-        res.json(response);
-      });
-    } else if (data.paymentMethod === "paypal") {
-      res.json(data);
-    }
-  });
-});
-
-router.post("/verify-payment", (req, res) => {
-  userHelpers
-    .verifyPayment(req.body)
-    .then(() => {
-      userHelpers.changePaymentStatus(req.body["order[receipt]"]).then(() => {
-        res.json({ status: true });
-      });
-    })
-    .catch((err) => {
-      res.json({ status: false });
-    });
-});
-
-router.get("/cancel-order/:id", (req, res) => {
-  userHelpers.cancelOrder(req.params.id).then(() => {
-    res.redirect("/myorders");
-  });
-});
-
-router.post("/coupon", (req, res) => {
-  userHelpers.checkCoupon(req.body, req.session.user._id).then((response) => {
-    res.json(response);
-  });
-});
-
-router.get('/contact',(req,res)=>{
-  res.render('user/contact',{user:true, users: req.session.user})
+  })
+  res.redirect('/profile')
 })
 
-router.get('/products',verifyLogin,async(req,res)=>{
-  let prodList = await userHelpers.getCartProducts(req.session.user._id);
-  productHelpers.getAllProducts().then((products) => {
-  res.render('user/products',{user:true,products,users:req.session.user,prodList})
+router.get('/emp-profileview/:id',verifyLogin,async(req,res)=>{
+  let users = req.session.user
+    let skills = await employerHelpers.getSkills(req.params.id)
+    let language = await employerHelpers.getLanguage(req.params.id)
+  userHelpers.getCompanyDetails(req.params.id).then((company)=>{ 
+    res.render('user/emp-profileview',{user:true,company,skills,language,users})
+  })
+})
+
+router.get('/postedjob/:id',verifyLogin,async(req,res)=>{
+  let users = req.session.user
+  let jobs = await userHelpers.getTheJobs(req.params.id)
+  userHelpers.getCompanyDetails(req.params.id).then((company)=>{
+  res.render('user/company-jobs',{user:true,company,jobs,users})
 })
 })
 
-router.get('/abcd',(req,res)=>{
-  res.render('user/abcd')
+router.get('/job-singleview/:id',verifyLogin,async(req,res)=>{
+  let users = req.session.user
+  let singleView = await userHelpers.getSingleJob(req.params.id)
+  res.render('user/job-singleview',{user:true,singleView,users})
+})
+
+router.get('/apply/:id',verifyLogin,async(req,res)=>{
+  let jobId = req.params.id
+  let users = req.session.user
+  let user = req.session.user._id
+  let userDetails = await userHelpers.getUserData(user)
+  res.render('user/applyjob',{user:true,userDetails,formIn:true,jobId,users})
+})
+
+
+router.post('/applyjob',(req,res)=>{
+  console.log(req.body);
+  userHelpers.applyjob(req.body).then(()=>{
+    let resume = req.files.resume
+    resume.mv('./public/resume/' + req.body.userId + '.pdf')
+    res.redirect('/')
+  })
+})
+
+router.get('/getnotification',verifyLogin,async(req,res)=>{
+  let Notifications = await userHelpers.getNotifications(req.session.user._id)
+  res.render('user/notification',{user:true,Notifications})
+})
+
+router.get('/user_message/:id',verifyLogin,(req,res)=>{
+  let employers = {}
+   employers._id = req.session.user._id
+   console.log(employers._id);
+  let candidates = {}
+  candidates.userId =  req.params.id
+  console.log(candidates.userId);
+  res.render('employer/message',{employers,candidates})
+})
+
+router.get('/auth/github',
+  passport.authenticate('github'));
+
+  router.get('/auth/github/callback', 
+  passport.authenticate('github', { failureRedirect: '/login' }),
+  function(req, res) {
+    let user = req.user
+      req.session.user = user
+      req.session.userLoggedIn = true;
+      res.redirect('/');
+  });
+
+  router.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    let user = req.user
+      req.session.user = user
+      req.session.userLoggedIn = true;
+    res.redirect('/');
+  });
+
+router.get('/auth/linkedin',
+  passport.authenticate('linkedin', { state: 'user'  }))
+
+
+router.get('/auth/linkedin/callback', 
+passport.authenticate('linkedin', { failureRedirect: '/login'}),
+function(req, res) {
+  let user = req.user
+    req.session.user = user
+    req.session.userLoggedIn = true;
+  res.redirect('/');
+});
+
+router.post("/usersociallink",verifyLogin,(req,res)=>{
+  let userId = req.session.user._id
+  userHelpers.insertUserSocialLink(req.body,userId).then(()=>{
+    res.redirect('/profile')
+  })
+})
+
+router.post('/SaveJob',verifyLogin,(req,res)=>{
+  let userId = req.session.user._id
+  userHelpers.saveJob(req.body.Id,userId).then(()=>{
+    res.json({status:true})
+  })
+})
+
+router.get('/getSavedJobs',verifyLogin,async(req,res)=>{
+  let userId = req.session.user._id
+  let savedcompany = await userHelpers.getSavedCompanies(userId)
+  let users = await userHelpers.getUserData(req.session.user._id)
+  let savedjobs= await userHelpers.getSavedJobs(userId)
+    res.render('user/savedjob',{user:true,users,savedjobs,savedcompany})
+  })
+
+router.post('/SaveCompany',verifyLogin,async(req,res)=>{
+  let userId = req.session.user._id
+  userHelpers.saveCompany(req.body.Id,userId).then(()=>{
+    res.json({status:true})
+  })
+})
+
+router.get('/deleteSavedCompany/:id',(req,res)=>{
+  let Id = req.params.id
+  userHelpers.deleteSavedCompany(Id).then(()=>{
+    res.redirect('/getSavedJobs')
+  })
+})
+
+router.get('/deleteSavedJob/:id',(req,res)=>{
+  let Id = req.params.id
+  userHelpers.deleteSavedJob(Id).then(()=>{
+    res.redirect('/getSavedJobs')
+  })
+})
+
+router.post('/UserSearch',verifyLogin,(req,res)=>{
+  let users = req.session.user
+  let search1 = req.body.Search1
+  let search2 = req.body.Search2
+  let search3 = req.body.Search3
+  console.log(search1,search2,search3);
+  userHelpers.userSearch(search1,search2,search3).then((userSearch)=>{
+    res.render("user/searchHome",{user:true,userSearch,search:true,users})
+  })
+})
+
+router.get('/appliedjobs',verifyLogin,async(req,res)=>{ 
+  let users = await userHelpers.getUserData(req.session.user._id)
+  userHelpers.appliedJobs(req.session.user._id).then((jobs)=>{
+    res.render('user/appliedjob',{user:true,users,jobs})
+  })
+})
+
+router.get('/jobs',verifyLogin,async(req,res)=>{
+  let users = req.session.user
+  let jobs = await userHelpers.getAlljobs()
+  res.render('user/jobs',{user:true,jobs,users,JobsOnly:true,LiveSearch:true})
+})
+
+router.get('/companies',verifyLogin,async(req,res)=>{
+  let users = req.session.user
+  let companies =  await userHelpers.getAllCompanies()
+  res.render('user/companies',{user:true,users,companies,JobsOnly:true,LiveSearch:true})
+})
+
+router.get('/categoryView/:category',verifyLogin,(req,res)=>{
+  let users = req.session.user
+  userHelpers.getCategoryJobs(req.params.category).then((jobs)=>{
+    res.render('user/category',{user:true,jobs,users})
+  })
+})
+
+router.get('/machine-test/:id',verifyLogin,(req,res)=>{
+  let users = req.session.user
+  userHelpers.getSingleMachineTest(req.params.id).then((tests)=>{
+    res.render('user/machine-test',{user:true,tests,users})
+  })
+})
+
+router.post("/changeStatusMT",(req,res)=>{
+  userHelpers.changeStatusMT(req.body.id).then(()=>{
+    res.json({status:true})
+  })
+})
+
+router.post('/saveAnswers',verifyLogin,(req,res)=>{
+  userHelpers.saveAnswers(req.body,req.session.user._id).then(()=>{
+    let answerkey = req.files.answerkey
+    answerkey.mv('./public/answerkey/' + req.session.user._id + req.body.jobId + '.pdf')
+    res.redirect('/')
+  })
 })
 
 module.exports = router;

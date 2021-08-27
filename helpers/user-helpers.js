@@ -3,37 +3,32 @@ var collection = require('../config/collection')
 var objectId = require('mongodb').ObjectID
 const bcrypt = require('bcrypt')
 const { response } = require('../app')
-const { UserBindingInstance } = require('twilio/lib/rest/ipMessaging/v2/service/user/userBinding')
-const Razorpay = require('razorpay')
-const { resolve } = require('path')
-require('dotenv').config()
-var instance = new Razorpay({
-    key_id:process.env.RAZORPAY_KEY_ID,
-    key_secret:process.env.RAZORPAY_KEY_SECRET
-});
+const { JobInstance } = require('twilio/lib/rest/bulkexports/v1/export/job')
+
 
 
 module.exports = {
     doSignup: (userData) => {
         return new Promise(async (resolve, reject) => {
-            let emailExist = await db.get().collection(collection.USER_COLLECTION).findOne({ email: userData.email })
-            let mobileExist = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile1: userData.mobile1 })
-            if (emailExist) {
-                resolve({ emailExist })
-            } else if (mobileExist) {
-                resolve({ mobileExist })
-            } else {
+            if(userData.password == userData.password2){
                 let userDetails = {}
                 userData.password = await bcrypt.hash(userData.password, 10)
-                userDetails.first_name = userData.first_name
-                userDetails.last_name = userData.last_name
+                userDetails.firstname = userData.firstname
+                userDetails.lastname = userData.lastname
                 userDetails.email = userData.email
-                userDetails.mobile1 = userData.mobile1
+                userDetails.mobile = userData.mobile
                 userDetails.password = userData.password
                 userDetails.block = userData.block = false
+                userDetails.facebook = "https://www.facebook.com/"
+                userDetails.twitter = "https://www.twitter.com/"
+                userDetails.linkedin = "https://www.linkedin.com/"
+                userDetails.github = "https://www.github.com/"
+                userDetails.instagram = "https://www.instagram.com/"
                 db.get().collection(collection.USER_COLLECTION).insertOne(userDetails).then((data) => {
-                    resolve(data.ops[0])
+                    resolve({data:data.ops[0],status:true})
                 })
+            }else{
+                resolve({nomatch:true})
             }
         })
     },
@@ -62,465 +57,401 @@ module.exports = {
             }
         })
     },
-    addToCart: (productId, userId) => {
-        let proObj = {
-            item: objectId(productId),
-            proquantity: 1,
-        }
-
-        return new Promise(async (resolve, reject) => {
-            let userCart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
-            if (userCart) {
-                let proExist = userCart.products.findIndex((product) => product.item == productId)
-                if (proExist != -1) {
-                    db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId), 'products.item': objectId(productId) },
-                        {
-                            $inc: { 'products.$.proquantity': 1 }
-                        }).then(() => {
-                            resolve()
-                        })
-                    db.get().collection(collection.CART_COLLECTION).updateOne({user : objectId(userId)},
-                        {
-                            $set:{
-                                status:status=false
-                            }
-                        })
-                } else {
-                   
-                    db.get().collection(collection.CART_COLLECTION).updateOne({ user: objectId(userId) },
-                        {
-                            $push: { products: proObj }
-                        }).then((response) => {
-                            resolve()
-                        })
-                     db.get().collection(collection.CART_COLLECTION).updateOne({user : objectId(userId)},
-                        {
-                            $set:{
-                                status:status=false
-                            }
-                        })
-                }
-            } else {
-                let cartObj = {
-                    user: objectId(userId),
-                    products: [proObj],
-                    status:false
-                }
-                db.get().collection(collection.CART_COLLECTION).insertOne(cartObj).then((response) => {
-                    resolve()
-                })
-            }
-        })
-    },
-    getCartProducts: (userId) => {
-        return new Promise(async (resolve, reject) => {
-            let cartItems = await db.get().collection(collection.CART_COLLECTION).aggregate([
-                {
-                    $match: { user: objectId(userId) }
-                },
-                {
-                    $unwind: '$products'
-                }, {
-                    $project: {
-                        item: '$products.item',
-                        proquantity: '$products.proquantity'
-                    }
-                }, {
-                    $lookup: {
-                        from: collection.PRODUCT_COLLECTION,
-                        localField: 'item',
-                        foreignField: '_id',
-                        as: 'product'
-                    }
-                },
-                {
-                    $unwind: '$product'
-                },
-                {
-                    $project: {
-                        item: 1,
-                        proquantity: 1,
-                        products:1,
-                        product:1,
-                        total: { $multiply: ['$proquantity', '$product.price'] }
-                    }
-                }
-
-            ]).toArray()
-            resolve(cartItems)
-
-        })
-    },
-    getCartCount: (userId) => {
-        return new Promise(async (resolve, reject) => {
-            let cart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
-            if (cart) {
-                count = cart.products.length
-            }
-            resolve(count)
-        })
-    },
-    changeProductQuantity: (details) => {
-        details.count = parseInt(details.count)
-        details.proquantity = parseInt(details.proquantity)
-        return new Promise(async (resolve, reject) => {
-            if (details.count == -1 && details.proquantity == 1) {
-                await db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart) },
-                    {
-                        $pull: { products: { item: objectId(details.product) } }
-                    }).then((response) => {
-                        resolve({ remove: true })
-                    })
-            } else {
-                db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(details.cart), 'products.item': objectId(details.product) },
-                    {
-                        $inc: { 'products.$.proquantity': details.count }
-                    }).then(() => {
-                        resolve({ status: true })
-                    })
-                db.get().collection(collection.CART_COLLECTION).updateOne({user : objectId(details.user)},
-                        {
-                            $set:{
-                                status:status=false
-                            }
-                        })
-            }
-        })
-    },
-    deleteProductFromCart: (cart,product) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.CART_COLLECTION).updateOne({ _id: objectId(cart) },
-                {
-                    $pull: {
-                        products: { item: objectId(product) }
-                    }
-                }).then((response) => {
-                    resolve()
-                })
-        })
-    },
-    getTotalAmount: (userId) => {
-        return new Promise(async (resolve, reject) => {
-            let total = await db.get().collection(collection.CART_COLLECTION).aggregate([
-                {
-                    $match: { user: objectId(userId) }
-                },
-                {
-                    $unwind: '$products'
-                },
-                {
-                    $project: {
-                        item: '$products.item',
-                        proquantity: '$products.proquantity'
-                    }
-                },
-                {
-                    $lookup: {
-                        from: collection.PRODUCT_COLLECTION,
-                        localField: 'item',
-                        foreignField: '_id',
-                        as: 'products'
-                    }
-                },
-                {
-                    $project: {
-                        item: 1,
-                        proquantity: 1,
-                        products: { $arrayElemAt: ['$products', 0] }
-                    }
-                },
-                {
-                    $group: {
-                        _id: null,
-                        total: { $sum: { $multiply: ['$proquantity', '$products.price'] } }
-                    }
-                }
-            ]).toArray()
-            if(total.length>0){   
-                if(total[0].total) {
-                    resolve(total[0].total) 
-                }
-                
-            }else{
-                resolve({total:false})
-            }
-           
-        })
-    },
-    getCartDetails:(userId)=>{
-        return new Promise(async(resolve,reject)=>{
-           let userCart =await db.get().collection(collection.CART_COLLECTION).findOne({ user : objectId(userId) })
-           resolve(userCart)
-        })
-    },
-    placeOrder: (order, products) => {
-
-        return new Promise((resolve, reject) => {
-            let status = order['payment-method'] === 'COD' ? 'placed' : 'pending'
-            let orderObj={}
-            if(order.save){
-             orderObj = {
-                deliveryDetails: {
-                    first_name: order.first_name,
-                    last_name: order.last_name,
-                    email: order.email,
-                    mobile: order.number,
-                    state: order.state_name,
-                    district: order.district,
-                    addressline1: order.address1,
-                    addressline2: order.address2,
-                    post: order.post,
-                    country: order.country,
-                    save: order.save
-                },
-                userId: objectId(order.userId),
-                paymentMethod: order['payment-method'],
-                products: products,
-                totalAmount:order.total,
-                status: status,
-                cancel:false,
-                shipped:false,
-                delivered:false,
-                date: new Date()
-                
-            }
-        }else{
-                 orderObj = {
-                    deliveryDetails: {
-                        first_name: order.first_name,
-                        last_name: order.last_name,
-                        email: order.email,
-                        mobile: order.number,
-                        state: order.state_name,
-                        district: order.district,
-                        addressline1: order.address1,
-                        addressline2: order.address2,
-                        post: order.post,
-                        country: order.country
-                    },
-                    userId: objectId(order.userId),
-                    paymentMethod: order['payment-method'],
-                    products: products,
-                    totalAmount: order.total,
-                    status: status,
-                    cancel:false,
-                    shipped:false,
-                    delivered:false,
-                    date: new Date()
-            }
-        }
-
-            db.get().collection(collection.ORDER_COLLECTION).insertOne(orderObj).then((response) => {
-                let address = {}
-                address.details = orderObj.deliveryDetails
-                address.user = orderObj.userId
-                console.log(address.details.save);
-                if(address.details.save){
-                db.get().collection(collection.ADDRESS_COLLECTION).insertOne(address)
-                }
-                db.get().collection(collection.CART_COLLECTION).removeOne({ user: objectId(order.userId) })
-                resolve(response.ops[0])
-            })
-        })
-    },
-    getCartProductList: (userId) => {
-        return new Promise(async (resolve, reject) => {
-            let cart = await db.get().collection(collection.CART_COLLECTION).findOne({ user: objectId(userId) })
-            resolve(cart.products)
-        })
-    },
-    getUserAddress: (userId) => {
-        return new Promise(async (resolve, reject) => {
-            let order = await db.get().collection(collection.ADDRESS_COLLECTION).find({ user: objectId(userId) }).toArray()
-            resolve(order)
-        })
-    },
-    getUserProfile: (userId) => {
-        return new Promise(async (resolve, reject) => {
-            let userProfile = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) })
-            resolve(userProfile)
-        })
-
-    },
-    updateProfile: (userID, userProfile) => {
-        return new Promise((resolve, reject) => {
-            db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userID) },
-                {
-                    $set: {
-                        first_name: userProfile.first_name,
-                        last_name: userProfile.last_name,
-                        mobile1: userProfile.mobile1,
-                        mobile2: userProfile.mobile2,
-                        email: userProfile.email,
-                        district: userProfile.district,
-                        state: userProfile.state,
-                        country: userProfile.country
-                    }
-                }).then(() => {
-                    resolve()
-                })
-        })
-    },
     getUserDetails: (mobile) => {
         return new Promise(async (resolve, reject) => {
-            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile1: mobile })
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ mobile: mobile })
             resolve(user)
         })
     },
-    changePassword: (password, userId) => {
-        let oldpassword = password.old
-        let newPassword = password.new
+    getUserData: (userId) => {
         return new Promise(async (resolve, reject) => {
-            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id: objectId(userId) })
-            bcrypt.compare(oldpassword, user.password).then(async (status) => {
-                if (status) {
-                    newpassword = await bcrypt.hash(newPassword, 10)
-                    db.get().collection(collection.USER_COLLECTION).updateOne({ _id: objectId(userId) },
+            let user = await db.get().collection(collection.USER_COLLECTION).findOne({ _id : objectId(userId) })
+            resolve(user)
+        })
+    },  
+    updateProfile:(data,userId)=>{
+        return new Promise((resolve,reject)=>{ 
+            var skills = new Array()   
+            let skill = data.skills
+            skills = skill.split(",")
+            var language = new Array()          
+            let lang = data.language 
+            language = lang.split(",")    
+            db.get().collection(collection.USER_COLLECTION).updateOne({_id : objectId(userId)},
+            {
+                $set : {
+                    firstname : data.firstname,
+                    lastname : data.lastname,
+                    email : data.email,
+                    birthdate : data.birthdate,
+                    discription : data.discription,
+                    tagline : data.tagline,
+                    mobile : data.full,
+                    skills : skills,
+                    availability : data.availability,
+                    experience : data.experience,
+                    language : language,
+                    location : data.location,
+                    link1 : data.link1,
+                    link2 : data.link2,
+                    link3 : data.link3
+                }
+            }).then(()=>{
+                resolve()
+            })
+        })
+    },
+    addProfileImage:(userId)=>{
+        return new Promise((resolve,reject)=>{   
+            db.get().collection(collection.USER_COLLECTION).updateOne({_id : objectId(userId)},
+            {
+                $set : {status:true}
+                    
+            }).then(()=>{
+                resolve()
+            })
+        })
+    },
+    getSkills : (userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.USER_COLLECTION).findOne({_id : objectId(userId)}).then((user)=>{
+                resolve(user.skills)
+            })
+        })
+    },
+    getLanguage : (userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.USER_COLLECTION).findOne({_id : objectId(userId)}).then((user)=>{
+                resolve(user.language)
+            })
+        })
+    },
+    getAlljobs : ()=>{
+        return new Promise(async(resolve,reject)=>{
+          let jobs = await db.get().collection(collection.JOB_COLLECTION).find({ status : "active"}).toArray()
+                for(var i=0; i<jobs.length;i++){
+                    let today = new Date()
+                    if(today > new Date(jobs[i].expiry)){
+                        db.get().collection(collection.JOB_COLLECTION).updateOne({_id : objectId(jobs[i]._id)},
                         {
-                            $set: {
-                                password: newpassword
-                            }
-                        }).then(() => {
-                            resolve({ status: true })
+                            $set : {status: "expired"}
+                        }).then(()=>{ 
+                            db.get().collection(collection.JOB_COLLECTION).find({ status : "active"}).toArray().then((job)=>{
+                                 resolve(job)
+                            })
                         })
-                } else {
-                    resolve({ status: false })
+                    }else{
+                        db.get().collection(collection.JOB_COLLECTION).find({ status : "active"}).toArray().then((job)=>{
+                             resolve(job)
+                        })
+                    }
                 }
             })
-
-        })
-
     },
-    getUserOrders: (userId) => {
-        return new Promise(async (resolve, reject) => {
-            let orders = await db.get().collection(collection.ORDER_COLLECTION).find({ userId: objectId(userId) }).toArray()
-            resolve(orders)
-        })
-    },
-    getOrderProducts: (orderId) => {
-        console.log(orderId);
-        return new Promise(async (resolve, reject) => {
-            let products = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
-                {
-                    $match: { _id: objectId(orderId) }
-                },
-                {
-                    $unwind: '$products'
-                },
-                {
-                    $project: {
-                        item: '$products.item',
-                        proquantity: '$products.proquantity'
-                    }
-                },
-                {
-                    $lookup: {
-                        from: collection.PRODUCT_COLLECTION,
-                        localField: 'item',
-                        foreignField: '_id',
-                        as: 'product'
-                    }
-                },
-                {
-                    $project: {
-                        item: 1,
-                        proquantity: 1,
-                        product: { $arrayElemAt: ['$product', 0] }
-                    }
-                }
-            ]).toArray()
-            resolve(products)
-        })
-    },
-    generateRazorpay: (data, total) => {
-        return new Promise((resolve, reject) => {
-            var options = {
-                amount: total*100,  // amount in the smallest currency unit
-                currency: "INR",
-                receipt: ""+data._id
-            };
-            instance.orders.create(options, function (err, order) {
-                order.paymentMethod="razorpay",
-                order.user=data.deliveryDetails.first_name+' '+data.deliveryDetails.last_name,              
-                order.email=data.deliveryDetails.email,
-                order.mobile=data.deliveryDetails.mobile
-
-                if (err) {
-                    console.log(err);
-                } else {
-                    resolve(order)
-                }
-            });
-        })
-    },
-    verifyPayment:(details)=>{
+    getAllCompanies : ()=>{
         return new Promise((resolve,reject)=>{
-            const crypto = require('crypto');
-            let hmac = crypto.createHmac('sha256',process.env.RAZORPAY_KEY_SECRET)
+            db.get().collection(collection.EMPLOYER_COLLECTION).find().toArray().then((companies)=>{
+                resolve(companies)
+            })
+        })
+    },
+    getNumberOfJobs : (companyId)=>{
+        return new Promise(async(resolve,reject)=>{
+           let jobs = await db.get().collection(collection.JOB_COLLECTION).aggregate({ $match : {empId : companyId}}).toArray()
+                resolve(jobs.length)
+        })
+    },
+    getCompanyDetails : (companyId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.EMPLOYER_COLLECTION).findOne({ _id : objectId(companyId)}).then((company)=>{
+                resolve(company)
+            })
+        })
+    },
+    getTheJobs : (companyId)=>{
+        console.log(companyId);
+        return new Promise(async(resolve,reject)=>{
+            let jobs = await db.get().collection(collection.JOB_COLLECTION).aggregate({ $match : {empId : objectId(companyId)}},
+                {
+                    $match: { status : "active"}
+                },
+                {
+                    $group:{ _id : null,job : "$job"}
+                }).toArray()
+                console.log(jobs);
+                 resolve(jobs)
+         })
+    },
+    getSingleJob : (jobId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.JOB_COLLECTION).findOne({ _id : objectId(jobId) }).then((data)=>{
+                resolve(data)
+            })
+        })
+    },
+    applyjob : (data)=>{
+        let userApplied = objectId(data.userId)
+        return new Promise((resolve,reject)=>{
+        var skills = new Array()   
+        let skill = data.skills
+        skills = skill.split(",")
+        var language = new Array()          
+        let lang = data.language 
+        language = lang.split(",") 
+       
+            let jobsapplied = {}
+             jobsapplied.jobId = objectId(data.jobId) 
+             jobsapplied.userId = objectId(data.userId) 
+             jobsapplied.firstname = data.firstname
+             jobsapplied.lastname = data.lastname
+             jobsapplied.address = data.address
+             jobsapplied.street = data.street
+             jobsapplied.district = data.district
+             jobsapplied.postalcode = data.postalcode
+             jobsapplied.mobile = data.mobile
+             jobsapplied.email = data.email
+             jobsapplied.qualification = data.qualification
+             jobsapplied.gender = data.gender
+             jobsapplied.nationality = data.nationality
+             jobsapplied.experience = data.experience
+             jobsapplied.language = language
+             jobsapplied.skills = skills
+             jobsapplied.applied = objectId(data.userId)+objectId(data.jobId)
 
-            hmac.update(details['payment[razorpay_order_id]']+'|'+details['payment[razorpay_payment_id]']);
-            hmac=hmac.digest('hex')
-            if(hmac==details['payment[razorpay_signature]']){
+             db.get().collection(collection.JOBS_APPLIED).insertOne(jobsapplied).then(()=>{
+                        db.get().collection(collection.JOB_COLLECTION).updateOne({ _id : objectId(data.jobId)},
+                            {
+                                $inc : {'applicant': 1}
+                            }).then(()=>{
+                                db.get().collection(collection.JOB_COLLECTION).updateOne({ _id : objectId(data.jobId)},
+                                {
+                                    $push : { appliedCandidates : userApplied} 
+                                }).then(()=>{
+                                    resolve()
+                                })
+                            }) 
+                })               
+             })
+    },
+    getNotifications : (Id)=>{
+        return new Promise(async(resolve,reject)=>{
+            let notification = await db.get().collection(collection.NOTIFICATION).aggregate({ $match : {userId : objectId(Id)}},
+                {
+                    $group: {
+                        _id:null,
+                        userId: "$Id",
+                    }
+                }).toArray()
+            console.log(notification);
+            resolve(notification)
+        })
+    },
+    checkNotification : (userId)=>{
+        return new Promise(async(resolve,reject)=>{
+          let user = await db.get().collection(collection.USER_COLLECTION).findOne({_id : objectId(userId)})
+          if(user.notification){
+              resolve({status:true})
+           }
+        })
+    },
+    insertUserSocialLink : (data,userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.USER_COLLECTION).updateOne({ _id : objectId(userId)},
+            {
+                $set : {
+                     facebook : data.facebook,
+                     twitter : data.twitter,
+                     linkedin : data.linkedin,
+                     github : data.github,
+                     instagram : data.instagram
+                }
+            }).then(()=>{
+                resolve()
+            })
+        })
+    },
+    saveJob : (jobId,userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let saved = await db.get().collection(collection.SAVED_COLLECTION).findOne({saved : jobId+userId})
+            if(saved){
                 resolve()
             }else{
-                reject()
+           let job = await db.get().collection(collection.JOB_COLLECTION).findOne({_id : objectId(jobId)})
+           let savedjob = {}
+           savedjob.empId = job.empId,
+           savedjob.jobId = objectId(jobId),
+           savedjob.userId = objectId(userId)
+           savedjob.jobname = job.jobname,
+           savedjob.availability = job.availability          
+           savedjob.min_salary = job.min_salary
+           savedjob.max_salary =  job.max_salary
+           savedjob.location =  job.location
+           savedjob.Date = job.Date
+           savedjob.saved = jobId+userId
+           db.get().collection(collection.SAVED_COLLECTION).insertOne(savedjob).then(()=>{
+               resolve()
+           })
+        }
+     })
+    
+    },
+    getSavedJobs : (usersId)=>{
+        return new Promise(async(resolve,reject)=>{
+           let savedjob = await db.get().collection(collection.SAVED_COLLECTION).aggregate({$match : {userId : objectId(usersId)}},
+            {
+                $group:{ _id : null,savedjob : "$savedjob"}
+            }).toArray()
+            resolve(savedjob)
+        })
+    },
+    saveCompany : (empId,userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let saved = await db.get().collection(collection.SAVE_COMPANY).findOne({saved : empId+userId})
+            if(saved){
+                resolve()
+            }else{
+           let employer = await db.get().collection(collection.EMPLOYER_COLLECTION).findOne({_id : objectId(empId)})
+           let savedcompany = {}
+           savedcompany.empId = objectId(empId),
+           savedcompany.userId = objectId(userId)
+           savedcompany.companyname = employer.companyname,
+           savedcompany.launch_date = employer.launch_date
+           savedcompany.location =  employer.location
+           savedcompany.saved = empId+userId
+           db.get().collection(collection.SAVE_COMPANY).insertOne(savedcompany).then(()=>{
+               resolve()
+           })
+        }
+        })
+    },
+    getSavedCompanies : (usersId)=>{
+        return new Promise(async(resolve,reject)=>{
+           let savedcompany = await db.get().collection(collection.SAVE_COMPANY).aggregate({$match : {userId : objectId(usersId)}},
+            {
+                $group:{ _id : null,savedcompany : "$savedcompany"}
+            }).toArray()
+            resolve(savedcompany)
+        })
+    },
+    deleteSavedCompany : (Id)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.SAVE_COMPANY).removeOne({_id : objectId(Id)}).then(()=>{
+                resolve()
+            })
+        })
+    },
+    deleteSavedJob : (Id)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.SAVED_COLLECTION).removeOne({_id : objectId(Id)}).then(()=>{
+                resolve()
+            })
+        })
+    },
+    userSearch : (key1,key2,key3)=>{
+        return new Promise(async(resolve,reject)=>{
+            db.get().collection(collection.JOB_COLLECTION).createIndex({ jobtype : "text", availability : "text", location : "text"},{ language_override: "dummy" }).then(()=>{
+           db.get().collection(collection.JOB_COLLECTION).find({"$text":{$search:"\""+key1+"\"\""+key2+"\"\""+key3+"\""}}).toArray().then((search)=>{
+           resolve(search);
+        })
+        })
+        })
+    },
+    appliedJobs : (userId)=>{
+        return new Promise(async(resolve,reject)=>{
+            let appliedjobs = await db.get().collection(collection.JOBS_APPLIED).aggregate([{$match : {userId : objectId(userId)}},
+            {
+                $project:{_id:null,jobId : "$jobId"}
+            },
+            {
+                $lookup: {
+                    from: collection.JOB_COLLECTION,
+                    localField: 'jobId',
+                    foreignField: '_id',
+                    as: 'jobs'
+                }
+            },
+            {
+                $unwind: "$jobs"
             }
+        ]).toArray()
+            resolve(appliedjobs)
         })
     },
-    changePaymentStatus:(orderId)=>{
+    getAllThecount : ()=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
-            {
-                $set:{
-                    status:'placed'
-                }
-            }).then(()=>{
-                resolve()
+            db.get().collection(collection.JOB_COLLECTION).find().toArray().then((jobs)=>{
+                db.get().collection(collection.USER_COLLECTION).find().toArray().then((users)=>{
+                    db.get().collection(collection.EMPLOYER_COLLECTION).find().toArray().then((employers)=>{
+                        let counts = {}
+                        counts.jobslen = jobs.length
+                        counts.userslen = users.length
+                        counts.employerslen = employers.length
+                        console.log(counts);
+                        resolve(counts)
+                    })
+                })
             })
         })
     },
-    cancelOrder:(orderId)=>{
+    getAllCategory : ()=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(collection.ORDER_COLLECTION).updateOne({_id:objectId(orderId)},
-            {
-                $set:{
-                    status:'cancel',
-                    cancel:cancel=true
-                }
-            }).then(()=>{
-                resolve()
+            db.get().collection(collection.CATEGORY_COLLECTION).aggregate([{ $sample :{size :12}}]).toArray().then((category)=>{
+                resolve(category)
             })
         })
     },
-    checkCoupon:(coupon,userId)=>{
-        return new Promise(async(resolve,reject)=>{
-         let ticket = await db.get().collection(collection.COUPON_COLLECTION).findOne({'couponcode':coupon.coupon})
-         if(ticket){
-             if(ticket.status){
-                 let total= (1-(ticket.offer/100))*coupon.total
-                 db.get().collection(collection.CART_COLLECTION).updateOne({user : objectId(userId)},
-                 {
-                     $set:{
-                         totalAmount:parseInt(total),
-                         status:status=true
-                     }
-                 })
-                 resolve(total)
-             }else{
-                 resolve({expired:true})
-             }
-         }else{
-             resolve({notexist:true})
-         }
+    getCategoryJobs : (Category)=>{
+        console.log(Category);
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.JOB_COLLECTION).aggregate({ $match : {category : Category}},
+                {
+                    $group : {_id : null, category : "$category"}
+                }).toArray().then((jobs)=>{
+                    console.log(jobs);
+                    resolve(jobs)
+                })
         })
     },
-    getCartAmount:(userId)=>{
-        return new Promise(async(resolve,reject)=>{
-            let cart = await db.get().collection(collection.CART_COLLECTION).findOne({ user : objectId(userId)})
-            console.log(cart.totalAmount);
-            resolve(cart.totalAmount)
+    getMachineTest : (userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.MACHINE_TEST).aggregate({$match: {userId : objectId(userId)}},
+            {
+                $match : {status : true}
+            },
+            {
+                $group : {_id : null, test : "$test"}
+            }).toArray().then((tests)=>{
+                resolve(tests)
+            })
         })
     },
-   
-
+    getSingleMachineTest : (testId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.MACHINE_TEST).findOne({_id : objectId(testId)}).then((test)=>{
+                resolve(test)
+            })
+        })
+    },
+    changeStatusMT : (testId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.MACHINE_TEST).updateOne({_id : objectId(testId)},
+            {
+                $set : { status:false }
+            }).then(()=>{
+                resolve({status:true})
+            })
+        })
+            
+    },
+    saveAnswers : (data,userId)=>{
+        return new Promise((resolve,reject)=>{
+            let module = {}
+            module.userId = objectId(userId)
+            module.jobId = objectId(data.jobId) 
+            module.question = data.question
+            db.get().collection(collection.ANSWER_KEYS).insertOne(module).then(()=>{
+                resolve()
+            })
+        })
+    }
 }

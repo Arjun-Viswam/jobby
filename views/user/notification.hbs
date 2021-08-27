@@ -1,0 +1,36 @@
+<div class="container">
+<div class="view_chart" style="margin-bottom: 50px;">
+<div class="view_chart_header">
+<h4>Notification</h4>
+</div>
+{{#if Notifications}}
+<div class="notification_body">
+{{#each Notifications}}
+<div class="user-request-list">
+<div class="request-users">
+<div class="user-request-dt">
+<div class="noti-icon"><i class="fas fa-users"></i></div>
+<div class="dash_noti">
+<a href="/user_message/{{this.companyId}}"><div class="user-title3">{{this.companyname}} </div></a>
+<p>{{this.message}}</p>
+</div>
+</div>
+<div class="time5">{{this.date}}</div>
+</div>
+</div>
+{{/each}}
+</div>
+{{else}}
+<div style="align-items: center;">
+<h3 style="padding: 15px;">No Notification yet</h3>
+</div>
+{{/if}}
+</div>
+</div>
+
+
+</main> 
+
+
+
+

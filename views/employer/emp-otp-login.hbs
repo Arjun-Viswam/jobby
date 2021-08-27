@@ -1,0 +1,32 @@
+
+
+<main class="browse-section">
+<div class="container">
+<div class="row justify-content-md-center">
+<div class="col-md-6">
+<div class="lg_form">
+<div class="main-heading">
+<h2>Sign in with OTP</h2>
+<div class="line-shape1">
+<img src="images/line.svg" alt="">
+</div>
+</div>
+<form method="POST" action="/employer/emp-otp-login">
+
+<div class="form-group">
+<input type="tel" class="job-input" id="phone" name="mobile" placeholder="Enter mobile Number" required>
+<button style="width: 89px; height: 40px; margin-top: 0;" class="view-links">Send</button>
+
+</div>
+{{#if empLoginErr}}
+<p style="color: red;">{{empLoginErr}}</p>
+{{/if}}
+</form>
+<div >Already have an account?<a href="/employer/emp-login">  Login<i class="fas fa-angle-double-right"></i></a>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+</main>

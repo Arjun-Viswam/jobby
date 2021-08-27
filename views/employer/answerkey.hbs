@@ -1,0 +1,67 @@
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/main/css/style.css">
+
+<div class="account_tabs">
+<ul class="nav nav-tabs">
+<li class="nav-item">
+<a class="nav-link" href="/employer/dashboard">Dashboard</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/employer/emp-profile">Profile</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/employer/postjob">Post Job</a>
+</li>
+<li class="nav-item">
+<a class="nav-link active" href="/employer/postedjob">Posted Jobs</a>
+</li>
+
+</ul> 
+</div>
+{{#if answerkey}}
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Answer Keys</h4>
+</div>
+<div class="job_bid_body">
+<ul class="all_applied_jobs jobs_bookmarks">
+  
+{{#each answerkeys}}
+<li>
+<div class="applied_candidates_item">
+<div class="applied_candidates_dt">
+<div class="candi_img">
+</div>
+<div class="candi_dt">
+<a>{{this.question}}</a>
+
+</div>
+</div>
+<div class="btn_link24">
+<a id="link" href="/answerkey/{{this.userId}}{{this.jobId}}.pdf" download><button class="apled_btn50">Download answerkey</button></a>
+
+</div>
+</div>
+</li>
+{{/each}}
+
+</ul>
+</div>
+</div>
+{{else}}
+<h1>&nbsp;</h1>
+<h2>No Answer key available</h2>
+{{/if}}
+
+</div>
+</div>
+</div>
+</main>
+
+
+   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha256-ijqLssetA1NMNjZ+w1zaUafQQLm4IW5OoM8O+4tatME=" crossorigin="anonymous">
+    </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main/js/main.js"></script>

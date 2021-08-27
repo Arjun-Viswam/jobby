@@ -1,0 +1,62 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Post a Question</h4>
+</div>
+<div class="post_job_body">
+<form method="POST" id="machinetest" action="/employer/postMachineTest/{{userId}}">
+<div class="row">
+    <div class="col-2">
+        <div class="form-group">
+<label class="label15">Set HH*</label>
+<input type="text" class="job-input" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="hour" placeholder="00">
+</div>
+    </div>
+     <div class="col-2">
+        <div class="form-group">
+            <label class="label15">Set MM*</label>
+<input type="text" class="job-input" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="minutes" placeholder="00">
+</div>
+    </div>
+</div>
+<div class="row">
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Question*</label>
+<textarea class="textarea_input" name="question" placeholder="Enter the Question" required></textarea>
+</div>
+</div>
+<div class="col-lg-12">
+<button class="post_jp_btn" type="submit">Start</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</main>
+
+<script>
+
+$(document).ready(()=>{
+    
+  $("#machinetest").validate({ 
+    a:()=>{
+      console.log('err')
+    },      
+      rules: {
+        hour: {
+          required: true,
+          minlength: 2,
+          maxlength: 2
+        },
+        minutes: {
+          required: true,
+          minlength: 2,
+          maxlength: 2
+        },  
+      }
+    })
+     })
+</script>

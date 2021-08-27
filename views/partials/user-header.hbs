@@ -1,266 +1,282 @@
-<!-- Header -->
-<header class="header shop">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+
+<header>
+    <div class="top-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="top-header-full">
+                        <div class="top-left-hd">
+                            <ul>
+                                <li>
+                                    <div class="wlcm-text">Welcome to Jobby</div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="top-right-hd">
+                            <ul>
+                                <li class="dropdown">
+                                    <a href="#" class="icon14 dropdown-toggle-no-caret" role="button"
+                                        data-toggle="dropdown">
+                                        <i class="fas fa-envelope"></i>
+                                        {{#if test}}
+                                        <div class="circle-alrt"></div>
+                                        {{/if}}
+                                    </a>
+                                    <div class="dropdown-menu message-dropdown dropdown-menu-right">
+                                        {{#if test}}
+                                        {{#each_upto test 1}}
+                                        <div class="user-request-list">
+                                            <div class="request-users">
+                                                <div class="user-request-dt">
+                                                    <a href="/machine-test/{{this._id}}"><img src="/profile-photos/{{this.empId}}.jpg" alt="">
+                                                        <div class="user-title1">{{this.companyname}} </div>
+                                                        <span>Open to Start</span>
+                                                    </a>
+                                                </div>
+                                                {{!-- <div class="time5">2 min ago</div> --}}
+                                            </div>
+                                        </div>
+                                        {{/each_upto}}
+                                        {{else}}
+                                        <div class="user-request-list">
+                                            <div class="request-users">
+                                                <div class="user-request-dt">
+                                                    {{!-- <a href="/machine-test/{{this._id}}"><img src="/profile-photos/{{this.empId}}.jpg" alt=""> --}}
+                                                        {{!-- <div class="user-title1">{{this.companyname}} </div> --}}
+                                                        <span>No Current tests</span>
+                                                    </a>
+                                                </div>
+                                                {{!-- <div class="time5">2 min ago</div> --}}
+                                            </div>
+                                        </div>
+                                        {{/if}}
+                                        
+                                        {{!-- <div class="user-request-list">
+                                            <a href="my_freelancer_messages.html" class="view-all">View All Messages</a>
+                                        </div> --}}
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="icon14 dropdown-toggle-no-caret" role="button"
+                                        data-toggle="dropdown">
+                                        <i class="fas fa-bell"></i>
+                                        {{#if notification.status}}
+                                        <div class="circle-alrt"></div>
+                                        {{/if}}
+                                    </a>
+                                    <div class="dropdown-menu message-dropdown dropdown-menu-right">
+                                        <div class="user-request-list">
+                                            <div class="request-users">
+                                                <div class="user-request-dt">
+                                                    <a href="#">
+                                                        <div class="noti-icon"><i class="fas fa-users"></i></div>
+                                                        <div class="user-title1">Rock William </div>
+                                                        <span>applied for a <ins class="noti-p-link">Php
+                                                                Developer</ins>.</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="user-request-list">
+                                            <div class="request-users">
+                                                <div class="user-request-dt">
+                                                    <a href="#">
+                                                        <div class="noti-icon"><i class="fas fa-bullseye"></i></div>
+                                                        <div class="user-title1">Johnson Smith</div>
+                                                        <span>placed a bid on your <ins class="noti-p-link">I Need a
+                                                                ...</ins></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="user-request-list">
+                                            <div class="request-users">
+                                                <div class="user-request-dt">
+                                                    <a href="#">
+                                                        <div class="noti-icon"><i class="fas fa-exclamation"></i></div>
+                                                        <span class="pt-2">Your job listing <ins
+                                                                class="noti-p-link">Wordpress Developer</ins> is
+                                                            expiring.</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="user-request-list">
+                                            <a href="/getnotification" class="view-all">View All Notifications</a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="account order-1 dropdown">
+                                        <a href="#" class="account-link dropdown-toggle-no-caret" role="button"
+                                            data-toggle="dropdown">
+                                            {{#if users.status}}
+                                            <div class="user-dp"><img src="/profile-photos/{{users._id}}.jpg" alt="">
+                                            </div>
+                                            {{else}}
+                                            <div class="user-dp"><img src="/images/profile_dp.jpg" alt=""></div>
+                                            {{/if}}
+                                            <span>{{users.firstname}} {{users.lastname}}</span>
+                                            <i class="fas fa-sort-down"></i>
+                                        </a>
+                                        <div class="dropdown-menu account-dropdown dropdown-menu-right">
+                                            <a class="link-item" href="/profile">Profile</a>
+                                            {{!-- <a class="link-item" href="my_freelancer_setting.html">Setting</a>
+                                            <a class="link-item" href="my_freelancer_messages.html">My Messages</a>
+                                            <a class="link-item" href="my_freelancer_jobs.html">My Jobs</a>
+                                            <a class="link-item" href="my_freelancer_bids.html">My Bids</a>
+                                            <a class="link-item" href="my_freelancer_portfolio.html">My Portfolio</a>
+                                            <a class="link-item" href="my_freelancer_bookmarks.html">My Bookmarks</a>
+                                            <a class="link-item" href="my_freelancer_payments.html">Payments</a> --}}
+                                            <a class="link-item" href="/logout">Logout</a>
+                                        </div>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="sub-header" style="z-index: 98;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-dark1 justify-content-sm-start">
+                        <a class="order-1 order-lg-0 ml-lg-0 ml-3 mr-auto" href="/"><img
+                                src="images/logo.svg" alt=""></a>
+                        <button class="navbar-toggler align-self-start" type="button">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="collapse navbar-collapse d-flex flex-column flex-lg-row flex-xl-row justify-content-lg-end bg-dark1 p-3 p-lg-0 mt1-5 mt-lg-0 mobileMenu"
+                            style="justify-content: center !important;" id="navbarSupportedContent">
+                            <ul class="navbar-nav align-self-stretch">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/jobs" class="nav-link" >Find Jobs</a>
+                                    {{!-- <div class="dropdown-menu pages-dropdown">
+                                        <a class="link-item" href="browse_jobs.html">Browse Jobs</a>
+                                        <a class="link-item" href="job_single_view.html">Single Job View</a>
+                                    </div> --}}
+                                </li>
+
+                                <li class="nav-item dropdown">
+                                    <a href="/companies" class="nav-link">Find Companies</a>
+                                        
+                                    <div class="dropdown-menu pages-dropdown">
+                                        <a class="link-item" href="browse_companies.html">Browse Companies</a>
+                                        <a class="link-item" href="other_company_profile.html">Company Profile</a>
+                                    </div>
+                                </li>
+                                {{#if LiveSearch}}
+                                 <li>
+                                     <div>
+                                         {{#if JobsOnly}}
+                                         <input class="form-control" id="myInput2" name="keyword" value="" placeholder="Keyword Search">
+                                         {{else}}
+                                         <input class="form-control" id="myInput" name="keyword" value="" placeholder="Keyword Search">
+                                    {{/if}}
+                                    </div>
+                                </li>
+                                {{/if}}       
+                            </ul>
+
+                        </div>
+                        <div class="responsive-search order-1">
+                            <input type="text" class="rsp-search" placeholder="Search...">
+                            <i class="fas fa-search r-sh1"></i>
+                        </div>
+                    </nav>
+                    <div class="overlay"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+{{#if search}}
+<main class="body-section">
+    <div class="Search-section">
+        <div class="container">
+            <form action="/UserSearch" method="POST">
+            <div class="row">
+                    <div class="col-lg-4 col-md-3 col-12">
+                        <div class="form-group mb-0">
+                            <input class="search-1" name="Search1" type="text" placeholder="Jobtype( Job Title, Position...)">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12">
+                        <div class="form-group mb-0 mt-15">
+                            <input class="search-1" name="Search2" type="text" placeholder="Availabilty (e.g. Full time,part time...)">
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-12 mt-15">
+                        <div class="form-group mb-0">
+                            <input class="search-1" name="Search3" type="text" placeholder="Location (e.g. City, Country...)">
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-3 col-12 mt-15">
+                        <button class="srch-btn"  type="submit">Search Now</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
+</main>
+{{/if}}
+
 <script>
 $(document).ready(function(){
-	 
   $("#myInput").on("keyup", function() {
-	 document.getElementById('thangappan').style.display='none'
-	 document.getElementById('ponnapan').style.display='none'
-	 document.getElementById('munushi').style.display='none'
+      	 console.log("sasi is on fire")
+	 document.getElementById('categoryHide').style.display='none'
+	 document.getElementById('bannerHide').style.display='none'
+	 document.getElementById('achivementsHide').style.display='none'
+     document.getElementById('headingHide').style.display='none'
+	 document.getElementById('BrowseHide').style.display='none'
+	 document.getElementById('titleHide').style.display='none'
+     document.getElementById('ButtonHide').style.display='none'
+    /* document.getElementsByClassName('owl-prev')[1].style.display ='none'
+     document.getElementsByClassName('owl-prev')[2].style.display ='none'
+     document.getElementsByClassName('owl-prev')[19].style.display ='none'
+     document.getElementsByClassName('owl-prev')[20].style.display ='none'*/
 
     var value = $(this).val().toLowerCase();
-    $(".single-product").filter(function() {
+    $(".item").filter(function() {
       $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
 	if(value==''){
-		 document.getElementById('thangappan').style.display='block'
-	   document.getElementById('ponnapan').style.display='block'
-	   document.getElementById('munushi').style.display='block'
+		 document.getElementById('categoryHide').style.display='block'
+	     document.getElementById('bannerHide').style.display='block'
+	     document.getElementById('achivementsHide').style.display='block'
+         document.getElementById('headingHide').style.display='block'
+	 document.getElementById('BrowseHide').style.display='block'
+	 document.getElementById('titleHide').style.display='block'
+     document.getElementById('ButtonHide').style.display='block'
+    /* document.getElementsByClassName('owl-prev')[1].style.display ='block'
+     document.getElementsByClassName('owl-prev')[2].style.display ='block'*/
+     
 	}
   });
 });
 </script>
-	<!-- Topbar -->
-	<div class="topbar">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4 col-md-12 col-12">
-					<!-- Top Left -->
-					<div class="top-left">
-						<ul class="list-main">
-							<li><i class="ti-headphone-alt"></i> +060 (800) 801-582</li>
-							<li><i class="ti-email"></i> support@shophub.com</li>
-						</ul>
-					</div>
-					<!--/ End Top Left -->
-				</div>
-				<div class="col-lg-8 col-md-12 col-12">
-					<!-- Top Right -->
-					<div class="right-content">
-						<ul class="list-main">
-							{{#if users}}
-							<li><i class="ti-user"></i> <a href="/profile">{{users.first_name}}&nbsp;{{users.last_name}}</a></li>
-							{{else}}
-							<li><i class="ti-user"></i> <a href="/profile">My account</a></li>
-							{{/if}}
-							
-							<li><i class="ti-power-off"></i>
-							{{#if users}}
-							<a href="/logout">Logout</a>
-							{{else}}
-							<a href="/login">Login</a>
-							{{/if}}
-
-							</li>
-						</ul>
-					</div>
-					<!-- End Top Right -->
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Topbar -->
-	<div class="middle-inner">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-2 col-md-2 col-12">
-					<!-- Logo -->
-					<div class="logo">
-						<a href="index.html"><img src="images/logo.png" alt="logo"></a>
-					</div>
-					<!--/ End Logo -->
-					<!-- Search Form -->
-					{{!-- <div class="search-top">
-						<div class="top-search"><a href="#0"><i class="ti-search"></i></a></div>
-						<!-- Search Form -->
-						<div class="search-top">
-							<form class="search-form">
-								<input type="text" id="myInput" placeholder="Search here..." name="search">
-								<button value="search" type="submit"><i class="ti-search"></i></button>
-							</form>
-						</div>
-						<!--/ End Search Form -->
-					</div> --}}
-					<!--/ End Search Form -->
-					<div class="mobile-nav"></div>
-				</div>
-				<div class="col-lg-8 col-md-7 col-12">
-					<div class="search-bar-top">
-						<div class="search-bar">
-							
-							{{!-- <select>
-								<option selected="selected">All Category</option>
-								<option>Whey</option>
-								<option>Mass</option>
-								<option>Pro-Mass</option>
-							</select> --}}
-							
-							<form>
-								<input name="search" id="myInput" placeholder="Search Products Here....." type="search">
-								<button class="btnn"><i class="ti-search"></i></button>
-							</form>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-2 col-md-3 col-12">
-					<div class="right-bar">
-						<!-- Search Form -->
-						{{!-- <div class="sinlge-bar">
-							<a href="#" class="single-icon"><i class="fa fa-heart-o" aria-hidden="true"></i></a>
-						</div> --}}
-						<div class="sinlge-bar shopping">
-							<a href="/profile" class="single-icon"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a>
-							<div class="shopping-item">
-								<div class="dropdown-cart-header">
-									
-								</div>
-								
-								<div class="bottom">
-									
-									<a href="/myorders" class="btn animate">My Orders</a>
-									<a href="#" class="btn animate">Settings</a>
-									<a href="/password" class="btn animate">Change Password</a>
-								</div>
-							</div>
-						</div>
-						{{#if users}}
-						<div class="sinlge-bar shopping">
-							<a href="#" class="single-icon"><i class="ti-bag"></i> <span
-									class="total-count" id="cart-count">{{count}}</span></a>
-							<!-- Shopping Item -->
-							<div class="shopping-item">
-								<div class="dropdown-cart-header">
-									{{!-- <span id="cart-count">{{count}} Items</span> --}}
-									<a href="/cart">View Cart</a>
-								</div>
-								<ul class="shopping-list">
-									{{#each prodList}}
-									
-									<li>
-										<a href="#" class="remove" title="Remove this item"><i
-												class="fa fa-remove"></i></a>
-										<a class="cart-img" href="#"><img src="/product-images/{{this.product._id}}first.jpg"
-												alt="#"></a>
-										<h4><a href="#">{{this.product.product}}</a></h4>
-										<p class="quantity">{{this.proquantity}}x- <span class="amount">{{this.product.price}}</span></p>
-									</li>
-									
-									{{/each}}
-								</ul>
-								<div class="bottom">
-									<div class="total">
-										<span>Total</span>
-										{{#if count}}
-										<span class="total-amount"><i class="fa fa-inr"></i>&nbsp;{{total}}</span>
-										{{else}}
-										<span class="total-amount"><i class="fa fa-inr"></i>&nbsp;00.00</span>
-										{{/if}}
-									</div>
-									<a href="/checkout" class="btn animate">Checkout</a>
-								</div>
-							</div>
-							{{/if}}
-							<!--/ End Shopping Item -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	{{#if dropdown}}
-	<!-- Header Inner -->
-	<div class="header-inner">
-		<div class="container">
-			<div class="cat-nav-head">
-				<div class="row">
-					<div class="col-lg-3">
-						
-						<div class="all-category">
-							<h3 class="cat-heading">THE REAL HULK.</h3>
-							{{!-- <ul class="main-category">
-
-								<li><a href="#">best selling</a></li>
-								<li><a href="#">top 10 offer</a></li>
-								<li><a href="#">Whey</a></li>
-								<li><a href="#">Mass</a></li>
-								<li><a href="#">Pro-Mass</a></li>
-
-							</ul> --}}
-						</div>
-						
-					</div>
-					<div class="col-lg-9 col-12">
-						<div class="menu-area">
-							<!-- Main Menu -->
-							<nav class="navbar navbar-expand-lg">
-								<div class="navbar-collapse">
-									<div class="nav-inner">
-										<ul class="nav main-menu menu navbar-nav">
-											<li class="active"><a href="/">Home</a></li>
-											<li><a href="/products">Product<span
-														class="new">New</span></a></li>
-											
-											{{!-- <li><a href="#">Shop<i class="ti-angle-down"></i></a>
-												<ul class="dropdown">												 --}}
-													<li><a href="/cart">Cart</a></li>
-													{{!-- <li><a href="/checkout">Checkout</a></li>
-												</ul>
-											</li> --}}
-											
-											<li><a href="/contact">Contact Us</a></li>
-										</ul>
-									</div>
-								</div>
-							</nav>
-							<!--/ End Main Menu -->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--/ End Header Inner -->
-</header>
-<!--/ End Header -->
-	
-		{{else}}
-	
-	<!-- Header Inner -->
-			<div class="header-inner">
-				<div class="container">
-					<div class="cat-nav-head">
-						<div class="row">
-							<div class="col-12">
-								<div class="menu-area">
-									<!-- Main Menu -->
-							<nav class="navbar navbar-expand-lg">
-								<div class="navbar-collapse">
-									<div class="nav-inner">
-										<ul class="nav main-menu menu navbar-nav">
-											<li class="active"><a href="/">Home</a></li>
-											<li><a href="/products">Product<span
-														class="new">New</span></a></li>
-											
-											{{!-- <li><a href="#">Shop<i class="ti-angle-down"></i></a>
-												<ul class="dropdown">												 --}}
-													<li><a href="/cart">Cart</a></li>
-													{{!-- <li><a href="/checkout">Checkout</a></li>
-												</ul>
-											</li> --}}
-											
-											<li><a href="/contact">Contact Us</a></li>
-										</ul>
-									</div>
-								</div>
-							</nav>
-							<!--/ End Main Menu -->	
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--/ End Header Inner -->
-		</header>
-{{/if}}
+<script>
+$(document).ready(function(){
+  $("#myInput2").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $(".job-item").filter(function() {
+      $(this).parent().toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>

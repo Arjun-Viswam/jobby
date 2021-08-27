@@ -1,0 +1,136 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/main/css/stylemade.css">
+
+<main class="browse-section">
+<div class="container">
+<div class="row">
+<div class="col-lg-9 col-md-8">
+<div class="view_details">
+<ul>
+
+<li>
+<div class="vw_items">
+<i class="fas fa-users"></i>
+<div class="vw_item_text">
+<h6>Applicants</h6>
+{{#if singleView.applicant}}
+<span>{{singleView.applicant}}</span>
+{{else}}
+<span>0</span>
+{{/if}}
+</div>
+</div>
+</li>
+<li>
+<div class="vw_items">
+<i class="fas fa-briefcase"></i>
+<div class="vw_item_text">
+<h6>Job Type</h6>
+<span>{{singleView.availability}}</span>
+</div>
+</div>
+</li>
+<li>
+<div class="vw_items">
+<i class="far fa-money-bill-alt"></i>
+<div class="vw_item_text">
+<h6>Salary</h6>
+<span>from <i class="fas fa-rupee-sign"></i>{{singleView.min_salary}} to <i class="fas fa-rupee-sign"></i>{{singleView.max_salary}}</span>
+</div>
+</div>
+</li>
+<li>
+<div class="vw_items">
+<i class="far fa-clock"></i>
+<div class="vw_item_text">
+<h6>Post Date</h6>
+<span>{{singleView.Date}}</span>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div class="job-item ptrl_2 mt-20">
+<div class="job-top-dt">
+<div class="job-left-dt">
+  <a href="/emp-profileview/{{singleView.empId}}">
+<img src="/profile-photos/{{singleView.empId}}.jpg" alt="">
+</a>
+<div class="job-ut-dts">
+<a href="#"><h4>{{singleView.jobname}}</h4></a>
+<span><i class="fas fa-map-marker-alt"></i> {{singleView.location}}</span>
+</div>
+</div>
+<div class="job-right-dt">
+<div class="job-fp">Full Time</div>
+</div>
+</div>
+<div class="job-des-dt">
+<h4>{{singleView.jobtype}}</h4>
+<p>{{singleView.discription}}</p>
+<div class="job-skills">
+    {{#each singleView.skills}}
+<a>{{this}}</a>
+{{/each}}
+</div>
+<div class="job-skills">
+    {{#each singleView.language}}
+<a >{{this}}</a>
+{{/each}}
+</div>
+</div>
+<div class="job_dts">
+<h4>Requirements</h4>
+<ul>
+<li>
+<div class="job_dt_1">
+<h6>Availability :</h6>
+<span>{{singleView.availability}}</span>
+</div>
+</li>
+<li>
+<div class="job_dt_1">
+<h6>Experience Level :</h6>
+<span>{{singleView.experience}}</span>
+</div>
+</li>
+<li>
+<div class="job_dt_1">
+<h6>Category : </h6>
+<span>{{singleView.category}}</span>
+</div>
+</li>
+</ul>
+</div>
+ <button class="apply_job" type="button" >  {{viewthejob singleView._id singleView.appliedCandidates users._id}} </button> 
+</div>
+</div>
+<div class="col-lg-3 col-md-4 mainpage">
+{{!-- <button class="apply_job_rt mtp_30" type="button"><a style="color: white;" href="/apply/{{singleView._id}}">APPLY NOW</a></button> --}}
+<div class="bookmark_rt"><button class="bookmark1 mr-3" onclick="test('{{singleView._id}}')" title="bookmark"><i class="fas fa-heart"></i></button>BOOKMARK</div>
+<ul class="social-links">
+<li><a ><i class="fab fa-facebook-f"></i></a></li>
+<li><a ><i class="fab fa-twitter"></i></a></li>
+<li><a ><i class="fab fa-google-plus-g"></i></a></li>
+<li><a ><i class="fab fa-linkedin-in"></i></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+  <div class="flash">
+  <div class="flash__icon">
+   <i class="far fa-check-circle" style="padding: 10px;"></i>
+  </div>
+  <p class="flash__body">
+    Success!
+  </p>
+</div>
+</main>
+
+<script src="/main/js/scriptmade.js"></script>
+

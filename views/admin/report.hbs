@@ -24,80 +24,103 @@
 
     
    
-
-</head>
-<!-- Page Content -->
-<div id="page-wrapper">
-  <div class="container-fluid">
-    <div class="row bg-title">
-      <div class="col-lg-12">
-        <h4 class="page-title">Order Report</h4>
-        <div class="row">
-
-          <form action="/admin/orderSales" method="POST">
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Report</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ms-auto">
+                                 <li><a href="/admin" class="fw-normal">Dashboard</a></li>
+                            </ol>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            </div>
+            <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    
+                        <div class="row">
+                        <form action="/admin/orderSales" method="POST">
             <label >Find orders report from:</label>
             <input type="date" id="fromDate" onclick="fromClick()" name="fromDate" required />
             <label >TO:</label>
             <input type="date" id="toDate" onclick="toClick()" name="toDate" required />
-
-            <input type="submit"  value="Filter"  />
+            {{!-- <input type="submit" value="filter"> --}}
+            <button type="submit" style="border-radius: 5px; background-color: #c0c9c98f;">filter</button>
           </form>
-        </div>
-      </div>
-      <!-- /.col-lg-12 -->
-    </div>
-    <!-- row -->
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="white-box">
-          <div class="table-responsive">
-            <table class="table" id="myTable">
-              <thead>
-                <tr>
-
-                  <th class="text-center">DATE</th>
-                  <th class="text-center">CUSTOMER</th>
-                  {{! <th class="text-center">DATE</th> }}
-                  <th class="text-center">PRICE</th>
-                  <th class="text-center">PAYMENT_METHOD</th>
-                  <th class="text-center">PRODUCT_DETAILS</th>
-
-                </tr>
-              </thead>
-              <tbody>
-                {{#each orders}}
-                <tr>
-                  <td class="text-center">{{formatDate this.date 'DD-MM-YYYY'}}</td>
-
-                  <td class="text-center">{{this.deliveryDetails.first_name}}
-                    {{this.deliveryDetails.last_name}}</td>
-                  {{!-- <td class="text-center">{{this.date}}</td> --}}
-
-                  <td class="text-center"><i class="fa fa-inr"></i>{{this.totalAmount}}</td>
-
-                  <td class="text-center">{{this.paymentMethod}}</td>
-
-                  <td class="text-center"><a href="/admin/report-product/{{this._id}}">Product Details</a></td>
-
-                </tr>
-                {{/each}}
-              </tbody>
-            </table>
+                    </div>
+        
           </div>
         </div>
-      </div>
+     
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            {{!-- <h3 class="box-title">Basic Table</h3>
+                            <p class="text-muted">Add class <code>.table</code></p> --}}
+                            <div class="table-responsive">
+                                <table class="table text-nowrap" id="dataTable">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Name</th>
+                                            <th class="border-top-0">Plan</th>
+                                            <th class="border-top-0">price</th>
+                                            <th class="border-top-0">Payment Via</th>
+                                            <th class="border-top-0">Validity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                        {{#each report}}
+                                        <tr>
+                                            <td>{{@index}}</td>
+                                            <td>{{this.employer}}</td>
+                                            <td>{{this.price}}</td>
+                                            <td>{{this.paymentMethod}}</td>
+                                            <td>{{this.validity}}</td>
+                                            <td style="color: green;">{{this.status}}</td>
+                                        </tr>
+                                       {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+           
+        </div>
+
     </div>
-  </div>
-  <!-- /.container-fluid -->
-</div>
-
-<!-- /#wrapper -->
-
-
+  
 
 <script>
 $(document).ready(function() {
-    $('#myTable').DataTable( {
+    $('#dataTable').DataTable( {
         dom: 'Bfrtip',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'

@@ -1,0 +1,157 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/main/css/stylemade.css">
+
+
+<main class="browse-section" style="padding-top: 0;">
+  <div class="container">
+      {{#if jobs}}
+    <div class="row">
+
+      <div class="col-lg-12 col-md-12 mainpage">
+        <div class="main-tabs">
+          <div class="res-tabs">
+            <div class="mtab-left">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab">Active Jobs</a>
+                </li>
+                {{! <li class="nav-item">
+<a href="#tab-2" class="nav-link" data-toggle="tab">Full Time</a>
+</li>
+<li class="nav-item">
+<a href="#tab-3" class="nav-link" data-toggle="tab">Part Time</a>
+</li> }}
+              </ul>
+            </div>
+            <div class="mtab-right">
+              <ul>
+                {{! <li class="sort-list-dt">
+<div class="ui selection dropdown skills-search sort-dropdown">
+<input name="gender" type="hidden" value="default">
+<i class="dropdown icon d-icon"></i>
+<div class="text">Sort By</div>
+<div class="menu">
+<div class="item" data-value="0">Relevance</div>
+<div class="item" data-value="1">New</div>
+<div class="item" data-value="2">Old</div>
+<div class="item" data-value="3">Last 15 Days</div>
+</div>
+</div>
+</li> }}
+                <li class="grid-list">
+                  <button class="gl-btn" id="grid"><i
+                      class="fas fa-th-large"
+                    ></i></button>
+                  <button class="gl-btn" id="list"><i
+                      class="fas fa-th-list"
+                    ></i></button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-1">
+              <div class="row view-group" id="products">
+                  
+                {{#each jobs}}
+                  <div class="lg-item col-lg-6 col-xs-6 grid-group-item1">
+                    <div class="job-item mt-30">
+                      <div class="job-top-dt">
+                        <div class="job-left-dt">
+                          <img
+                            src="/profile-photos/{{this.empId}}.jpg"
+                            alt=""
+                          />
+                          <div class="job-ut-dts">
+                            <a href="/job-singleview/{{this._id}}"><h4>{{this.jobname}}</h4></a>
+                            <span><i class="fas fa-map-marker-alt"></i>
+                              {{this.location}}</span>
+                          </div>
+                        </div>
+                        <div class="job-right-dt">
+                          <div
+                            class="job-price"
+                          ><i
+                            class="fas fa-rupee-sign"
+                          ></i>{{this.min_salary}}-  <i
+                            class="fas fa-rupee-sign"
+                          ></i>{{this.max_salary}}</div>
+                          <div class="job-fp">{{this.availability}}</div>
+                        </div>
+                      </div>
+                      <div class="job-des-dt">
+                        <h4>{{this.jobtype}}</h4>
+                        <p>{{this.discription}}</p>
+                        <div class="job-skills">
+                          {{#each_upto this.skills 5}}
+                            <a class="more-skills">{{this}}</a>
+                          {{/each_upto}}
+
+                        </div>
+                      </div>
+                      <div class="job-buttons">
+                        <ul class="link-btn">
+                          <li>{{button this._id this.appliedCandidates ../users._id}}</li>
+                          <li><a
+                              href="/job-singleview/{{this._id}}"
+                              class="link-j1"
+                              title="View Job"
+                            >View Job</a></li>
+                          <li class="bkd-pm"><button
+                              class="bookmark1"
+                              title="bookmark"
+                              onclick="test('{{this._id}}')"
+                            ><i class="fas fa-heart"></i></button></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                {{/each}}
+                
+                {{! <div class="col-12">
+<div class="main-p-pagination">
+<nav aria-label="Page navigation example">
+<ul class="pagination">
+<li class="page-item">
+<a class="page-link" href="#" aria-label="Previous">
+PREV
+</a>
+</li>
+<li class="page-item"><a class="page-link active" href="#">1</a></li>
+<li class="page-item"><a class="page-link" href="#">2</a></li>
+<li class="page-item"><a class="page-link" href="#">...</a></li>
+<li class="page-item"><a class="page-link" href="#">24</a></li>
+<li class="page-item">
+<a class="page-link" href="#" aria-label="Next">
+NEXT
+</a>
+</li>
+</ul>
+</nav>
+</div>
+</div> }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{else}}
+                <div class="row" style="padding-top: 5em;">
+                    <div class="col-12"  style="display: flex; justify-content: center; ">
+                <h1>No Jobs Found</h1>
+                </div>
+                </div>
+                {{/if}}
+  </div>
+  <div class="flash">
+  <div class="flash__icon">
+   <i class="far fa-check-circle" style="padding: 10px;"></i>
+  </div>
+  <p class="flash__body">
+    Success!
+  </p>
+</div>
+</main>
+
+<script src="/main/js/scriptmade.js"></script>

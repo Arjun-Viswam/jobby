@@ -1,0 +1,118 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/main/css/stylemade.css">
+
+
+<main class="browse-section" style="padding-top: 0;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 mainpage">
+          {{#if userSearch}}
+        <div class="main-tabs">
+          <div class="res-tabs">
+            <div class="mtab-left">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-toggle="tab">Active Jobs</a>
+                </li>
+              </ul>
+            </div>
+            <div class="mtab-right">
+              <ul>
+
+                <li class="grid-list">
+                  <button class="gl-btn" id="grid"><i
+                      class="fas fa-th-large"
+                    ></i></button>
+                  <button class="gl-btn" id="list"><i
+                      class="fas fa-th-list"
+                    ></i></button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-1">
+              <div class="row view-group" id="products">
+                {{#each userSearch}}
+                  <div class="lg-item col-lg-6 col-xs-6 grid-group-item1">
+                    <div class="job-item mt-30">
+                      <div class="job-top-dt">
+                        <div class="job-left-dt">
+                          <img
+                            src="/profile-photos/{{this.empId}}.jpg"
+                            alt=""
+                          />
+                          <div class="job-ut-dts">
+                            <a href="/job-singleview/{{this._id}}"><h4>{{this.jobname}}</h4></a>
+                            <span><i class="fas fa-map-marker-alt"></i>
+                              {{this.location}}</span>
+                          </div>
+                        </div>
+                        <div class="job-right-dt">
+                          <div
+                            class="job-price"
+                          ><i
+                            class="fas fa-rupee-sign"
+                          ></i>{{this.min_salary}}-  <i
+                            class="fas fa-rupee-sign"
+                          ></i>{{this.max_salary}}</div>
+                          <div class="job-fp">{{this.availability}}</div>
+                        </div>
+                      </div>
+                      <div class="job-des-dt">
+                        <h4>{{this.jobtype}}</h4>
+                        <p>{{this.discription}}</p>
+                        <div class="job-skills">
+                          {{#each_upto this.skills 5}}
+                            <a class="more-skills">{{this}}</a>
+                          {{/each_upto}}
+
+                        </div>
+                      </div>
+                      <div class="job-buttons">
+                        <ul class="link-btn">
+                          <li><a
+                              href="/apply/{{this._id}}"
+                              class="link-j1"
+                              title="Apply Now"
+                            >APPLY NOW</a></li>
+                          <li><a
+                              href="/job-singleview/{{this._id}}"
+                              class="link-j1"
+                              title="View Job"
+                            >View Job</a></li>
+                          <li class="bkd-pm"><button
+                              class="bookmark1"
+                              title="bookmark"
+                              onclick="test('{{this._id}}')"
+                            ><i class="fas fa-heart"></i></button></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+        </div>
+        {{else}}
+               <div id="collapse4" class="collapse show">
+               <div class="card-body" style="width: 100%; display: flex; justify-content: center; ">
+               <p class="cmpny_saved">No Data Found</p>
+               </div>
+               </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="flash">
+  <div class="flash__icon">
+   <i class="far fa-check-circle" style="padding: 10px;"></i>
+  </div>
+  <p class="flash__body">
+    Success!
+  </p>
+</div>
+</main>
+
+<script src="/main/js/scriptmade.js"></script>

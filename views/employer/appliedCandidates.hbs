@@ -1,0 +1,148 @@
+ {{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="/main/css/style.css">
+
+<div class="account_tabs">
+<ul class="nav nav-tabs">
+<li class="nav-item">
+<a class="nav-link" href="/employer/dashboard">Dashboard</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/employer/emp-profile">Profile</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/employer/postjob">Post Job</a>
+</li>
+<li class="nav-item">
+<a class="nav-link active" href="/employer/postedjob">Posted Jobs</a>
+</li>
+{{!-- <li class="nav-item">
+<a class="nav-link" href="my_freelancer_messages.html">Messages</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_bookmarks.html">Bookmarks</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_jobs.html">Jobs</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_bids.html">Bids</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_reviews.html">Reviews</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_payments.html">Payment</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="my_freelancer_setting.html"><i class="fas fa-cog"></i></a>
+</li>--}}
+</ul> 
+</div>
+{{#if candidates}}
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Applied Candidates</h4>
+</div>
+<div class="job_bid_body">
+<ul class="all_applied_jobs jobs_bookmarks">
+{{#each candidates}}
+<li>
+<div class="applied_candidates_item">
+<div class="applied_candidates_dt">
+<div class="candi_img">
+<img src="/profile-photos/{{this.userId}}.jpg" alt="">
+</div>
+<div class="candi_dt">
+<a href="/employer/candidateProfile/{{this.userId}}">{{this.firstname}} {{this.lastname}}</a>
+<div class="candi_cate">{{this.qualification}}</div>
+<div class="view_chart_body">
+<div class="job-skills">
+    {{#each skills}}
+<a class="more-skills">{{this}}</a>
+{{/each}}
+</div>
+</div>
+</div>
+</div>
+<div class="btn_link24">
+<a id="link" href="/resume/{{this.userId}}.pdf" download><button class="apled_btn50">Download CV</button></a>
+<a href="/employer/message/{{this.userId}}"><button class="apled_btn70" onclick="storeDetails()" >Message</button></a>
+<a href="/employer/machinetest/{{this.userId}}"><button class="apled_btn70" >Machine Test</button></a>
+<a href="/employer/answerkey/{{this.userId}}/{{this.jobId}}"><button class="apled_btn70" >Answer key</button></a>
+
+ <input id="from" type="text" value="{{../employers._id}}" hidden/>
+        <input id="to" type="text" value="{{this.userId}}"  hidden/>
+ <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Sent Notification</h4>
+          </div>
+          <div class="modal-body">
+            <form action="/employer/notification" method="POST" id="usrform">
+             <input type="text" id="userId" name="userId" value="{{this.userId}}" hidden>
+             <input type="text" id="jobId" name="jobId" value="{{this.jobId}}" hidden>
+             <input type="text" id="companyId" name="companyId" value="{{../employers._id}}" hidden> 
+             <input type="text" id="companyname" name="companyname" value="{{../employers.companyname}}" hidden> 
+
+            <br>
+            <textarea rows="4" cols="50" id="message" name="message" form="usrform">
+           </textarea>
+           
+          </div>
+          <div class="modal-footer">
+              <button type="submit" onclick="sendMessage()" class="apled_btn50">Sent</button>
+             
+            {{!-- <button type="button"  class="apled_btn50" data-dismiss="modal">Close</button> --}}
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<a href="#" class="delete_icon1"><i class="far fa-trash-alt"></i></a>
+</div>
+</div>
+</li>
+{{/each}}
+
+</ul>
+</div>
+</div>
+{{else}}
+<h1>&nbsp;</h1>
+<h2>No Candidates Applied yet</h2>
+{{/if}}
+
+</div>
+</div>
+</div>
+</main>
+
+{{!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
+
+<script>
+  var socket = io('http://localhost:5550')
+  function sendMessage(){
+    socket.emit('messageSent',{
+      "companyname": document.getElementById("companyId").value,
+      "message": document.getElementById("message").value,
+     
+
+    })
+
+  }
+</script> --}}
+
+   
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.4/qs.min.js" integrity="sha256-ijqLssetA1NMNjZ+w1zaUafQQLm4IW5OoM8O+4tatME=" crossorigin="anonymous">
+    </script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/main/js/main.js"></script>

@@ -1,598 +1,408 @@
-<script>
-    window.addEventListener("pageshow", function (event) {
-        var historyTraversal = event.persisted ||
-            (typeof window.performance != "undefined" &&
-                window.performance.navigation.type === 2);
-        if (historyTraversal) {
-            // Handle page restore.
-            window.location.reload();
-        }
-    });
-</script>
-<style>
-    body {
-        color: #fff;
-        background: #f2f4f5;
-    }
 
-    .form-control {
-        height: 41px;
-        background: #f2f2f2;
-        box-shadow: none !important;
-        border: none;
-    }
-
-    .form-control:focus {
-        background: #e2e2e2;
-    }
-
-    .form-control,
-    .btn {
-        border-radius: 5px;
-    }
-
-    .signup-form {
-        width: 820px;
-        margin-top: 10%;
-
-    }
-
-    .signup-form form {
-        color: #999;
-        border-radius: 3px;
-        margin-bottom: 15px;
-        background: #fff;
-        box-shadow: 0px 2px 2px rgba(12, 12, 12, 0.3);
-        padding: 30px;
-    }
-
-    .signup-form h2 {
-        color: #333;
-        font-weight: bold;
-        margin-top: 0;
-    }
-
-    .signup-form hr {
-        margin: 0 -30px 20px;
-    }
-
-    .signup-form .form-group {
-        margin-bottom: 20px;
-    }
-
-    .signup-form input[type="checkbox"] {
-        margin-top: 3px;
-    }
-
-    .signup-form .row div:first-child {
-        padding-right: 10px;
-    }
-
-    .signup-form .row div:last-child {
-        padding-left: 10px;
-    }
-
-    .signup-form a {
-        color: #fff;
-        text-decoration: underline;
-    }
-
-    .signup-form a:hover {
-        text-decoration: none;
-    }
-
-    .signup-form form a {
-        color: #3598dc;
-        text-decoration: none;
-    }
-
-    .signup-form form a:hover {
-        text-decoration: underline;
-    }
-
-    .signup-form .hint-text {
-        padding-bottom: 15px;
-        text-align: center;
-    }
-
-    .sg {
-        background-color: #e6e6e6;
-    }
-
-
-    body {
-        color: #797979;
-        background: #f1f2f7;
-        font-family: 'Open Sans', sans-serif;
-        padding: 0px !important;
-        margin: 0px !important;
-        font-size: 13px;
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-font-smoothing: antialiased;
-    }
-
-    .profile-nav,
-    .profile-info {
-        margin-top: 30px;
-    }
-
-    .profile-nav .user-heading {
-        background: #fbc02d;
-        color: #fff;
-        border-radius: 4px 4px 0 0;
-        -webkit-border-radius: 4px 4px 0 0;
-        padding: 3px;
-        text-align: center;
-    }
-
-    .profile-nav .user-heading.round a {
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        border: 10px solid rgba(255, 255, 255, 0.3);
-        display: inline-block;
-    }
-
-    .profile-nav .user-heading a img {
-        width: 100%;
-        min-width: 140px
-        height: auto;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-    }
-    @media (max-width:770px){
-     .profile-nav .user-heading a img {
-        width: 180px;
-        height: auto;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-     }
-     .picdiv{
-         max-height: 20em;
-     }
-    }
-    @media (min-width:770px){
-        .picdiv{
-            display: flex;
-        }
-        .profile-nav{
-            align-self: center;
-        }
-    }
-    .profile-nav .user-heading h1 {
-        font-size: 22px;
-        font-weight: 300;
-        margin-bottom: 5px;
-    }
-
-    .profile-nav .user-heading p {
-        font-size: 12px;
-    }
-
-    .profile-nav ul {
-        margin-top: 1px;
-    }
-
-    .profile-nav ul>li {
-        border-bottom: 1px solid #ebeae6;
-        margin-top: 0;
-        line-height: 30px;
-    }
-
-    .profile-nav ul>li:last-child {
-        border-bottom: none;
-    }
-
-    .profile-nav ul>li>a {
-        border-radius: 0;
-        -webkit-border-radius: 0;
-        color: #89817f;
-        border-left: 5px solid #fff;
-    }
-
-    .profile-nav ul>li>a:hover,
-    .profile-nav ul>li>a:focus,
-    .profile-nav ul li.active a {
-        background: #f8f7f5 !important;
-        border-left: 5px solid #fbc02d;
-        color: #89817f !important;
-    }
-
-    .profile-nav ul>li:last-child>a:last-child {
-        border-radius: 0 0 4px 4px;
-        -webkit-border-radius: 0 0 4px 4px;
-    }
-
-    .profile-nav ul>li>a>i {
-        font-size: 16px;
-        padding-right: 10px;
-        color: #bcb3aa;
-    }
-
-    .r-activity {
-        margin: 6px 0 0;
-        font-size: 12px;
-    }
-
-
-    .p-text-area,
-    .p-text-area:focus {
-        border: none;
-        font-weight: 300;
-        box-shadow: none;
-        color: #c3c3c3;
-        font-size: 16px;
-    }
-
-    .profile-info .panel-footer {
-        background-color: #f8f7f5;
-        border-top: 1px solid #e7ebee;
-    }
-
-    .profile-info .panel-footer ul li a {
-        color: #7a7a7a;
-    }
-
-    .bio-graph-heading {
-        background: #fbc02d;
-        color: #fff;
-        text-align: center;
-        font-style: italic;
-        padding: 40px 110px;
-        border-radius: 4px 4px 0 0;
-        -webkit-border-radius: 4px 4px 0 0;
-        font-size: 16px;
-        font-weight: 300;
-    }
-
-    .bio-graph-info {
-        color: #89817e;
-    }
-
-    .bio-graph-info h1 {
-        font-size: 22px;
-        font-weight: 300;
-        margin: 0 0 20px;
-    }
-
-    .bio-row {
-        width: 50%;
-        float: left;
-        margin-bottom: 10px;
-        padding: 0 15px;
-    }
-
-    .bio-row p span {
-        width: 117px;
-        display: inline-block;
-    }
-
-    .bio-chart,
-    .bio-desk {
-        float: left;
-    }
-
-    .bio-chart {
-        width: 40%;
-    }
-
-    .bio-desk {
-        width: 60%;
-    }
-
-    .bio-desk h4 {
-        font-size: 15px;
-        font-weight: 400;
-    }
-
-    .bio-desk h4.terques {
-        color: #4CC5CD;
-    }
-
-    .bio-desk h4.red {
-        color: #e26b7f;
-    }
-
-    .bio-desk h4.green {
-        color: #97be4b;
-    }
-
-    .bio-desk h4.purple {
-        color: #caa3da;
-    }
-
-    .file-pos {
-        margin: 6px 0 10px 0;
-    }
-
-    .profile-activity h5 {
-        font-weight: 300;
-        margin-top: 0;
-        color: #c3c3c3;
-    }
-
-    .summary-head {
-        background: #ee7272;
-        color: #fff;
-        text-align: center;
-        border-bottom: 1px solid #ee7272;
-    }
-
-    .summary-head h4 {
-        font-weight: 300;
-        text-transform: uppercase;
-        margin-bottom: 5px;
-    }
-
-    .summary-head p {
-        color: rgba(255, 255, 255, 0.6);
-    }
-
-    ul.summary-list {
-        display: inline-block;
-        padding-left: 0;
-        width: 100%;
-        margin-bottom: 0;
-    }
-
-    ul.summary-list>li {
-        display: inline-block;
-        width: 19.5%;
-        text-align: center;
-    }
-
-    ul.summary-list>li>a>i {
-        display: block;
-        font-size: 18px;
-        padding-bottom: 5px;
-    }
-
-    ul.summary-list>li>a {
-        padding: 10px 0;
-        display: inline-block;
-        color: #818181;
-    }
-
-    ul.summary-list>li {
-        border-right: 1px solid #eaeaea;
-    }
-
-    ul.summary-list>li:last-child {
-        border-right: none;
-    }
-
-    .activity {
-        width: 100%;
-        float: left;
-        margin-bottom: 10px;
-    }
-
-    .activity.alt {
-        width: 100%;
-        float: right;
-        margin-bottom: 10px;
-    }
-
-    .activity span {
-        float: left;
-    }
-
-    .activity.alt span {
-        float: right;
-    }
-
-    .activity span,
-    .activity.alt span {
-        width: 45px;
-        height: 45px;
-        line-height: 45px;
-        border-radius: 50%;
-        -webkit-border-radius: 50%;
-        background: #eee;
-        text-align: center;
-        color: #fff;
-        font-size: 16px;
-    }
-
-    .activity.terques span {
-        background: #8dd7d6;
-    }
-
-    .activity.terques h4 {
-        color: #8dd7d6;
-    }
-
-    .activity.purple span {
-        background: #b984dc;
-    }
-
-    .activity.purple h4 {
-        color: #b984dc;
-    }
-
-    .activity.blue span {
-        background: #90b4e6;
-    }
-
-    .activity.blue h4 {
-        color: #90b4e6;
-    }
-
-    .activity.green span {
-        background: #aec785;
-    }
-
-    .activity.green h4 {
-        color: #aec785;
-    }
-
-    .activity h4 {
-        margin-top: 0;
-        font-size: 16px;
-    }
-
-    .activity p {
-        margin-bottom: 0;
-        font-size: 13px;
-    }
-
-    .activity .activity-desk i,
-    .activity.alt .activity-desk i {
-        float: left;
-        font-size: 18px;
-        margin-right: 10px;
-        color: #bebebe;
-    }
-
-    .activity .activity-desk {
-        margin-left: 70px;
-        position: relative;
-    }
-
-    .activity.alt .activity-desk {
-        margin-right: 70px;
-        position: relative;
-    }
-
-    .activity.alt .activity-desk .panel {
-        float: right;
-        position: relative;
-    }
-
-    .activity-desk .panel {
-        background: #F4F4F4;
-        display: inline-block;
-    }
-
-
-    .activity .activity-desk .arrow {
-        border-right: 8px solid #F4F4F4 !important;
-    }
-
-    .activity .activity-desk .arrow {
-        border-bottom: 8px solid transparent;
-        border-top: 8px solid transparent;
-        display: block;
-        height: 0;
-        left: -7px;
-        position: absolute;
-        top: 13px;
-        width: 0;
-    }
-
-    .activity-desk .arrow-alt {
-        border-left: 8px solid #F4F4F4 !important;
-    }
-
-    .activity-desk .arrow-alt {
-        border-bottom: 8px solid transparent;
-        border-top: 8px solid transparent;
-        display: block;
-        height: 0;
-        right: -7px;
-        position: absolute;
-        top: 13px;
-        width: 0;
-    }
-
-    .activity-desk .album {
-        display: inline-block;
-        margin-top: 10px;
-    }
-
-    .activity-desk .album a {
-        margin-right: 10px;
-    }
-
-    .activity-desk .album a:last-child {
-        margin-right: 0px;
-    }
-
-    #imageUpload {
-        display: none;
-    }
-
-    #profileImage {
-        cursor: pointer;
-    }
-    .responsive {
-  width: 100%;
-  height: auto;
-    }
-</style>
-
-{{!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"> --}}
-{{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> --}}
-
-<form action="/update-profile/{{profile._id}}" method="POST" enctype="multipart/form-data">
-    <div class=" container-fluid">
-        <div class="row">
-            <div class="picdiv col-md-3" style="height: 27em;">
-                    <div class="profile-nav">
-                        <div class="user-heading round">
-                            <a>
-                                <img id="profileImage" class="responsive" src="/profile-photos/{{profile._id}}.jpg">
-                                <input id="imageUpload" class="repsonsive" type="file" name="image" placeholder="Photo"
-                                    onchange="viewImage(event)">
-                            </a>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-                <div class="signup-fodrm">
-
-
-                    <h2 style="color: #f39f04;">Edit-profile</h2>
-                    <hr>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm"><input style="width: 100%;" type="text" class="form-control" name="first_name"
-                                    placeholder="First Name" value="{{profile.first_name}}"></div><h6>&nbsp;</h6>
-                            <div class="col-sm"><input type="text" class="form-control" name="last_name"
-                                    placeholder="Last Name" value="{{profile.last_name}}"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm"><input type="text" class="form-control" name="mobile1" placeholder="mobile"
-                                    value="{{profile.mobile1}}"></div><h6>&nbsp;</h6>
-                            <div class="col-sm"><input type="text" class="form-control" name="mobile2"
-                                    placeholder="mobile(alternative)" value="{{profile.mobile2}}"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm"><input type="text" class="form-control" name="email" placeholder="Email"
-                                    value="{{profile.email}}"></div><h6>&nbsp;</h6>
-                            <div class="col-sm"><input type="text" class="form-control" name="district"
-                                    placeholder="District" value="{{profile.district}}"></div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm"><input type="text" class="form-control" name="state" placeholder="State"
-                                    value="{{profile.state}}"></div><h6>&nbsp;</h6>
-                            <div class="col-sm"><input type="text" class="form-control" name="country"
-                                    placeholder="Country" value="{{profile.country}}"></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <button type="submit" class="btn sg btn-lg text-dark">Save</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
+<link href="/main/css/stylemade.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script> 
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+
+
+<main class="browse-section">
+<div class="container">
+<div class="row">
+<div class="col-md-8">
+<div class="main-heading bids_heading">
+<h2>Create Profile</h2>
+<div class="line-shape1">
+<img src="images/line.svg" alt="">
+</div>
+</div>
+<div class="post501">
+<form method="POST" action="/edit-profile/{{users._id}}" id="userProfile" enctype="multipart/form-data">
+<div class="row">
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Profile Avtar*</label>
+<div class="avtar_dp">
+    {{#if users.status}}
+<img id="imgview1" src="/profile-photos/{{users._id}}.jpg" alt="">
+{{else}}
+<img id="imgview2" src="/images/profile_dp.jpg" alt="">
+{{/if}}
+</div>
+
+<div class="image-upload-wrap1 ml5">
+<input class="file-upload-input1" type="file" name="image2" id="file2" class="form-control" onchange="return fileValidation2()">
+<div class="drag-text1">
+Upload Files
+</div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">First Name*</label>
+<input type="text" class="job-input" name="firstname" value="{{users.firstname}}" placeholder="Your First Name">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Last Name*</label>
+<input type="text" class="job-input" name="lastname" value="{{users.lastname}}" placeholder="Your Last Name">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Email Address*</label>
+<input type="email" class="job-input" name="email" value="{{users.email}}" placeholder="Enter Your Email Address">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Birthday*</label>
+<div class="smm_input">
+<input type="date" class="job-input" name="birthdate"  value="{{users.birthdate}}" placeholder="Enter your Birthdate">
+</div>
+</div>
+</div>
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Description*</label>
+<div class="description_dtu">
+
+<input class="textarea70" name="discription" placeholder="Describe your experience, skills, etc. In complete details. " value="{{users.discription}}">
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Contact Number*</label>
+<div class="smm_input">
+<input type="tel" class="job-input" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="phone" name="mobile" value="{{users.mobile}}" placeholder="Enter Your Contact Number">
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Tagline*</label>
+<input type="text" class="job-input" name="tagline" value="{{users.tagline}}" placeholder="Wordpress Developer">
+</div>
+</div>
+
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Skills*</label>
+<input type="text" class="job-input" name="skills" placeholder="Enter the skills you prefer eg: Nodejs,python" value="{{users.skills}}">
+</div>
+</div>
+{{!-- <div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Skills*</label>
+<div class="ui fluid multiple search selection dropdown skills-search">
+<input name="tags" type="hidden" value="">
+<i class="dropdown icon"></i>
+<input class="search" autocomplete="off" tabindex="0"><span class="sizer" style=""></span><div class="default text">Skills</div>
+<div class="menu transition hidden" tabindex="-1">
+<div class="item selected" data-value="angular">Angular</div>
+<div class="item" data-value="css">CSS</div>
+<div class="item" data-value="design">Graphic Design</div>
+<div class="item" data-value="ember">Ember</div>
+<div class="item" data-value="html">HTML</div>
+<div class="item" data-value="ia">Information Architecture</div>
+<div class="item" data-value="javascript">Javascript</div>
+<div class="item" data-value="mech">Mechanical Engineering</div>
+<div class="item" data-value="meteor">Meteor</div>
+<div class="item" data-value="node">NodeJS</div>
+<div class="item" data-value="plumbing">Plumbing</div>
+<div class="item" data-value="python">Python</div>
+<div class="item" data-value="rails">Rails</div>
+<div class="item" data-value="react">React</div>
+<div class="item" data-value="repair">Kitchen Repair</div>
+<div class="item" data-value="ruby">Ruby</div>
+<div class="item" data-value="ui">UI Design</div>
+<div class="item" data-value="ux">User Experience</div>
+</div>
+</div>
+</div>
+</div> --}}
+{{!-- <div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Availability*</label>
+<div class="ui fluid search selection dropdown skills-search">
+<input name="tags" type="hidden" value="">
+<i class="dropdown icon"></i>
+<input class="search" autocomplete="off" tabindex="0">
+<span class="sizer" style=""></span>
+<div class="default text">I’m not sure</div>
+<div class="menu transition hidden" tabindex="-1">
+<div class="item selected" data-value="Availability1">Full Time</div>
+<div class="item selected" data-value="Availability2">Part Time</div>
+<div class="item selected" data-value="Availability3">Not Available</div>
+</div>
+</div>
+</div>
+</div> --}}
+
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Availability*</label>
+<div class="ui fluid search selection">
+<select  class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"  name="availability" id="availability">
+<option class="item" id="Full Time">Full Time</option>
+<option class="item" id="Part Time">Part Time</option>
+<option class="item" id="Not Available">Not Available</option>
+</select>
+</div>
+</div>
+</div>
+
+
+{{!-- <div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Experience Level*</label>
+<div class="ui fluid search selection dropdown skills-search">
+<input name="tags" type="hidden" value="">
+<i class="dropdown icon"></i>
+<input class="search" autocomplete="off" tabindex="0">
+<span class="sizer" style=""></span>
+<div class="default text">Select Experience Level</div>
+<div class="menu transition hidden" tabindex="-1">
+<div class="item" data-value="level1">level 01</div>
+<div class="item" data-value="level2">level 02</div>
+<div class="item" data-value="level3">level 03</div> 
+<div class="item" data-value="level4">level 04</div>
+<div class="item" data-value="level5">level 05</div>
+<div class="item" data-value="level6">level 06</div>
+<div class="item" data-value="level7">level 07</div>
+<div class="item" data-value="level8">level 08</div>
+<div class="item" data-value="level9">level 09</div>
+<div class="item" data-value="level10">level 10</div>
+</div>
+</div>
+</div>
+</div> --}}
+
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Experience Level*</label>
+<div class="ui fluid search selection ">
+<select  class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"  name="experience" id="experience">
+<option class="item" id="None">None</option>
+<option class="item" id="level 01">level 01</option>
+<option class="item" id="level 02">level 02</option>
+<option class="item" id="level 03">level 03</option> 
+<option class="item" id="level 04">level 04</option>
+<option class="item" id="level 05">level 05</option>
+<option class="item" id="level 06">level 06</option>
+<option class="item" id="level 07">level 07</option>
+<option class="item" id="level 08">level 08</option>
+<option class="item" id="level 09">level 09</option>
+<option class="item" id="level 10">level 10</option>
+</select>
+</div>
+</div>
+</div>
+
+
+
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Language*</label>
+<input type="text" class="job-input" name="language" placeholder="Enter the language you prefer eg:English,Hindi" value="{{users.language}}">
+</div>
+</div>
+{{!-- <div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Languages*</label>
+<div class="ui fluid search selection dropdown skills-search">
+<input name="tags" type="hidden" value="">
+<i class="dropdown icon"></i>
+<input class="search" autocomplete="off" tabindex="0">
+<span class="sizer" style=""></span>
+<div class="default text">Select Language</div>
+<div class="menu transition hidden" tabindex="-1">
+<div class="item" data-value="lang1">English</div>
+<div class="item" data-value="lang2">Hindi</div>
+<div class="item" data-value="lang3">Punjabi</div>
+<div class="item" data-value="lang4">Bengali</div>
+<div class="item" data-value="lang5">Portuguese</div>
+<div class="item" data-value="lang6">Russian</div>
+<div class="item" data-value="lang7">Japanese</div>
+<div class="item" data-value="lang8">Telugu</div>
+<div class="item" data-value="lang9">French</div>
+<div class="item" data-value="lang10">German</div>
+</div>
+</div>
+</div>
+</div> --}}
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Location*</label>
+<div class="smm_input">
+<input type="text" class="job-input" name="location" value="{{users.location}}" placeholder="Type Address">
+</div>
+</div>
+</div>
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Websites*</label>
+<div class="smm_input5">
+<input type="text" class="website-input" name="link1" value="{{users.link1}}" placeholder="http://entercompanysite.com/">
+<div class="loc_icon5"><i class="fas fa-globe"></i></div>
+</div>
+<div class="smm_input5">
+<input type="text" class="website-input" name="link2" value="{{users.link2}}" placeholder="http://enterblogsite.com/">
+<div class="loc_icon5"><i class="far fa-edit"></i></div>
+</div>
+<div class="smm_input5">
+<input type="text" class="website-input" name="link3" value="{{users.link3}}" placeholder="http://enterportfoliosite.com/">
+<div class="loc_icon5"><i class="fas fa-columns"></i></div>
+</div>
+</div>
+</div>
+<input hidden id="userId" value="{{users._id}}">
+<div class="col-lg-12">
+<button class="post_jp_btn" type="submit">Finish Profile</button>
+</div>
+</div>
 </form>
-<script>
-    $("#profileImage").click(function (e) {
-        $("#imageUpload").click();
-    });
-    function viewImage(event) {
-        document.getElementById('profileImage').src = URL.createObjectURL(event.target.files[0])
-    }
+</div>
+</div>
+<div class="col-md-4">
+<div class="main-heading bids_heading pjfaq80">
+<h2>FAQ</h2>
+</div>
+<div class="jp_faq">
+<div class="jp_faq_item">
+<h4>01. Complete your profile</h4>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum mi at erat egestas, nec porta diam pharetra.</p>
+</div>
+<div class="jp_faq_item">
+<h4>02. Upload a profile picture</h4>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum mi at erat egestas, nec porta diam pharetra.</p>
+</div>
+<div class="jp_faq_item">
+<h4>03. Be honest about availability</h4>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum mi at erat egestas, nec porta diam pharetra.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content"  style="min-width: 300px;">
+    <button id="close" class="close"><span style="margin-left: 93%;">&times;</span></button>
+    <div   id="image-box"></div>
+<button class="main_lg_btn" style="display: none;" id="crop-btn">Crop</button>
+</div>
+  </div>
+
+
+ <script>
+   window.addEventListener('load', (event) => {
+   var userId = document.getElementById('userId')
+  $.ajax({ 
+        url: "/sasi",
+        data : {
+                 user : userId.value 
+               },
+        method : 'post',
+        success: function(users){
+           document.getElementById(users.experience).setAttribute('selected','selected')
+           document.getElementById(users.availability).setAttribute('selected','selected')
+        }
+});
+});
+ 
+ </script>
+
+<script src="/main/js/user-profile.js"></script>
+ 
+ <script>
+   
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("file2");
+
+// Get the <span> element that closes the modal
+var span = document.getElementById("close");
+var span2 = document.getElementById("crop-btn")
+
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+span2.onclick = function() {
+  modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
+ </script>
+
+ <script>
+
+$(document).ready(()=>{
+    
+  $("#userProfile").validate({ 
+
+      rules: {
+        firstname: {
+          required: true,
+          minlength: 4,
+        },
+        lastname: {
+          required: true,
+          minlength: 4,
+        },
+        email:{
+          required:true,
+          email:true,
+        },
+        mobile:{
+          required:true,
+          minlength:10,
+          maxlength:10,
+          number:true
+        },
+        birthdate:{
+          required:true,
+        },
+        discription:{
+          required:true,
+          minlength:30,
+        },
+        skills: {
+          required: true,
+        },
+        language:{
+          required:true,
+        },
+        location:{
+          required:true,
+        },
+        tagline:{
+          required:true,
+        }   
+      }
+    })
+     })
 </script>

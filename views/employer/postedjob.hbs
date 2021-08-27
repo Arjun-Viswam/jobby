@@ -1,0 +1,382 @@
+{{!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+
+
+<div class="account_tabs">
+<ul class="nav nav-tabs">
+<li class="nav-item">
+<a class="nav-link" href="/employer/dashboard">Dashboard</a>
+</li>
+<li class="nav-item">
+<a class="nav-link " href="/employer/emp-profile">Profile</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="/employer/postjob">Post Job</a>
+</li>
+<li class="nav-item">
+<a class="nav-link active" href="/employer/postedjob">Posted Job</a>
+</li>
+</ul>
+</div>
+<div class="jobs_manage">
+<div class="row">
+<div class="col-lg-3">
+<div class="jobs_tabs">
+<ul class="nav job_nav nav-tabs" id="myTab" role="tablist">
+<li class="nav-item">
+<a class="nav-link active" href="#manage_jobs" id="manage-job-tab" data-toggle="tab">Manage Jobs</a>
+</li>
+
+<li class="nav-item job_nav_item">
+{{!-- <a class="nav-link" href="#applied_candidates" id="applied-candidate-tab" data-toggle="tab">Applied Candidates</a> --}}
+</li>
+<li class="nav-item job_nav_item">
+<a class="nav-link" href="#post_job" id="post-job-tab" data-toggle="tab">Post a Job</a>
+</li>
+</ul>
+</div>
+</div>
+<div class="col-lg-9">
+<div class="tab-content" id="myTabContent">
+<div class="tab-pane fade show active" id="manage_jobs" role="tabpanel">
+    {{#if jobs}}
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Manage Jobs</h4>
+</div>
+<div class="job_bid_body">
+<ul class="all_applied_jobs jobs_bookmarks">
+    {{#each jobs}}
+<li>
+<div class="applied_item">
+<a href="#">{{this.jobname}}</a>
+{{!-- <span class="badge_alrt">Pending Approval</span> --}}
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="far fa-clock"></i>Posted on : {{this.Date}}</div></li>
+<li><div class="vw1254">salary : {{this.min_salary}} - {{this.max_salary}}</div></li>
+<li><div class="vw1254">Availability : {{this.availability}} </div></li>
+{{!-- <input id="CandidateId" value="{{this._id}}" hidden> --}}
+</ul>
+<div class="btn_link23">
+
+{{statuscheck this.status this._id this.applicant}}
+<a href="/employer/delete-postedjob/{{this._id}}" onclick="return confirm('confirm delete this job for {{this.jobname}}')" class="delete_icon1"><i class="far fa-trash-alt"></i></a>
+
+</div>
+</div>
+</li>
+{{/each}}
+</ul>
+</div>
+</div>
+{{else}}
+<h1>&nbsp;</h1>
+<h2>No jobs posted yet</h2>
+{{/if}}
+</div>
+{{!-- <div class="tab-pane fade" id="applied_jobs">
+ <div class="view_chart">
+<div class="view_chart_header">
+<h4>Applied Jobs</h4>
+</div>
+<div class="job_bid_body">
+<ul class="all_applied_jobs jobs_bookmarks">
+<li>
+<div class="applied_item">
+<a href="#">Wordpress Developer</a>
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
+<li><div class="vw1254"><i class="fas fa-briefcase"></i>Full Time</div></li>
+<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$599 - Manual</div></li>
+<li><div class="vw1254"><i class="far fa-clock"></i>1 day ago</div></li>
+</ul>
+<div class="btn_link23">
+<button class="apled_btn50">Applied</button>
+</div>
+</div>
+</li>
+<li>
+<div class="applied_item">
+<a href="#">Front End Developer</a>
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
+<li><div class="vw1254"><i class="fas fa-briefcase"></i>Part Time</div></li>
+<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$50 / hr</div></li>
+<li><div class="vw1254"><i class="far fa-clock"></i>2 day ago</div></li>
+</ul>
+<div class="btn_link23">
+<button class="apled_btn50">Applied</button>
+</div>
+</div>
+</li>
+<li>
+<div class="applied_item">
+<a href="#">Back End Developer</a>
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>India</div></li>
+<li><div class="vw1254"><i class="fas fa-briefcase"></i>Full Time</div></li>
+<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$1200 - Fixed</div></li>
+<li><div class="vw1254"><i class="far fa-clock"></i>4 day ago</div></li>
+</ul>
+<div class="btn_link23">
+<button class="apled_btn50">Applied</button>
+</div>
+</div>
+</li>
+<li>
+<div class="applied_item">
+<a href="#">Ui / UX Designer</a>
+<ul class="view_dt_job">
+<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
+<li><div class="vw1254"><i class="fas fa-briefcase"></i>Part Time</div></li>
+<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$50 / hr</div></li>
+<li><div class="vw1254"><i class="far fa-clock"></i>2 day ago</div></li>
+</ul>
+<div class="btn_link23">
+<button class="apled_btn50">Applied</button>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div> --}}
+<div class="tab-pane fade" id="applied_candidates">
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Applied Candidates</h4>
+</div>
+<div class="job_bid_body">
+<ul class="all_applied_jobs jobs_bookmarks">
+<li>
+<div class="applied_candidates_item">
+<div class="applied_candidates_dt">
+<div class="candi_img">
+<img src="images/homepage/candidates/img-1.jpg" alt="">
+</div>
+<div class="candi_dt">
+<a href="#">John Doe</a>
+<div class="candi_cate">UX Designer</div>
+<div class="rating_candi">Rating
+<div class="star"> 
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<span>4.9</span>
+</div>
+</div>
+</div>
+</div>
+<div class="btn_link24">
+<button class="apled_btn50">Download CV</button>
+<button class="apled_btn70">Message</button>
+<a href="#" class="delete_icon1"><i class="far fa-trash-alt"></i></a>
+</div>
+</div>
+</li>
+<li>
+<div class="applied_candidates_item">
+<div class="applied_candidates_dt">
+<div class="candi_img">
+<img src="images/homepage/candidates/img-2.jpg" alt="">
+</div>
+<div class="candi_dt">
+<a href="#">Rock William</a>
+<div class="candi_cate">Front End Developer</div>
+<div class="rating_candi">Rating
+<div class="star">
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<i class="fas fa-star"></i>
+<span>4.9</span>
+</div>
+</div>
+</div>
+</div>
+<div class="btn_link24">
+<button class="apled_btn50">Download CV</button>
+<button class="apled_btn70">Message</button>
+<a href="#" class="delete_icon1"><i class="far fa-trash-alt"></i></a>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="tab-pane fade" id="post_job" role="tabpanel">
+<div class="view_chart">
+<div class="view_chart_header">
+<h4>Post a Job</h4>
+</div>
+<div class="post_job_body">
+<form method="POST" action="/employer/postjob/{{employers._id}}" enctype="multipart/form-data">
+<div class="row">
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Job Name*</label>
+<input type="text" class="job-input" name="jobname" placeholder="Job Name Here">
+</div>
+<div class="form-group">
+<label class="label15">Job Description*</label>
+<textarea class="textarea_input" name="discription" placeholder="Type Description"></textarea>
+</div>
+</div>
+<div class="col-lg-12">
+<div class="requires">
+What are the job requirements
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Job Type*</label>
+<div class="ui fluid search selection">
+    <select name="jobtype" style="width: 18em;" id="">
+<option class="item" id="None">None</option>
+<option class="item" id="Marketing Head">Marketing Head</option>
+<option class="item" id="Business Head">Business Head</option>
+<option class="item" id="Business Executive">Business Executive</option>
+<option class="item" id="IT Head">IT Head</option>
+<option class="item" id="Sales Head">Sales Head</option>
+<option class="item" id="Team Lead">Team Lead</option>
+<option class="item" id="Senior Developer">Senior Developer</option>
+<option class="item" id="Junior Developer">Junior Developer</option>
+<option class="item" id="Senior Executive">Senior Executive</option>
+<option class="item" id="Junior Executive">Junior Executive</option>
+<option class="item" id="Operation Head">Operation Head</option>
+<option class="item" id="Security">Security</option>
+<option class="item" id="Electrician">Electrician</option>
+<option class="item" id="Plumber">Plumber</option>
+<option class="item" id="Maid">Maid</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Job Category*</label>
+<div class="ui fluid search selection">
+<select name="category" style="width: 18em;" id="">
+<option class="item" id="None">None</option>
+<option class="item" id="Web,Mobile & Software Dev">Web,Mobile & Software Dev</option>
+<option class="item" id="Data science & Analytics">Data science & Analytics</option>
+<option class="item" id="Admin Support">Admin Support</option>
+<option class="item" id="Design & Creative">Design & Creative</option>
+<option class="item" id="Accounting & Consulting">Accounting & Consulting</option>
+<option class="item" id="Writing">Writing</option>
+<option class="item" id="Legal">Legal</option>
+<option class="item" id="IT & Networking">IT & Networking</option>
+<option class="item" id="Sales & Marketing">Sales & Marketing</option>
+<option class="item" id="Customer Service">Customer Service</option>
+<option class="item" id="Translation">Translation</option>
+<option class="item" id="Engineering & Architecture">Engineering & Architecture</option>
+</select>
+</div>
+</div>
+</div>
+
+
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Availability*</label>
+<div class="ui fluid search selection">
+<select style="width: 18em;" name="availability" id="availability">
+<option class="item" id="Full Time">Full Time</option>
+<option class="item" id="Part Time">Part Time</option>
+<option class="item" id="Not Available">Not Available</option>
+</select>
+</div>
+</div>
+</div>
+
+
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Experience Level*</label>
+<div class="ui fluid search selection ">
+<select style="width: 18em;" name="experience" id="experience">
+<option class="item" id="None">None</option>
+<option class="item" id="level 01">level 01</option>
+<option class="item" id="level 02">level 02</option>
+<option class="item" id="level 03">level 03</option> 
+<option class="item" id="level 04">level 04</option>
+<option class="item" id="level 05">level 05</option>
+<option class="item" id="level 06">level 06</option>
+<option class="item" id="level 07">level 07</option>
+<option class="item" id="level 08">level 08</option>
+<option class="item" id="level 09">level 09</option>
+<option class="item" id="level 10">level 10</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Salary Min*</label>
+<div class="smm_input">
+<input type="text" class="job-input" name="min_salary" placeholder="Min">
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Salary Max*</label>
+<div class="smm_input">
+<input type="text" class="job-input" name="max_salary" placeholder="Max">
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Location*</label>
+<div class="smm_input">
+<input type="text" class="job-input" name="location" placeholder="Type Address">
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+<div class="form-group">
+<label class="label15">Language*</label>
+<input type="text" class="job-input" name="language" placeholder="Enter the language you prefer eg:English,Hindi" value="">
+</div>
+</div>
+<div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Skills*</label>
+<input type="text" class="job-input" name="skills" placeholder="Enter the skills you prefer eg: Nodejs,python" value="">
+</div>
+</div>
+{{!-- <div class="col-lg-12">
+<div class="form-group">
+<label class="label15">Upload Files*</label>
+<div class="image-upload-wrap1">
+<input class="file-upload-input1" id="jobimage" name="image" type="file" >
+<div class="drag-text1">
+Upload Files
+</div>
+</div>
+<p class="upload_dt">Advertisement Image or Company Logo</p>
+</div>
+</div> --}}
+<div class="col-lg-12">
+<button class="post_jp_btn" type="submit">Post a Job</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+

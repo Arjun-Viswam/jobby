@@ -1,0 +1,89 @@
+
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb bg-white">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                        <h4 class="page-title">Employer Manager</h4>
+                    </div>
+                    <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
+                        <div class="d-md-flex">
+                            <ol class="breadcrumb ms-auto">
+                                 <li><a href="/admin" class="fw-normal">Dashboard</a></li>
+                            </ol>
+                            
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            {{!-- <h3 class="box-title">Basic Table</h3>
+                            <p class="text-muted">Add class <code>.table</code></p> --}}
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0">#</th>
+                                            <th class="border-top-0">Name</th>
+                                            <th class="border-top-0">Email</th>
+                                            <th class="border-top-0">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="myTable">
+                                        {{#each companies}}
+                                        <tr>
+                                            <td>{{@index}}</td>
+                                            <td>{{this.companyname}}</td>
+                                            {{#if this.email}}
+                                            <td>{{this.email}}</td>
+                                            {{/if}}
+                                            {{#if this.googleId}}
+                                            <td>Google Id : {{this.googleId}}</td>
+                                            {{/if}}
+                                            {{#if this.githubId}}
+                                            <td>Github Id : {{this.githubId}}</td>
+                                            {{/if}}
+                                            {{#if this.linkedId}}
+                                            <td>LinkedIn Id : {{this.linkedId}}</td>
+                                            {{/if}}
+                                            {{#if this.block}}
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/unblock-company/{{this._id}}" class="fa fa-ban" style="color:darkgreen;" onclick="return confirm('comfirm to unblock this user {{this.companyname}}')"></a></td>                          
+                                            {{else}}
+                                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/admin/block-company/{{this._id}}" class="fa fa-ban" style="color: crimson;" onclick="return confirm('comfirm to block this user {{this.companyname}}')"></a></td>
+                                            {{/if}}
+                                        </tr>
+                                       {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ 
+            </div>
+           
+        </div>
+
+    </div>
+  

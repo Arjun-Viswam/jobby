@@ -1,0 +1,268 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+<link rel="stylesheet" href="/main/css/stylemade.css">
+
+<main class="body-section">
+  <div class="banner-slider" id="bannerHide">
+    <div class="owl-carousel bnnr-owl owl-theme">
+      {{#each companies}}
+        <div class="item">
+          <div class="featured-cities">
+            <a href="/emp-profileview/{{this._id}}">
+              <div class="feature-img" style="position: relative;">
+                <img src="/profile-photos/{{this._id}}.jpg" alt="" />
+                <div class="overly-bg"></div>
+              </div>
+            </a>
+            <a href="/emp-profileview/{{this._id}}">
+              <div class="featured-text">
+                <div class="city-title">{{this.companyname}}</div>
+                <ins>{{this.location}}</ins>
+              </div>
+            </a>
+          </div>
+        </div>
+      {{/each}}
+
+    </div>
+  </div>
+  <div class="achivements" id="achivementsHide">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-12">
+          <div class="achive-text">{{counts.userslen}} Registered Members</div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-12">
+          <div class="achive-text">{{counts.jobslen}} Jobs Found</div>
+        </div>
+        <div class="col-lg-2 col-md-6 col-12">
+          <div class="achive-text">{{counts.employerslen}} Best Companies</div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-12">
+          <ul class="post-buttons">
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="find-lts-jobs">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-12" id="headingHide">
+          <div class="main-heading">
+            <h2>Find Latest Jobs</h2>
+            <span>Your Job for a Future</span>
+            <div class="line-shape1">
+              <img src="images/line.svg" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-12">
+          <div class="lts-jobs-slider">
+            <div class="owl-carousel jobs-owl owl-theme">
+
+              {{#each jobs}}
+                <div class="item">
+                  <div class="job-item">
+                    <div class="job-top-dt">
+                      <div class="job-left-dt">
+                        <img src="/profile-photos/{{this.empId}}.jpg" alt="" />
+                        <div class="job-ut-dts">
+                          <a href="/job-singleview/{{this._id}}"><h4>{{this.jobtype}}</h4></a>
+                          <span><i
+                              class="fas fa-map-marker-alt"
+                            ></i>{{this.location}}</span>
+                        </div>
+                      </div>
+                      <div class="job-right-dt">
+                        <div class="job-price"><i
+                            class="fas fa-rupee-sign"
+                          ></i>{{this.max_salary}}</div>
+                        <div class="job-fp">{{this.availability}}</div>
+                      </div>
+                    </div>
+                    <div class="job-des-dt">
+                      <h4>{{this.jobname}}</h4>
+                      <p>{{this.discription}}</p>
+                      <div class="job-skills">
+                        {{#each_upto this.skills 3}}
+                          <a class="more-skills">{{this}}</a>
+                        {{/each_upto}}
+                      </div>
+                    </div>
+                    <div class="job-buttons">
+                      <ul class="link-btn">
+                        <input class="CheckApplied" id="{{this._id}}" value="{{this._id}}" data-index="{{this._id}}" hidden>
+
+                        <li>
+                          {{!-- <a
+                            href="/apply/{{this._id}}"
+                            class="link-j1"
+                            title="Apply Now"
+                            id="makedisabled"
+                          >APPLY NOW</a> --}}
+                          {{button this._id this.appliedCandidates ../users._id}}
+                          </li>
+                          <li><a
+                            class="link-j1"
+                            title="Apply Now"
+                            id="makeapplied"
+                            hidden
+                          >APPLIED</a></li>
+                        <li><a
+                            href="/job-singleview/{{this._id}}"
+                            class="link-j1"
+                            title="View Job"
+                          >View Job</a></li>
+                        <li class="bkd-pm"><button
+                            class="bookmark1"
+                            title="bookmark"
+                            onclick="test('{{this._id}}')"
+                          ><i class="fas fa-heart"></i></button></li>
+                          
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+            <div class="text-center" id="BrowseHide">
+              <button
+                class="view-links"
+                onclick="window.location.href = '/jobs';"
+              >BROWSE ALL JOBS</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="all-categories" id="categoryHide">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-12">
+          <div class="main-heading">
+            <h2>Choose Category</h2>
+            <span>Find quality talent or agencies</span>
+            <div class="line-shape1">
+              <img src="images/line.svg" alt="" />
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-12">
+          <div class="job-categories mt-30">
+            <div class="row no-gutters">
+              {{#each category}}
+              <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+                <div class="p-category">
+                  <a href="/categoryView/{{this.category}}" title="">
+                    <span>{{this.category}}</span>
+                   {{category this.job}}
+                  </a>
+                </div>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="featured-candidates">
+<div class="container">
+<div class="row">
+<div class="col-md-12 col-12" id="titleHide">
+<div class="main-heading">
+<h2>Featured Companies</h2>
+<span>Discover, Intelligent, Experienced, Professional, Trustworthy & Full Time Companies.</span>
+<div class="line-shape1">
+<img src="/images/line.svg" alt="">
+</div>
+</div>
+</div>
+<div class="col-md-12 col-12">
+<div class="lts-jobs-slider">
+<div class="owl-carousel jobs-owl owl-theme">
+  {{#each companies}}
+<div class="item">
+<div class="job-item">
+<div class="job-top-dt1 text-center">
+<div class="job-center-dt">
+<img src="/profile-photos/{{this._id}}.jpg" alt="">
+<div class="job-urs-dts">
+<a href="#"><h4>{{this.companyname}}</h4></a>
+<span>{{this.field}}</span>
+<div class="avialable">avialable full time</div>
+</div>
+</div>
+</div>
+<div class="rating-location">
+<div class="left-rating">
+<div class="rtitle">Contact</div>
+<div class="star">
+<span>{{this.mobile}}</span>
+</div>
+</div>
+<div class="right-location">
+<div class="text-left">
+<div class="rtitle">Location</div>
+<span><i class="fas fa-map-marker-alt"></i>{{this.location}}</span>
+</div>
+</div>
+</div>
+<div class="job-buttons">
+<ul class="link-btn">
+<li><a href="/emp-profileview/{{this._id}}" class="link-j1" title="View Profile">View Profile</a></li>
+<li><a href="#" class="link-j1" title="Hire Me">Message</a></li>
+<li class="bkd-pm"><button class="bookmark1" onclick="saveCompany('{{this._id}}')" title="bookmark"><i class="fas fa-heart"></i></button></li>
+</ul>
+</div>
+</div>
+</div>
+{{/each}}
+</div>
+<div class="text-center" id="ButtonHide">
+<button class="view-links" onclick="window.location.href = '/companies';">SEE ALL COMPANIES</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div> 
+
+<div class="flash">
+  <div class="flash__icon">
+   <i class="far fa-check-circle" style="padding: 10px;"></i>
+  </div>
+  <p class="flash__body">
+    Success!
+  </p>
+</div>
+</main>
+
+{{! <script>
+   window.addEventListener('load', (event) => {
+   var company = document.getElementById('company')
+  $.ajax({ 
+        url: "/getNumberOfJobs",
+        data : {
+                 companyId : company.value 
+               },
+        method : 'post',
+        success: function(count){
+			console.log(count)
+         console.log(company.value)
+			
+           document.getElementById('sasi').innerHTML=`<span style="position: absolute; top: 20px; left: 10px; color: red;" >${count}</span>`
+
+        }
+});
+});
+ 
+ </script> }}
+
+
+<script src="/main/js/scriptmade.js"></script>
+

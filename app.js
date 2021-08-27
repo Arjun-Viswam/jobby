@@ -25,6 +25,7 @@ const { Strategy } = require("passport");
 const userHelpers = require("./helpers/user-helpers");
 const collection = require("./config/collection");
 const { SafeString } = require("handlebars");
+require('dotenv').config()
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -72,8 +73,8 @@ app.use("/employer", employerRouter);
 passport.use(
   new LinkedInStrategy(
     {
-      clientID: "86g2u9mb7kn0cm",
-      clientSecret: "QI7a3LFTXg98dseU",
+      clientID: process.env.LINKED_IN_ID,
+      clientSecret: process.env.LINKED_IN_SECRET,
       callbackURL: "http://localhost:5550/auth/linkedin/callback",
       scope: ["r_emailaddress", "r_liteprofile"],
     },
@@ -105,8 +106,8 @@ passport.use(
 passport.use(
   new GitHubStrategy(
     {
-      clientID: "604c4d094b78d727e970",
-      clientSecret: "8c9a42a47f6d73df538052bc47976960e1e86164",
+      clientID: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
       callbackURL: "http://localhost:5550/auth/github/callback",
     },
     async function (accessToken, refreshToken, profile, cb) {
@@ -143,8 +144,8 @@ passport.use(
   new GoogleStrategy(
     {
       clientID:
-        "456302544556-05jhh5igsdhcq676i819f6tcaadrbtrr.apps.googleusercontent.com",
-      clientSecret: "tcJQuQY3TOnBZN_Df9LNuMNG",
+       process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
       callbackURL: "http://localhost:5550/auth/google/callback",
     },
     async function (accessToken, refreshToken, profile, cb) {

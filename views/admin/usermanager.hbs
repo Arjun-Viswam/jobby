@@ -53,7 +53,7 @@
                                     <tbody id="myTable">
                                         {{#each users}}
                                         <tr>
-                                            <td>{{@index}}</td>
+                                            <td>{{inc @index}}</td>
                                             <td>{{this.firstname}} {{this.lastname}}</td>
                                             {{#if this.email}}
                                             <td>{{this.email}}</td>

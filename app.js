@@ -259,6 +259,11 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
+
 handlebars.registerHelper("formatDate", function (date, format) {
   if (moment) {
     format = moment[format] || format;

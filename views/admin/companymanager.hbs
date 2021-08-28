@@ -53,7 +53,7 @@
                                     <tbody id="myTable">
                                         {{#each companies}}
                                         <tr>
-                                            <td>{{@index}}</td>
+                                            <td>{{inc @index}}</td>
                                             <td>{{this.companyname}}</td>
                                             {{#if this.email}}
                                             <td>{{this.email}}</td>

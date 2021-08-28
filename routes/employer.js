@@ -200,7 +200,7 @@ router.get('/emp-profile',verifyLogin,async(req,res)=>{
     res.render('employer/emp-profile',{employer:true,employers,skills,language})
 })
 
-router.get('/emp-edit-profile/:id',async(req,res)=>{
+router.get('/emp-edit-profile/:id',verifyLogin,async(req,res)=>{
   let employers = await employerHelpers.getEmployerDetails(req.params.id)
   let skills = await employerHelpers.getSkills(req.params.id)
   res.render('employer/emp-edit-profile',{employer:true,formIn:true,employers,skills})

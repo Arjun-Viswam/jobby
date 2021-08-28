@@ -94,7 +94,8 @@ passport.use(
           db.get()
             .collection(collection.USER_COLLECTION)
             .insertOne(userData)
-            .then((err, user) => {
+            .then((users) => {
+              let user = users.ops[0]
               return done(null, user);
             });
         }
@@ -124,7 +125,9 @@ passport.use(
         db.get()
           .collection(collection.USER_COLLECTION)
           .insertOne(userData)
-          .then((err, user) => {
+          .then((users) => {
+            let user = users.ops[0]
+            let err = null
             return cb(err, user);
           });
       }
@@ -162,8 +165,9 @@ passport.use(
         db.get()
           .collection(collection.USER_COLLECTION)
           .insertOne(userData)
-          .then((err, user) => {
-            return cb(err, user);
+          .then((users) => {
+            let user = users.ops[0]
+            return cb(null, user);
           });
       }
     }

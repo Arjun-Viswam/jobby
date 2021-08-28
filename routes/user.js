@@ -81,6 +81,9 @@ router.get("/signup", (req, res) => {
 router.post('/signup',(req,res)=>{
     let serviceId =  process.env.TWILIO_SERVICE_ID
     userHelpers.checkdata(req.body).then((response)=>{
+      req.session.nomatch = false;
+        req.session.existing = false
+        req.session.mobileExist = false
       if (response.nomatch) {
         req.session = true
         req.session.nomatch = response.nomatch;

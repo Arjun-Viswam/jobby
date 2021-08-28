@@ -28,7 +28,7 @@ module.exports = {
     }else if (userData.password != userData.password2) {
       resolve({ nomatch: true });
     }else{
-      resolve()
+      resolve({status:true})
     }
   })
   },

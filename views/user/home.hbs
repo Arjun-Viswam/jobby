@@ -85,7 +85,7 @@
                     </div>
                     <div class="job-des-dt">
                       <h4>{{this.jobname}}</h4>
-                      <p>{{this.discription}}</p>
+                      <p>{{discript this.discription}}...</p>
                       <div class="job-skills">
                         {{#each_upto this.skills 3}}
                           <a class="more-skills">{{this}}</a>
@@ -241,27 +241,6 @@
   </p>
 </div>
 </main>
-
-{{! <script>
-   window.addEventListener('load', (event) => {
-   var company = document.getElementById('company')
-  $.ajax({ 
-        url: "/getNumberOfJobs",
-        data : {
-                 companyId : company.value 
-               },
-        method : 'post',
-        success: function(count){
-			console.log(count)
-         console.log(company.value)
-			
-           document.getElementById('sasi').innerHTML=`<span style="position: absolute; top: 20px; left: 10px; color: red;" >${count}</span>`
-
-        }
-});
-});
- 
- </script> }}
 
 
 <script src="/main/js/scriptmade.js"></script>

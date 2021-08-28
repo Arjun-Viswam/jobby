@@ -75,7 +75,7 @@ passport.use(
     {
       clientID: process.env.LINKED_IN_ID,
       clientSecret: process.env.LINKED_IN_SECRET,
-      callbackURL: "http://localhost:5550/auth/linkedin/callback",
+      callbackURL: "http://jobby.arjunviswam.ml/auth/linkedin/callback",
       scope: ["r_emailaddress", "r_liteprofile"],
     },
     function (accessToken, refreshToken, profile, done) {
@@ -109,7 +109,7 @@ passport.use(
     {
       clientID: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
-      callbackURL: "http://localhost:5550/auth/github/callback",
+      callbackURL: "http://jobby.arjunviswam.ml/auth/github/callback",
     },
     async function (accessToken, refreshToken, profile, cb) {
       let userData = {};
@@ -149,7 +149,7 @@ passport.use(
       clientID:
        process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: "http://localhost:5550/auth/google/callback",
+      callbackURL: "http://jobby.arjunviswam.ml/auth/google/callback",
     },
     async function (accessToken, refreshToken, profile, cb) {
       let userData = {};

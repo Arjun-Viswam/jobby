@@ -32,7 +32,12 @@ router.get("/", async function (req, res, next) {
   res.render('user/home',{user:true,search:true,users,jobs,companies,LiveSearch:true,counts,category,test})
   })
   }else{
-    res.redirect('/login')
+    let jobs = await userHelpers.getAlljobs()
+    let companies = await userHelpers.getAllCompanies()
+    let category = await userHelpers.getAllCategory()
+    userHelpers.getAllThecount().then((counts)=>{
+  res.render('user/home',{user:true,search:true,jobs,companies,LiveSearch:true,counts,category})
+  })
   }
 })  
 
@@ -135,7 +140,8 @@ router.get("/logout", (req, res) => {
 });
 
 router.get('/otp-login',(req,res)=>{
-  res.render('user/otp-login',{log:true})
+  res.render('user/otp-login',{log:true,codeErr: req.session.codeErr})
+  req.session.codeErr=false
 })
 
 router.post("/otp-login", async (req, res) => {
@@ -150,7 +156,8 @@ router.post("/otp-login", async (req, res) => {
         console.log(verification.status);
       });
     id = req.body.full;
-    res.render("user/otp-code", {log:true, id });
+    res.render("user/otp-code", {log:true, id});
+    req.session.codeErr = false
   } else {
     loginErr = "This user does not have an account";
     res.render("user/otp-login", {log:true, loginErr });
@@ -164,12 +171,16 @@ router.post("/otp-code", async (req, res) => {
     .services(serviceId)
     .verificationChecks.create({ to: req.body.id, code: req.body.token })
     .then((verification_check) => {
+      console.log(verification_check.status);
       if (verification_check.status !="pending") {
         userHelpers.getUserDetails(req.body.id).then((user) => {
           req.session.userLoggedIn = true;
           req.session.user = user;
           res.redirect("/");
         });
+      }else if (verification_check.status =="pending") {
+        req.session.codeErr = true
+        res.redirect('/otp-login')
       }
     });
 });
@@ -205,13 +216,21 @@ router.post('/edit-profile/:id',(req,res)=>{
   res.redirect('/profile')
 })
 
-router.get('/emp-profileview/:id',verifyLogin,async(req,res)=>{
+router.get('/emp-profileview/:id',async(req,res)=>{
+  if(req.session.user){
   let users = req.session.user
     let skills = await employerHelpers.getSkills(req.params.id)
     let language = await employerHelpers.getLanguage(req.params.id)
   userHelpers.getCompanyDetails(req.params.id).then((company)=>{ 
     res.render('user/emp-profileview',{user:true,company,skills,language,users})
   })
+}else{
+  let skills = await employerHelpers.getSkills(req.params.id)
+  let language = await employerHelpers.getLanguage(req.params.id)
+userHelpers.getCompanyDetails(req.params.id).then((company)=>{ 
+  res.render('user/emp-profileview',{user:true,company,skills,language})
+})
+}
 })
 
 router.get('/postedjob/:id',verifyLogin,async(req,res)=>{
@@ -222,10 +241,15 @@ router.get('/postedjob/:id',verifyLogin,async(req,res)=>{
 })
 })
 
-router.get('/job-singleview/:id',verifyLogin,async(req,res)=>{
+router.get('/job-singleview/:id',async(req,res)=>{
+  if(req.session.user){
   let users = req.session.user
   let singleView = await userHelpers.getSingleJob(req.params.id)
   res.render('user/job-singleview',{user:true,singleView,users})
+  }else{
+    let singleView = await userHelpers.getSingleJob(req.params.id)
+    res.render('user/job-singleview',{user:true,singleView})
+  }
 })
 
 router.get('/apply/:id',verifyLogin,async(req,res)=>{
@@ -233,16 +257,17 @@ router.get('/apply/:id',verifyLogin,async(req,res)=>{
   let users = req.session.user
   let user = req.session.user._id
   let userDetails = await userHelpers.getUserData(user)
-  res.render('user/applyjob',{user:true,userDetails,formIn:true,jobId,users})
+  let job = await userHelpers.getJobDetails(jobId)
+  res.render('user/applyjob',{user:true,userDetails,job,formIn:true,jobId,users})
 })
-
 
 router.post('/applyjob',(req,res)=>{
   console.log(req.body);
+  console.log(req.files);
   userHelpers.applyjob(req.body).then(()=>{
     let resume = req.files.resume
     resume.mv('./public/resume/' + req.body.userId + '.pdf')
-    res.redirect('/')
+    res.json({status:true})
   })
 })
 
@@ -359,23 +384,39 @@ router.get('/appliedjobs',verifyLogin,async(req,res)=>{
   })
 })
 
-router.get('/jobs',verifyLogin,async(req,res)=>{
+router.get('/jobs',async(req,res)=>{
+  if(req.session.user){
   let users = req.session.user
   let jobs = await userHelpers.getAlljobs()
   res.render('user/jobs',{user:true,jobs,users,JobsOnly:true,LiveSearch:true})
+  }else{
+    let jobs = await userHelpers.getAlljobs()
+    res.render('user/jobs',{user:true,jobs,JobsOnly:true,LiveSearch:true})
+  }
 })
 
-router.get('/companies',verifyLogin,async(req,res)=>{
+router.get('/companies',async(req,res)=>{
+  if(req.session.user){
   let users = req.session.user
   let companies =  await userHelpers.getAllCompanies()
   res.render('user/companies',{user:true,users,companies,JobsOnly:true,LiveSearch:true})
+  }else{
+    let companies =  await userHelpers.getAllCompanies()
+  res.render('user/companies',{user:true,companies,JobsOnly:true,LiveSearch:true})
+  }
 })
 
-router.get('/categoryView/:category',verifyLogin,(req,res)=>{
+router.get('/categoryView/:category',(req,res)=>{
+  if(req.session.user){
   let users = req.session.user
   userHelpers.getCategoryJobs(req.params.category).then((jobs)=>{
     res.render('user/category',{user:true,jobs,users})
   })
+}else{
+  userHelpers.getCategoryJobs(req.params.category).then((jobs)=>{
+    res.render('user/category',{user:true,jobs})
+  })
+}
 })
 
 router.get('/machine-test/:id',verifyLogin,(req,res)=>{

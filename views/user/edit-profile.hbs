@@ -1,408 +1,364 @@
-
-<link href="/main/css/stylemade.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script> 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-
+<link href="/main/css/stylemade.css" rel="stylesheet" />
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
+></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+/>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"
+></script>
 
 <main class="browse-section">
-<div class="container">
-<div class="row">
-<div class="col-md-8">
-<div class="main-heading bids_heading">
-<h2>Create Profile</h2>
-<div class="line-shape1">
-<img src="images/line.svg" alt="">
-</div>
-</div>
-<div class="post501">
-<form method="POST" action="/edit-profile/{{users._id}}" id="userProfile" enctype="multipart/form-data">
-<div class="row">
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Profile Avtar*</label>
-<div class="avtar_dp">
-    {{#if users.status}}
-<img id="imgview1" src="/profile-photos/{{users._id}}.jpg" alt="">
-{{else}}
-<img id="imgview2" src="/images/profile_dp.jpg" alt="">
-{{/if}}
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="main-heading bids_heading">
+          <h2>Create Profile</h2>
+          <div class="line-shape1">
+            <img src="images/line.svg" alt="" />
+          </div>
+        </div>
+        <div class="post501">
+          <form
+            method="POST"
+            action="/edit-profile/{{users._id}}"
+            id="userProfile"
+            enctype="multipart/form-data"
+          >
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Profile Avtar*</label>
+                  <div class="avtar_dp">
+                    {{#if users.status}}
+                      <img
+                        id="imgview1"
+                        src="/profile-photos/{{users._id}}.jpg"
+                        alt=""
+                      />
+                    {{else}}
+                      <img id="imgview2" src="/images/profile_dp.jpg" alt="" />
+                    {{/if}}
+                  </div>
 
-<div class="image-upload-wrap1 ml5">
-<input class="file-upload-input1" type="file" name="image2" id="file2" class="form-control" onchange="return fileValidation2()">
-<div class="drag-text1">
-Upload Files
-</div>
-</div>
-</div>
-</div>
+                  <div class="image-upload-wrap1 ml5">
+                    <input
+                      class="file-upload-input1"
+                      type="file"
+                      name="image2"
+                      id="file2"
+                      class="form-control"
+                      onchange="return fileValidation2()"
+                    />
+                    <div class="drag-text1">
+                      Upload Files
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">First Name*</label>
-<input type="text" class="job-input" name="firstname" value="{{users.firstname}}" placeholder="Your First Name">
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Last Name*</label>
-<input type="text" class="job-input" name="lastname" value="{{users.lastname}}" placeholder="Your Last Name">
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Email Address*</label>
-<input type="email" class="job-input" name="email" value="{{users.email}}" placeholder="Enter Your Email Address">
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Birthday*</label>
-<div class="smm_input">
-<input type="date" class="job-input" name="birthdate"  value="{{users.birthdate}}" placeholder="Enter your Birthdate">
-</div>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Description*</label>
-<div class="description_dtu">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">First Name*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="firstname"
+                    value="{{users.firstname}}"
+                    placeholder="Your First Name"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Last Name*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="lastname"
+                    value="{{users.lastname}}"
+                    placeholder="Your Last Name"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Email Address*</label>
+                  <input
+                    type="email"
+                    class="job-input"
+                    name="email"
+                    value="{{users.email}}"
+                    placeholder="Enter Your Email Address"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Birthday*</label>
+                  <div class="smm_input">
+                    <input
+                      type="date"
+                      class="job-input"
+                      name="birthdate"
+                      value="{{users.birthdate}}"
+                      placeholder="Enter your Birthdate"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Description*</label>
+                  <div class="description_dtu">
 
-<input class="textarea70" name="discription" placeholder="Describe your experience, skills, etc. In complete details. " value="{{users.discription}}">
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Contact Number*</label>
-<div class="smm_input">
-<input type="tel" class="job-input" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="phone" name="mobile" value="{{users.mobile}}" placeholder="Enter Your Contact Number">
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Tagline*</label>
-<input type="text" class="job-input" name="tagline" value="{{users.tagline}}" placeholder="Wordpress Developer">
-</div>
-</div>
+                    <input
+                      class="textarea70"
+                      name="discription"
+                      placeholder="Describe your experience, skills, etc. In complete details. "
+                      value="{{users.discription}}"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Contact Number*</label>
+                  <div class="smm_input">
+                    <input
+                      type="tel"
+                      class="job-input"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      id="phone"
+                      name="mobile"
+                      value="{{users.mobile}}"
+                      placeholder="Enter Your Contact Number"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Tagline*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="tagline"
+                    value="{{users.tagline}}"
+                    placeholder="Wordpress Developer"
+                  />
+                </div>
+              </div>
 
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Skills*</label>
-<input type="text" class="job-input" name="skills" placeholder="Enter the skills you prefer eg: Nodejs,python" value="{{users.skills}}">
-</div>
-</div>
-{{!-- <div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Skills*</label>
-<div class="ui fluid multiple search selection dropdown skills-search">
-<input name="tags" type="hidden" value="">
-<i class="dropdown icon"></i>
-<input class="search" autocomplete="off" tabindex="0"><span class="sizer" style=""></span><div class="default text">Skills</div>
-<div class="menu transition hidden" tabindex="-1">
-<div class="item selected" data-value="angular">Angular</div>
-<div class="item" data-value="css">CSS</div>
-<div class="item" data-value="design">Graphic Design</div>
-<div class="item" data-value="ember">Ember</div>
-<div class="item" data-value="html">HTML</div>
-<div class="item" data-value="ia">Information Architecture</div>
-<div class="item" data-value="javascript">Javascript</div>
-<div class="item" data-value="mech">Mechanical Engineering</div>
-<div class="item" data-value="meteor">Meteor</div>
-<div class="item" data-value="node">NodeJS</div>
-<div class="item" data-value="plumbing">Plumbing</div>
-<div class="item" data-value="python">Python</div>
-<div class="item" data-value="rails">Rails</div>
-<div class="item" data-value="react">React</div>
-<div class="item" data-value="repair">Kitchen Repair</div>
-<div class="item" data-value="ruby">Ruby</div>
-<div class="item" data-value="ui">UI Design</div>
-<div class="item" data-value="ux">User Experience</div>
-</div>
-</div>
-</div>
-</div> --}}
-{{!-- <div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Availability*</label>
-<div class="ui fluid search selection dropdown skills-search">
-<input name="tags" type="hidden" value="">
-<i class="dropdown icon"></i>
-<input class="search" autocomplete="off" tabindex="0">
-<span class="sizer" style=""></span>
-<div class="default text">I’m not sure</div>
-<div class="menu transition hidden" tabindex="-1">
-<div class="item selected" data-value="Availability1">Full Time</div>
-<div class="item selected" data-value="Availability2">Part Time</div>
-<div class="item selected" data-value="Availability3">Not Available</div>
-</div>
-</div>
-</div>
-</div> --}}
-
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Availability*</label>
-<div class="ui fluid search selection">
-<select  class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"  name="availability" id="availability">
-<option class="item" id="Full Time">Full Time</option>
-<option class="item" id="Part Time">Part Time</option>
-<option class="item" id="Not Available">Not Available</option>
-</select>
-</div>
-</div>
-</div>
-
-
-{{!-- <div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Experience Level*</label>
-<div class="ui fluid search selection dropdown skills-search">
-<input name="tags" type="hidden" value="">
-<i class="dropdown icon"></i>
-<input class="search" autocomplete="off" tabindex="0">
-<span class="sizer" style=""></span>
-<div class="default text">Select Experience Level</div>
-<div class="menu transition hidden" tabindex="-1">
-<div class="item" data-value="level1">level 01</div>
-<div class="item" data-value="level2">level 02</div>
-<div class="item" data-value="level3">level 03</div> 
-<div class="item" data-value="level4">level 04</div>
-<div class="item" data-value="level5">level 05</div>
-<div class="item" data-value="level6">level 06</div>
-<div class="item" data-value="level7">level 07</div>
-<div class="item" data-value="level8">level 08</div>
-<div class="item" data-value="level9">level 09</div>
-<div class="item" data-value="level10">level 10</div>
-</div>
-</div>
-</div>
-</div> --}}
-
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Experience Level*</label>
-<div class="ui fluid search selection ">
-<select  class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"  name="experience" id="experience">
-<option class="item" id="None">None</option>
-<option class="item" id="level 01">level 01</option>
-<option class="item" id="level 02">level 02</option>
-<option class="item" id="level 03">level 03</option> 
-<option class="item" id="level 04">level 04</option>
-<option class="item" id="level 05">level 05</option>
-<option class="item" id="level 06">level 06</option>
-<option class="item" id="level 07">level 07</option>
-<option class="item" id="level 08">level 08</option>
-<option class="item" id="level 09">level 09</option>
-<option class="item" id="level 10">level 10</option>
-</select>
-</div>
-</div>
-</div>
-
-
-
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Language*</label>
-<input type="text" class="job-input" name="language" placeholder="Enter the language you prefer eg:English,Hindi" value="{{users.language}}">
-</div>
-</div>
-{{!-- <div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Languages*</label>
-<div class="ui fluid search selection dropdown skills-search">
-<input name="tags" type="hidden" value="">
-<i class="dropdown icon"></i>
-<input class="search" autocomplete="off" tabindex="0">
-<span class="sizer" style=""></span>
-<div class="default text">Select Language</div>
-<div class="menu transition hidden" tabindex="-1">
-<div class="item" data-value="lang1">English</div>
-<div class="item" data-value="lang2">Hindi</div>
-<div class="item" data-value="lang3">Punjabi</div>
-<div class="item" data-value="lang4">Bengali</div>
-<div class="item" data-value="lang5">Portuguese</div>
-<div class="item" data-value="lang6">Russian</div>
-<div class="item" data-value="lang7">Japanese</div>
-<div class="item" data-value="lang8">Telugu</div>
-<div class="item" data-value="lang9">French</div>
-<div class="item" data-value="lang10">German</div>
-</div>
-</div>
-</div>
-</div> --}}
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Location*</label>
-<div class="smm_input">
-<input type="text" class="job-input" name="location" value="{{users.location}}" placeholder="Type Address">
-</div>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Websites*</label>
-<div class="smm_input5">
-<input type="text" class="website-input" name="link1" value="{{users.link1}}" placeholder="http://entercompanysite.com/">
-<div class="loc_icon5"><i class="fas fa-globe"></i></div>
-</div>
-<div class="smm_input5">
-<input type="text" class="website-input" name="link2" value="{{users.link2}}" placeholder="http://enterblogsite.com/">
-<div class="loc_icon5"><i class="far fa-edit"></i></div>
-</div>
-<div class="smm_input5">
-<input type="text" class="website-input" name="link3" value="{{users.link3}}" placeholder="http://enterportfoliosite.com/">
-<div class="loc_icon5"><i class="fas fa-columns"></i></div>
-</div>
-</div>
-</div>
-<input hidden id="userId" value="{{users._id}}">
-<div class="col-lg-12">
-<button class="post_jp_btn" type="submit">Finish Profile</button>
-</div>
-</div>
-</form>
-</div>
-</div>
-<div class="col-md-4">
-<div class="main-heading bids_heading pjfaq80">
-<h2>FAQ</h2>
-</div>
-<div class="jp_faq">
-<div class="jp_faq_item">
-<h4>01. Complete your profile</h4>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum mi at erat egestas, nec porta diam pharetra.</p>
-</div>
-<div class="jp_faq_item">
-<h4>02. Upload a profile picture</h4>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum mi at erat egestas, nec porta diam pharetra.</p>
-</div>
-<div class="jp_faq_item">
-<h4>03. Be honest about availability</h4>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque elementum mi at erat egestas, nec porta diam pharetra.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Skills*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="skills"
+                    placeholder="Enter the skills you prefer eg: Nodejs,python"
+                    value="{{users.skills}}"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Availability*</label>
+                  <div class="ui fluid search selection">
+                    <select
+                      class="form-control"
+                      style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"
+                      name="availability"
+                      id="availability"
+                    >
+                      <option class="item" id="Full Time">Full Time</option>
+                      <option class="item" id="Part Time">Part Time</option>
+                      <option class="item" id="Not Available">Not Available</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Experience Level*</label>
+                  <div class="ui fluid search selection">
+                    <select
+                      class="form-control"
+                      style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"
+                      name="experience"
+                      id="experience"
+                    >
+                      <option class="item" id="None">None</option>
+                      <option class="item" id="level 01">level 01</option>
+                      <option class="item" id="level 02">level 02</option>
+                      <option class="item" id="level 03">level 03</option>
+                      <option class="item" id="level 04">level 04</option>
+                      <option class="item" id="level 05">level 05</option>
+                      <option class="item" id="level 06">level 06</option>
+                      <option class="item" id="level 07">level 07</option>
+                      <option class="item" id="level 08">level 08</option>
+                      <option class="item" id="level 09">level 09</option>
+                      <option class="item" id="level 10">level 10</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Language*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="language"
+                    placeholder="Enter the language you prefer eg:English,Hindi"
+                    value="{{users.language}}"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Location*</label>
+                  <div class="smm_input">
+                    <input
+                      type="text"
+                      class="job-input"
+                      name="location"
+                      value="{{users.location}}"
+                      placeholder="Type Address"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Websites*</label>
+                  <div class="smm_input5">
+                    <input
+                      type="text"
+                      class="website-input"
+                      name="link1"
+                      value="{{users.link1}}"
+                      placeholder="http://entercompanysite.com/"
+                    />
+                    <div class="loc_icon5"><i class="fas fa-globe"></i></div>
+                  </div>
+                  <div class="smm_input5">
+                    <input
+                      type="text"
+                      class="website-input"
+                      name="link2"
+                      value="{{users.link2}}"
+                      placeholder="http://enterblogsite.com/"
+                    />
+                    <div class="loc_icon5"><i class="far fa-edit"></i></div>
+                  </div>
+                  <div class="smm_input5">
+                    <input
+                      type="text"
+                      class="website-input"
+                      name="link3"
+                      value="{{users.link3}}"
+                      placeholder="http://enterportfoliosite.com/"
+                    />
+                    <div class="loc_icon5"><i class="fas fa-columns"></i></div>
+                  </div>
+                </div>
+              </div>
+              <input hidden id="userId" value="{{users._id}}" />
+              <div class="col-lg-12">
+                <button class="post_jp_btn" type="submit">Finish Profile</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="main-heading bids_heading pjfaq80">
+          <h2>FAQ</h2>
+        </div>
+        <div class="jp_faq">
+          <div class="jp_faq_item">
+            <h4>01. Complete your profile</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Pellentesque elementum mi at erat egestas, nec porta diam
+              pharetra.</p>
+          </div>
+          <div class="jp_faq_item">
+            <h4>02. Upload a profile picture</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Pellentesque elementum mi at erat egestas, nec porta diam
+              pharetra.</p>
+          </div>
+          <div class="jp_faq_item">
+            <h4>03. Be honest about availability</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Pellentesque elementum mi at erat egestas, nec porta diam
+              pharetra.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content"  style="min-width: 300px;">
-    <button id="close" class="close"><span style="margin-left: 93%;">&times;</span></button>
-    <div   id="image-box"></div>
-<button class="main_lg_btn" style="display: none;" id="crop-btn">Crop</button>
-</div>
+  <div class="modal-content" style="min-width: 300px;">
+    <button id="close" class="close"><span
+        style="margin-left: 93%;"
+      >&times;</span></button>
+    <div id="image-box"></div>
+    <button
+      class="main_lg_btn"
+      style="display: none;"
+      id="crop-btn"
+    >Crop</button>
   </div>
+</div>
 
+<script>
+  window.addEventListener('load', (event) => { var userId =
+  document.getElementById('userId') $.ajax({ url: "/sasi", data : { user :
+  userId.value }, method : 'post', success: function(users){
+  document.getElementById(users.experience).setAttribute('selected','selected')
+  document.getElementById(users.availability).setAttribute('selected','selected')
+  } }); });
 
- <script>
-   window.addEventListener('load', (event) => {
-   var userId = document.getElementById('userId')
-  $.ajax({ 
-        url: "/sasi",
-        data : {
-                 user : userId.value 
-               },
-        method : 'post',
-        success: function(users){
-           document.getElementById(users.experience).setAttribute('selected','selected')
-           document.getElementById(users.availability).setAttribute('selected','selected')
-        }
-});
-});
- 
- </script>
+</script>
 
 <script src="/main/js/user-profile.js"></script>
- 
- <script>
-   
 
-// Get the modal
-var modal = document.getElementById("myModal");
+<script>
 
-// Get the button that opens the modal
-var btn = document.getElementById("file2");
+  // Get the modal var modal = document.getElementById("myModal"); // Get the
+  button that opens the modal var btn = document.getElementById("file2"); // Get
+  the <span> element that closes the modal var span =
+  document.getElementById("close"); var span2 =
+  document.getElementById("crop-btn") // When the user clicks the button, open
+  the modal btn.onclick = function() { modal.style.display = "block"; } // When
+  the user clicks on <span> (x), close the modal span.onclick = function() {
+  modal.style.display = "none"; } span2.onclick = function() {
+  modal.style.display = "none"; } // When the user clicks anywhere outside of
+  the modal, close it window.onclick = function(event) { if (event.target ==
+  modal) { modal.style.display = "none"; } }
 
-// Get the <span> element that closes the modal
-var span = document.getElementById("close");
-var span2 = document.getElementById("crop-btn")
+</script>
 
+<script>
 
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-span2.onclick = function() {
-  modal.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
- </script>
-
- <script>
-
-$(document).ready(()=>{
-    
-  $("#userProfile").validate({ 
-
-      rules: {
-        firstname: {
-          required: true,
-          minlength: 4,
-        },
-        lastname: {
-          required: true,
-          minlength: 4,
-        },
-        email:{
-          required:true,
-          email:true,
-        },
-        mobile:{
-          required:true,
-          minlength:10,
-          maxlength:10,
-          number:true
-        },
-        birthdate:{
-          required:true,
-        },
-        discription:{
-          required:true,
-          minlength:30,
-        },
-        skills: {
-          required: true,
-        },
-        language:{
-          required:true,
-        },
-        location:{
-          required:true,
-        },
-        tagline:{
-          required:true,
-        }   
-      }
-    })
-     })
+  $(document).ready(()=>{ $("#userProfile").validate({ rules: { firstname: {
+  required: true, minlength: 4, }, lastname: { required: true, minlength: 4, },
+  email:{ required:true, email:true, }, mobile:{ required:true, minlength:10,
+  maxlength:10, number:true }, birthdate:{ required:true, }, discription:{
+  required:true, minlength:30, }, skills: { required: true, }, language:{
+  required:true, }, location:{ required:true, }, tagline:{ required:true, } } })
+  })
 </script>

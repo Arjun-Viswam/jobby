@@ -1,222 +1,292 @@
-
-
 <main class="browse-section">
-<div class="container">
-<div class="row">
-<div class="col-lg-3 col-md-4">
-<div class="account_dt_left">
-<div class="job-center-dt">
-    {{#if users.status}}
-    <img id="imgview1" src="/profile-photos/{{users._id}}.jpg" alt="">
-    {{else}}
-    <img id="imgview2" src="/images/profile_dp.jpg" alt="">
-    {{/if}}<div class="job-urs-dts">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-4">
+        <div class="account_dt_left">
+          <div class="job-center-dt">
+            {{#if users.status}}
+              <img
+                id="imgview1"
+                src="/profile-photos/{{users._id}}.jpg"
+                alt=""
+              />
+            {{else}}
+              <img id="imgview2" src="/images/profile_dp.jpg" alt="" />
+            {{/if}}<div class="job-urs-dts">
 
-<h4>{{users.firstname}} {{users.lastname}}</h4>
-<span>{{users.tagline}}</span>
-<div class="avialable">{{users.availability}}</div>
-</div>
-</div>
-<div class="my_websites">
-<ul>
-{{#if users.link1}}
-<li><a href="{{users.link1}}" class="web_link"><i class="fas fa-globe"></i>{{users.link1}}</a></li>
-{{/if}}
-{{#if users.link2}}
-<li><a href="{{users.link2}}" class="web_link"><i class="far fa-edit"></i>{{users.link2}}</a></li>
-{{/if}}
-{{#if users.link3}}
-<li><a href="{{users.link3}}" class="web_link"><i class="far fa-edit"></i>{{users.link3}}</a></li>
-{{/if}}
-</ul>
-</div>
+              <h4>{{users.firstname}} {{users.lastname}}</h4>
+              <span>{{users.tagline}}</span>
+              <div class="avialable">{{users.availability}}</div>
+            </div>
+          </div>
+          <div class="my_websites">
+            <ul>
+              {{#if users.link1}}
+                <li><a href="{{users.link1}}" class="web_link"><i
+                      class="fas fa-globe"
+                    ></i>{{users.link1}}</a></li>
+              {{/if}}
+              {{#if users.link2}}
+                <li><a href="{{users.link2}}" class="web_link"><i
+                      class="far fa-edit"
+                    ></i>{{users.link2}}</a></li>
+              {{/if}}
+              {{#if users.link3}}
+                <li><a href="{{users.link3}}" class="web_link"><i
+                      class="far fa-edit"
+                    ></i>{{users.link3}}</a></li>
+              {{/if}}
+            </ul>
+          </div>
 
+          <div class="rlt_section">
 
-<div class="rlt_section">
+            <ul class="rlt_section2">
+              <li>
+                <div class="rtl_left2">
+                  <h6>Experenice</h6>
+                </div>
+                <div class="rtl_right2">
+                  <span>{{users.experience}}</span>
+                </div>
+              </li>
+              <li>
+                <div class="rtl_left2">
+                  <h6>DOB</h6>
+                </div>
+                <div class="rtl_right2">
+                  <span>{{users.birthdate}}</span>
+                </div>
+              </li>
+              <li>
+                <div class="rtl_left2">
+                  <h6>Contact</h6>
+                </div>
+                <div class="rtl_right2">
+                  <span>{{users.mobile}}</span>
+                </div>
+              </li>
+              <li>
+                <div class="rtl_left2">
+                  <h6>Location</h6>
+                </div>
+                <div class="rtl_right2">
+                  <span>{{users.location}}</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="social_section3 mb80">
+            <div class="social_leftt3">
+              <h6>Contact Social Account</h6>
+            </div>
+            <div class="social_right3">
+              <a
+                href="#"
+                id="socialButton"
+                data-toggle="modal"
+                data-target="#myModal"
+              ><i class="far fa-edit"></i></a>
+            </div>
+            <ul class="social_accounts">
+              {{#if users.facebook}}
+                <li><a href="{{users.facebook}}" class="social_links"><i
+                      class="fab fa-facebook-f f1"
+                    ></i>{{users.facebook}}</a></li>
+              {{/if}}
+              {{#if users.twitter}}
+                <li><a href="{{users.twitter}}" class="social_links"><i
+                      class="fab fa-twitter t1"
+                    ></i>{{users.twitter}}</a></li>
+              {{/if}}
+              {{#if users.linkedin}}
+                <li><a href="{{users.linkedin}}" class="social_links"><i
+                      class="fab fa-linkedin-in l1"
+                    ></i>{{users.linkedin}}</a></li>
+              {{/if}}
+              {{#if users.instagram}}
+                <li><a href="{{users.instagram}}" class="social_links"><i
+                      class="fab fa-dribbble d1"
+                    ></i>{{users.instagram}}</a></li>
+              {{/if}}
+              {{#if users.github}}
+                <li><a href="{{users.github}}" class="social_links"><i
+                      class="fab fa-github g1"
+                    ></i>{{users.github}}</a></li>
+              {{/if}}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-8 mainpage">
+        <div class="account_heading">
+          <div class="account_hd_left">
+            <h2>Manage Your Account</h2>
+          </div>
 
+        </div>
+        <div class="account_tabs">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a class="nav-link" href="/profile">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/appliedjobs">Applied</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/getSavedJobs">Saved jobs</a>
+            </li>
 
-<ul class="rlt_section2">
-<li>
-<div class="rtl_left2">
-<h6>Experenice</h6>
-</div>
-<div class="rtl_right2"> 
-<span>{{users.experience}}</span>
-</div>
-</li>
-<li>
-<div class="rtl_left2">
-<h6>DOB</h6>
-</div>
-<div class="rtl_right2">
-<span>{{users.birthdate}}</span>
-</div>
-</li>
-<li>
-<div class="rtl_left2">
-<h6>Contact</h6>
-</div>
-<div class="rtl_right2">
-<span>{{users.mobile}}</span>
-</div>
-</li>
-<li>
-<div class="rtl_left2">
-<h6>Location</h6>
-</div>
-<div class="rtl_right2">
-<span>{{users.location}}</span>
-</div>
-</li>
-</ul>
-</div>
-<div class="social_section3 mb80">
-<div class="social_leftt3">
-<h6>Contact Social Account</h6>
-</div>
-<div class="social_right3">
-<a href="#" id="socialButton" data-toggle="modal" data-target="#myModal"><i class="far fa-edit"></i></a>
-</div>
-<ul class="social_accounts">
-    {{#if users.facebook}}
-<li><a href="{{users.facebook}}" class="social_links"><i class="fab fa-facebook-f f1"></i>{{users.facebook}}</a></li>
-{{/if}}
-{{#if users.twitter}}
-<li><a href="{{users.twitter}}" class="social_links"><i class="fab fa-twitter t1"></i>{{users.twitter}}</a></li>
-{{/if}}
-{{#if users.linkedin}}
-<li><a href="{{users.linkedin}}" class="social_links"><i class="fab fa-linkedin-in l1"></i>{{users.linkedin}}</a></li>
-{{/if}}
-{{#if users.instagram}}
-<li><a href="{{users.instagram}}" class="social_links"><i class="fab fa-dribbble d1"></i>{{users.instagram}}</a></li>
-{{/if}}
-{{#if users.github}}
-<li><a href="{{users.github}}" class="social_links"><i class="fab fa-github g1"></i>{{users.github}}</a></li>
-{{/if}}
-</ul>
-</div>
-</div>
-</div>
-<div class="col-lg-9 col-md-8 mainpage">
-<div class="account_heading">
-<div class="account_hd_left">
-<h2>Manage Your Account</h2>
-</div>
+          </ul>
+        </div>
 
-</div>
-<div class="account_tabs">
-<ul class="nav nav-tabs">
-<li class="nav-item">
-<a class="nav-link " href="/profile">Profile</a>
-</li>
-<li class="nav-item">
-<a class="nav-link active" href="/appliedjobs">Applied</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="/getSavedJobs">Saved jobs</a>
-</li> 
+        <div class="jobs_manage">
+          <div class="row">
 
-</ul>
-</div>
+            <div class="col-lg-9">
+              <div class="tab-content" id="myTabContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="manage_jobs"
+                  role="tabpanel"
+                >
+                  <div class="view_chart">
+                    <div class="view_chart_header">
+                      <h4> Jobs Applied</h4>
+                    </div>
+                    <div class="job_bid_body">
+                      <ul class="all_applied_jobs jobs_bookmarks">
+                        {{#if jobs}}
+                          {{#each jobs}}
+                            <li>
+                              <div class="applied_item">
+                                <a
+                                  href="/job-singleview/{{this.jobId}}"
+                                >{{this.jobs.jobname}}</a>
+                                <ul class="view_dt_job">
+                                  <li><div class="vw1254"><i
+                                        class="far fa-clock"
+                                      ></i>Posted on :
+                                      {{this.jobs.Date}}</div></li>
+                                  <li><div class="vw1254">salary :&nbsp;<i
+                                        class="fas fa-rupee-sign"
+                                      ></i>{{this.jobs.min_salary}}
+                                      -&nbsp;
+                                      <i
+                                        class="fas fa-rupee-sign"
+                                      ></i>{{this.jobs.max_salary}}</div></li>
+                                  <li><div class="vw1254">Availability :
+                                      {{this.jobs.availability}}
+                                    </div></li>
+                                  <div class="btn_link23">
+                                  </div>
+                                </ul>
+                              </div>
+                            </li>
+                          {{/each}}
+                        {{else}}
+                          <div id="collapse4" class="collapse show">
+                            <div class="card-body">
+                              <p class="cmpny_saved">No Jobs Applied</p>
+                            </div>
+                          </div>
+                        {{/if}}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
 
-
-<div class="jobs_manage">
-<div class="row">
-
-<div class="col-lg-9">
-<div class="tab-content" id="myTabContent">
-<div class="tab-pane fade show active" id="manage_jobs" role="tabpanel">
-<div class="view_chart">
-<div class="view_chart_header">
-<h4> Jobs Applied</h4>
-</div>
-<div class="job_bid_body">
-<ul class="all_applied_jobs jobs_bookmarks">
-  {{#if jobs}}
-    {{#each jobs}}
-<li>
-<div class="applied_item">
-<a href="/job-singleview/{{this.jobId}}">{{this.jobs.jobname}}</a>
-{{!-- <span class="badge_alrt">Pending Approval</span> --}}
-<ul class="view_dt_job">
-<li><div class="vw1254"><i class="far fa-clock"></i>Posted on : {{this.jobs.Date}}</div></li>
-<li><div class="vw1254">salary :&nbsp;<i class="fas fa-rupee-sign"></i>{{this.jobs.min_salary}} -&nbsp; <i class="fas fa-rupee-sign"></i>{{this.jobs.max_salary}}</div></li>
-<li><div class="vw1254">Availability : {{this.jobs.availability}} </div></li>
-<div class="btn_link23">
-{{!-- <a href="/apply/{{this._id}}"><button class="apled_btn60">APPLY</button></a> --}}
-
-
-</div>
-</ul>
-</div>
-</li>
-{{/each}}
-{{else}}
-<div id="collapse4" class="collapse show">
-<div class="card-body">
-<p class="cmpny_saved">No Jobs Applied</p>
-</div>
-</div>
-{{/if}}
-</ul>
-</div>
-</div>
-</div>
-
-
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog">
 
-  <!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-          <form method="POST" action="/usersociallink">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form method="POST" action="/usersociallink">
         <div class="modal-header">
           <h4 class="modal-title">Link your Social profiles</h4>
         </div>
         <div class="modal-body">
-            <div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Social links*</label>
-<div class="smm_input5">
-<input type="text" class="website-input" name="facebook" value="{{users.facebook}}" placeholder="http://facebook.com/">
-<div class="loc_icon5"><i class="fab fa-facebook-square"></i></div>
-</div>
-<div class="smm_input5">
-<input type="text" class="website-input" name="twitter" value="{{users.twitter}}" placeholder="http://twitter.com/">
-<div class="loc_icon5"><i class="fab fa-twitter-square"></i></div>
-</div>
-<div class="smm_input5">
-<input type="text" class="website-input" name="linkedin" value="{{users.linkedin}}" placeholder="http://linkedin.com/">
-<div class="loc_icon5"><i class="fab fa-linkedin"></i></div>
-</div>
-<div class="smm_input5">
-<input type="text" class="website-input" name="github" value="{{users.github}}" placeholder="http://github.com/">
-<div class="loc_icon5"><i class="fab fa-github-square"></i></div>
-</div>
-<div class="smm_input5">
-<input type="text" class="website-input" name="instagram" value="{{users.instagram}}" placeholder="http://instagram.com/">
-<div class="loc_icon5"><i class="fab fa-instagram"></i></div>
-</div>
-</div>
-</div>
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label class="label15">Social links*</label>
+              <div class="smm_input5">
+                <input
+                  type="text"
+                  class="website-input"
+                  name="facebook"
+                  value="{{users.facebook}}"
+                  placeholder="http://facebook.com/"
+                />
+                <div class="loc_icon5"><i
+                    class="fab fa-facebook-square"
+                  ></i></div>
+              </div>
+              <div class="smm_input5">
+                <input
+                  type="text"
+                  class="website-input"
+                  name="twitter"
+                  value="{{users.twitter}}"
+                  placeholder="http://twitter.com/"
+                />
+                <div class="loc_icon5"><i
+                    class="fab fa-twitter-square"
+                  ></i></div>
+              </div>
+              <div class="smm_input5">
+                <input
+                  type="text"
+                  class="website-input"
+                  name="linkedin"
+                  value="{{users.linkedin}}"
+                  placeholder="http://linkedin.com/"
+                />
+                <div class="loc_icon5"><i class="fab fa-linkedin"></i></div>
+              </div>
+              <div class="smm_input5">
+                <input
+                  type="text"
+                  class="website-input"
+                  name="github"
+                  value="{{users.github}}"
+                  placeholder="http://github.com/"
+                />
+                <div class="loc_icon5"><i
+                    class="fab fa-github-square"
+                  ></i></div>
+              </div>
+              <div class="smm_input5">
+                <input
+                  type="text"
+                  class="website-input"
+                  name="instagram"
+                  value="{{users.instagram}}"
+                  placeholder="http://instagram.com/"
+                />
+                <div class="loc_icon5"><i class="fab fa-instagram"></i></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-default" >Submit</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-default">Submit</button>
+          <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+          >Close</button>
         </div>
-        </form>
-      </div>     
+      </form>
     </div>
   </div>
-  
+</div>

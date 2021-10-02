@@ -21,6 +21,9 @@
 {{#if loginErr}}
 <p style="color: red;">{{loginErr}}</p>
 {{/if}}
+{{#if codeErr}}
+<p style="color: red;">you have entered a wrong code</p>
+{{/if}}
 </form>
 <div  style="padding-top: 80px;">Already have an account?<a href="/login">  Login<i class="fas fa-angle-double-right"></i></a>
 </div>

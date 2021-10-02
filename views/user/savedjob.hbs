@@ -78,21 +78,11 @@
 <a href="#" id="socialButton" data-toggle="modal" data-target="#myModal"><i class="far fa-edit"></i></a>
 </div>
 <ul class="social_accounts">
-    {{#if users.facebook}}
-<li><a href="{{users.facebook}}" class="social_links"><i class="fab fa-facebook-f f1"></i>{{users.facebook}}</a></li>
-{{/if}}
-{{#if users.twitter}}
-<li><a href="{{users.twitter}}" class="social_links"><i class="fab fa-twitter t1"></i>{{users.twitter}}</a></li>
-{{/if}}
-{{#if users.linkedin}}
-<li><a href="{{users.linkedin}}" class="social_links"><i class="fab fa-linkedin-in l1"></i>{{users.linkedin}}</a></li>
-{{/if}}
-{{#if users.instagram}}
-<li><a href="{{users.instagram}}" class="social_links"><i class="fab fa-dribbble d1"></i>{{users.instagram}}</a></li>
-{{/if}}
-{{#if users.github}}
-<li><a href="{{users.github}}" class="social_links"><i class="fab fa-github g1"></i>{{users.github}}</a></li>
-{{/if}}
+{{facebook users.facebook}}
+{{twitter users.twitter}}
+{{linkedin users.linkedin}}
+{{instagram users.instagram}}
+{{github users.github}}
 </ul>
 </div>
 </div>

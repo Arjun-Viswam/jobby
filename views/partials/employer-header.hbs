@@ -122,7 +122,13 @@
 <li>
 <div class="account order-1 dropdown">
 <a href="#" class="account-link dropdown-toggle-no-caret" role="button" data-toggle="dropdown">
-<div class="user-dp"><img src="/profile-photos/{{employers._id}}.jpg" alt=""></div>
+<div class="user-dp">
+  {{#if employers.status}}
+    <img src="/profile-photos/{{employers._id}}.jpg" alt="">
+    {{else}}
+    <img src="/images/profile_dp.jpg" alt="">
+    {{/if}}
+</div>
 <span>{{employers.companyname}}</span>
 <i class="fas fa-sort-down"></i>
 </a>
@@ -261,21 +267,11 @@
 <a href="#" data-toggle="modal" data-target="#myModal"><i class="far fa-edit"></i></a>
 </div>
 <ul class="social_accounts">
-    {{#if employers.facebook}}
-<li><a href="{{employers.facebook}}"  class="social_links"><i class="fab fa-facebook-f f1"></i>http://facebook.com/</a></li>
-{{/if}}
-{{#if employers.twitter}}
-<li><a href="{{employers.twitter}}" class="social_links"><i class="fab fa-twitter t1"></i>http://twitter.com/</a></li>
-{{/if}}
-{{#if employers.linkedin}}
-<li><a href="{{employers.linkedin}}" class="social_links"><i class="fab fa-linkedin-in l1"></i>http://linkedin.com/</a></li>
-{{/if}}
-{{#if employers.instagram}}
-<li><a href="{{employers.instagram}}" class="social_links"><i class="fab fa-dribbble d1"></i>http://instagram.com/</a></li>
-{{/if}}
-{{#if employers.github}}
-<li><a href="{{employers.github}}" class="social_links"><i class="fab fa-github g1"></i>http://github.com/</a></li>
-{{/if}}
+{{facebook employers.facebook}}
+{{twitter employers.twitter}}
+{{linkedin employers.linkedin}}
+{{instagram employers.instagram}}
+{{github employers.github}}
 </ul>
 </div>
 </div>

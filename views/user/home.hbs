@@ -11,7 +11,11 @@
           <div class="featured-cities">
             <a href="/emp-profileview/{{this._id}}">
               <div class="feature-img" style="position: relative;">
+                {{#if this.status}}
                 <img src="/profile-photos/{{this._id}}.jpg" alt="" />
+                {{else}}
+                <img src="/images/default.jpg" alt="">
+                {{/if}}
                 <div class="overly-bg"></div>
               </div>
             </a>
@@ -97,12 +101,6 @@
                         <input class="CheckApplied" id="{{this._id}}" value="{{this._id}}" data-index="{{this._id}}" hidden>
 
                         <li>
-                          {{!-- <a
-                            href="/apply/{{this._id}}"
-                            class="link-j1"
-                            title="Apply Now"
-                            id="makedisabled"
-                          >APPLY NOW</a> --}}
                           {{button this._id this.appliedCandidates ../users._id}}
                           </li>
                           <li><a
@@ -242,6 +240,4 @@
 </div>
 </main>
 
-
 <script src="/main/js/scriptmade.js"></script>
-

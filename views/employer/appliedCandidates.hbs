@@ -1,6 +1,3 @@
- {{!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> --}}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
   <link rel="stylesheet" href="/main/css/style.css">
@@ -19,27 +16,6 @@
 <li class="nav-item">
 <a class="nav-link active" href="/employer/postedjob">Posted Jobs</a>
 </li>
-{{!-- <li class="nav-item">
-<a class="nav-link" href="my_freelancer_messages.html">Messages</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="my_freelancer_bookmarks.html">Bookmarks</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="my_freelancer_jobs.html">Jobs</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="my_freelancer_bids.html">Bids</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="my_freelancer_reviews.html">Reviews</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="my_freelancer_payments.html">Payment</a>
-</li>
-<li class="nav-item">
-<a class="nav-link" href="my_freelancer_setting.html"><i class="fas fa-cog"></i></a>
-</li>--}}
 </ul> 
 </div>
 {{#if candidates}}
@@ -70,9 +46,9 @@
 </div>
 <div class="btn_link24">
 <a id="link" href="/resume/{{this.userId}}.pdf" download><button class="apled_btn50">Download CV</button></a>
-{{!-- <a href="/employer/message/{{this.userId}}"><button class="apled_btn70" onclick="storeDetails()" >Message</button></a> --}}
 <a href="/employer/machinetest/{{this.userId}}"><button class="apled_btn70" >Machine Test</button></a>
 <a href="/employer/answerkey/{{this.userId}}/{{this.jobId}}"><button class="apled_btn70" >Answer key</button></a>
+<a href="/employer/removeCandidate/{{this.userId}}/{{this.jobId}}" onclick="return confirm('remove{{this.firstname}}{{this.lastname}}')" class="delete_icon1"><i class="far fa-trash-alt"></i></a>
 
  <input id="from" type="text" value="{{../employers._id}}" hidden/>
         <input id="to" type="text" value="{{this.userId}}"  hidden/>
@@ -100,14 +76,12 @@
           <div class="modal-footer">
               <button type="submit" onclick="sendMessage()" class="apled_btn50">Sent</button>
              
-            {{!-- <button type="button"  class="apled_btn50" data-dismiss="modal">Close</button> --}}
             </form>
           </div>
         </div>
 
       </div>
     </div>
-<a href="#" class="delete_icon1"><i class="far fa-trash-alt"></i></a>
 </div>
 </div>
 </li>

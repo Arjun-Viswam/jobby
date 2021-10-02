@@ -1,265 +1,166 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
 <script src="https://js.stripe.com/v3/"></script>
 
-
 <main class="browse-section">
-    <div class="container">
-        <form id="check">
-        <div class="row justify-content-md-center">
-            <div style="display: flex; justify-content: center; " class="col-12">
-                 <h2>Checkout</h2>
-            </div>
-            <div class="col-md-8">
-                <div class="main-heading">
-                   
-                    <div class="line-shape1">
-                        <img src="images/line.svg" alt="">
-                    </div>
-                </div>
-                <div style="margin-top: 0px !important;" class="statement_table checkout_dt">
-                    <div class="statement_body">
-                        <div class="table-responsive-md">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Type</th>
-                                        <th scope="col">Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">
-                                            <div class="user_dt_trans">
-                                                <p>{{planDetails.name}}</p>
-                                            </div>
-                                        </th>
-                                        <td>
-                                            <div class="user_dt_trans">
-                                                <p>{{planDetails.type}}</p>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="user_dt_trans">
-                                                <p><i class="fas fa-rupee-sign"></i>{{planDetails.price}}</p>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-8">
-                <div class="main-heading">
-                   
-                </div>
-                <div style="margin-top: 0px !important;" class="statement_table checkout_dt">
-                    <div class="statement_body">
-                        <div class="table-responsive-md">
-                             <div class="view_chart_header" style="display: flex; justify-content: space-between; ">
-                            <div class="ui radio checkbox mt-1">
-                                <input type="radio" name="paymentMethod" value="paypal">
-                                <label class="chk_method" style="color:#242424 !important;">Paypal</label>
-                            </div>
-                            <div class="cards_right">
-                                <img src="/images/paypal.png" alt="">
-                            </div>
-                            <div class="ui radio checkbox mt-1">
-                                <input type="radio" name="paymentMethod" value="razorpay">
-                                <label class="chk_method" style="color:#242424 !important;">Razorpay</label>
-                            </div>
-                            <div class="cards_right">
-                                <img src="/images/razorpay.png" alt="">
-                            </div>
-                            <div class="ui radio checkbox mt-1">
-                                <input type="radio" name="paymentMethod" value="stripe">
-                                <label class="chk_method" style="color:#242424 !important;">Stripe</label>
-                            </div>
-                            <div class="cards_right">
-                                <img src="/images/stripe.png" alt="">
-                            </div>
-                            
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                    <div style="float: right;">
-                    <button class="post_jp_btn" style="width: 198px;" type="submit">PROCEED PAYMENT</button>
-                    <div style="padding-top: 5px;" id="paypal-button-container"></div>
-                    </div>
-                </div>
-                
-
-            {{!-- <div class="row chk_pymnt">
-                <div class="col-md-4">
-                    <div class="main-heading">
-                        <h2>Payment Method</h2>
-                        <div class="line-shape1">
-                            <img src="images/line.svg" alt="">
-                        </div>
-                    </div>
-                </div> --}}
-
-                {{!-- <div class="col-md-4">
-                    <div class="view_chart">
-                        <div class="view_chart_header">
-                            <div class="ui radio checkbox mt-1">
-                                <input type="radio" name="example1">
-                                <label class="chk_method" style="color:#242424 !important;">Paypal</label>
-                            </div>
-                            <div class="cards_right">
-                                <img src="/images/paypal.png" alt="">
-                            </div>
-                        </div>
-                        <div class="view_chart_header">
-                            <div class="ui radio checkbox mt-1">
-                                <input type="radio" name="example1">
-                                <label class="chk_method" style="color:#242424 !important;">Paypal</label>
-                            </div>
-                            <div class="cards_right">
-                                <img src="/images/paypal.png" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-                
-            {{!-- </div> --}}
+  <div class="container">
+    <form id="check">
+      <div class="row justify-content-md-center">
+        <div style="display: flex; justify-content: center; " class="col-12">
+          <h2>Checkout</h2>
         </div>
-        </form>
+        <div class="col-md-8">
+          <div class="main-heading">
+
+            <div class="line-shape1">
+              <img src="images/line.svg" alt="" />
+            </div>
+          </div>
+          <div
+            style="margin-top: 0px !important;"
+            class="statement_table checkout_dt"
+          >
+            <div class="statement_body">
+              <div class="table-responsive-md">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Description</th>
+                      <th scope="col">Type</th>
+                      <th scope="col">Price</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">
+                        <div class="user_dt_trans">
+                          <p>{{planDetails.name}}</p>
+                        </div>
+                      </th>
+                      <td>
+                        <div class="user_dt_trans">
+                          <p>{{planDetails.type}}</p>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="user_dt_trans">
+                          <p><i
+                              class="fas fa-rupee-sign"
+                            ></i>{{planDetails.price}}</p>
+                        </div>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
-        
-<input type="text" value="{{stripePublishableKey}}" id="publishkey" hidden>
+
+        <div class="col-md-8">
+          <div class="main-heading">
+
+          </div>
+          <div
+            style="margin-top: 0px !important;"
+            class="statement_table checkout_dt"
+          >
+            <div class="statement_body">
+              <div class="table-responsive-md">
+                <div
+                  class="view_chart_header"
+                  style="display: flex; justify-content: space-between; "
+                >
+                  <div class="ui radio checkbox mt-1">
+                    <input type="radio" name="paymentMethod" value="paypal" />
+                    <label
+                      class="chk_method"
+                      style="color:#242424 !important;"
+                    >Paypal</label>
+                  </div>
+                  <div class="cards_right">
+                    <img src="/images/paypal.png" alt="" />
+                  </div>
+                  <div class="ui radio checkbox mt-1">
+                    <input type="radio" name="paymentMethod" value="razorpay" />
+                    <label
+                      class="chk_method"
+                      style="color:#242424 !important;"
+                    >Razorpay</label>
+                  </div>
+                  <div class="cards_right">
+                    <img src="/images/razorpay.png" alt="" />
+                  </div>
+                  <div class="ui radio checkbox mt-1">
+                    <input type="radio" name="paymentMethod" value="stripe" />
+                    <label
+                      class="chk_method"
+                      style="color:#242424 !important;"
+                    >Stripe</label>
+                  </div>
+                  <div class="cards_right">
+                    <img src="/images/stripe.png" alt="" />
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div style="float: right;">
+            <button
+              class="post_jp_btn"
+              style="width: 198px;"
+              type="submit"
+            >PROCEED PAYMENT</button>
+            <div style="padding-top: 5px;" id="paypal-button-container"></div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <input type="text" value="{{stripePublishableKey}}" id="publishkey" hidden />
 </main>
 
 <script>
-     $("#check").submit((e) => {
-        e.preventDefault()
-        let publishkey = document.getElementById("publishkey").value
-        $.ajax({
-            url: '/employer/checkout',
-            method: 'POST',
-            data: $('#check').serialize(),
-            success: (response) => {
-                console.log(response)
-                  if(response.paymentMethod=='razorpay') {
-                    razorpayPayment(response)
-                } else if(response.paymentMethod == "paypal"){
-                     paypal.Buttons({
-                        createOrder: function (data, actions) {
-                            // This function sets up the details of the transaction, including the amount and line item details.
-                            return actions.order.create({
-                                purchase_units: [{
-                                    amount: {
-                                        value: response.price
-                                    }
-                                }]
-                            });
-                        },
-                        onApprove: function (data, actions) {
-                            // This function captures the funds from the transaction.
-                            return actions.order.capture().then(function (details) {
-                                // This function shows a transaction success message to your buyer.
-                               // location.href = '/employer/success'
-                               verifyPaypalPayment(response,details)
-                            });
-                        }
-                    }).render('#paypal-button-container');
-                } else{
-                    var stripe = Stripe(publishkey)
-                    return stripe.redirectToCheckout({ sessionId: response.id });
+  $("#check").submit((e) => { e.preventDefault() let publishkey =
+  document.getElementById("publishkey").value $.ajax({ url:
+  '/employer/checkout', method: 'POST', data: $('#check').serialize(), success:
+  (response) => { if(response.paymentMethod=='razorpay') {
+  razorpayPayment(response) } else if(response.paymentMethod == "paypal"){
+  paypal.Buttons({ createOrder: function (data, actions) { // This function sets
+  up the details of the transaction, including the amount and line item details.
+  return actions.order.create({ purchase_units: [{ amount: { value:
+  response.price } }] }); }, onApprove: function (data, actions) { // This
+  function captures the funds from the transaction. return
+  actions.order.capture().then(function (details) { // This function shows a
+  transaction success message to your buyer. // location.href =
+  '/employer/success' verifyPaypalPayment(response,details) }); }
+  }).render('#paypal-button-container'); } else{ var stripe = Stripe(publishkey)
+  return stripe.redirectToCheckout({ sessionId: response.id }); //
+  stripeVerification() } } }) }) function razorpayPayment(order){ var options =
+  { "key": "rzp_test_TzntSXAXTPYdYg", "amount": order.amount, "currency": "INR",
+  "name": "linkIn.", "description": "Test Transaction", "image":
+  "https://example.com/your_logo", "order_id": order.id, "handler": function
+  (response){ verifypayment(response,order) }, "prefill": { "name": order.user,
+  "email": order.email, "contact": order.mobile }, "notes": { "address":
+  "Razorpay Corporate Office" }, "theme": { "color": "#F7941D" } }; var rzp1 =
+  new Razorpay(options); rzp1.open(); }
 
-                    // stripeVerification()
-                }
-             }
-        })
-     })
-
-      function razorpayPayment(order){
-
-var options = {
-    "key": "rzp_test_TzntSXAXTPYdYg", 
-    "amount": order.amount,
-    "currency": "INR",
-    "name": "linkIn.",
-    "description": "Test Transaction",
-    "image": "https://example.com/your_logo",
-    "order_id": order.id, 
-    "handler": function (response){
-        
-
-        verifypayment(response,order)
-    },
-    "prefill": {
-        "name": order.user,
-        "email": order.email,
-        "contact": order.mobile
-    },
-    "notes": {
-        "address": "Razorpay Corporate Office"
-    },
-    "theme": {
-        "color": "#F7941D"
-    }
-};
-var rzp1 = new Razorpay(options);
-    rzp1.open();
-    }
-
-  
 </script>
 <script>
-    function verifypayment(payment,order){
-        $.ajax({
-            url:'/employer/verify-payment',
-            method:'POST',
-            data:{
-                payment,
-                order
-            },
-            success:(response)=>{
-                if(response.status){
-                    location.href='/employer/success'
-                }else{
-                    location.href='/employer/failure'
-                }
-            }
-            
-        })
-    }
-
-    function verifyPaypalPayment(response,details){
-         $.ajax({
-            url:'/employer/verifyPaypalPayment',
-            method:'POST',
-            data:{
-                response,
-                details
-            },
-            success:(response)=>{
-                if(response.status){
-                    location.href='/employer/success'
-                }else{
-                    location.href='/employer/failure'
-                }
-            }
-            
-        })
-    }
+  function verifypayment(payment,order){ $.ajax({
+  url:'/employer/verify-payment', method:'POST', data:{ payment, order },
+  success:(response)=>{ if(response.status){ location.href='/employer/success'
+  }else{ location.href='/employer/failure' } } }) } function
+  verifyPaypalPayment(response,details){ $.ajax({
+  url:'/employer/verifyPaypalPayment', method:'POST', data:{ response, details
+  }, success:(response)=>{ if(response.status){
+  location.href='/employer/success' }else{ location.href='/employer/failure' } }
+  }) }
 </script>
 
-
-    {{!-- function stripeVerification(){
-        console.log("dddddddddd")
-        $.ajax({
-            url:'/employer/stripeVerification',
-            method:'GET',
-            success:(response)=>{
-            }
-        })
-    } --}}

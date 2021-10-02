@@ -775,7 +775,6 @@ module.exports = {
     });
   },
   getAnswerKeys: (userId, jobId) => {
-    console.log(userId, jobId);
     return new Promise((resolve, reject) => {
       db.get()
         .collection(collection.ANSWER_KEYS)
@@ -795,4 +794,16 @@ module.exports = {
         });
     });
   },
+  removeCandidate:(userId,jobId)=>{
+    return new Promise((resolve,reject)=>{
+      db.get().collection(collection.JOBS_APPLIED).removeOne({userId: objectId(userId)},{jobId:objectId(jobId)}).then(()=>{
+        db.get().collection(collection.JOB_COLLECTION).updateOne({_id: objectId(jobId)},
+        {
+          $inc : {'applicant': -1}
+        }).then(()=>{
+          resolve()
+        })
+      })
+    })
+  }
 };

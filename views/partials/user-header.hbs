@@ -16,6 +16,7 @@
 
                             </ul>
                         </div>
+                        {{#if users}}
                         <div class="top-right-hd">
                             <ul>
                                 <li class="dropdown">
@@ -37,7 +38,6 @@
                                                         <span>Open to Start</span>
                                                     </a>
                                                 </div>
-                                                {{!-- <div class="time5">2 min ago</div> --}}
                                             </div>
                                         </div>
                                         {{/each_upto}}
@@ -45,29 +45,16 @@
                                         <div class="user-request-list">
                                             <div class="request-users">
                                                 <div class="user-request-dt">
-                                                    {{!-- <a href="/machine-test/{{this._id}}"><img src="/profile-photos/{{this.empId}}.jpg" alt=""> --}}
-                                                        {{!-- <div class="user-title1">{{this.companyname}} </div> --}}
                                                         <span>No Current tests</span>
                                                     </a>
                                                 </div>
-                                                {{!-- <div class="time5">2 min ago</div> --}}
                                             </div>
                                         </div>
                                         {{/if}}
                                         
-                                        {{!-- <div class="user-request-list">
-                                            <a href="my_freelancer_messages.html" class="view-all">View All Messages</a>
-                                        </div> --}}
                                     </div>
                                 </li>
                                 <li class="dropdown">
-                                    {{!-- <a href="#" class="icon14 dropdown-toggle-no-caret" role="button"
-                                        data-toggle="dropdown">
-                                        <i class="fas fa-bell"></i>
-                                        {{#if notification.status}}
-                                        <div class="circle-alrt"></div>
-                                        {{/if}}
-                                    </a> --}}
                                     <div class="dropdown-menu message-dropdown dropdown-menu-right">
                                         <div class="user-request-list">
                                             <div class="request-users">
@@ -126,13 +113,6 @@
                                         </a>
                                         <div class="dropdown-menu account-dropdown dropdown-menu-right">
                                             <a class="link-item" href="/profile">Profile</a>
-                                            {{!-- <a class="link-item" href="my_freelancer_setting.html">Setting</a>
-                                            <a class="link-item" href="my_freelancer_messages.html">My Messages</a>
-                                            <a class="link-item" href="my_freelancer_jobs.html">My Jobs</a>
-                                            <a class="link-item" href="my_freelancer_bids.html">My Bids</a>
-                                            <a class="link-item" href="my_freelancer_portfolio.html">My Portfolio</a>
-                                            <a class="link-item" href="my_freelancer_bookmarks.html">My Bookmarks</a>
-                                            <a class="link-item" href="my_freelancer_payments.html">Payments</a> --}}
                                             <a class="link-item" href="/logout">Logout</a>
                                         </div>
                                     </div>
@@ -141,6 +121,7 @@
 
                             </ul>
                         </div>
+                        {{/if}}
                     </div>
                 </div>
             </div>
@@ -164,10 +145,6 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="/jobs" class="nav-link" >Find Jobs</a>
-                                    {{!-- <div class="dropdown-menu pages-dropdown">
-                                        <a class="link-item" href="browse_jobs.html">Browse Jobs</a>
-                                        <a class="link-item" href="job_single_view.html">Single Job View</a>
-                                    </div> --}}
                                 </li>
 
                                 <li class="nav-item dropdown">
@@ -246,10 +223,6 @@ $(document).ready(function(){
 	 document.getElementById('BrowseHide').style.display='none'
 	 document.getElementById('titleHide').style.display='none'
      document.getElementById('ButtonHide').style.display='none'
-    /* document.getElementsByClassName('owl-prev')[1].style.display ='none'
-     document.getElementsByClassName('owl-prev')[2].style.display ='none'
-     document.getElementsByClassName('owl-prev')[19].style.display ='none'
-     document.getElementsByClassName('owl-prev')[20].style.display ='none'*/
 
     var value = $(this).val().toLowerCase();
     $(".item").filter(function() {
@@ -263,8 +236,6 @@ $(document).ready(function(){
 	 document.getElementById('BrowseHide').style.display='block'
 	 document.getElementById('titleHide').style.display='block'
      document.getElementById('ButtonHide').style.display='block'
-    /* document.getElementsByClassName('owl-prev')[1].style.display ='block'
-     document.getElementsByClassName('owl-prev')[2].style.display ='block'*/
      
 	}
   });

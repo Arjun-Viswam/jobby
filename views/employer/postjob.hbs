@@ -1,233 +1,273 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"
+></script>
 
 <main class="browse-section">
-<div class="container">
-<div class="row">
-<div class="col-md-8">
-<div class="main-heading bids_heading">
-<h2>Post a Job</h2>
-<div class="line-shape1">
-<img src="/images/line.svg" alt="">
-</div>
-</div>
-<div class="post501">
-<form method="POST" action="/employer/postjob" id="postJob" enctype="multipart/form-data">
-<div class="row">
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Job Name*</label>
-<input type="text" class="job-input" name="jobname" placeholder="Job Name Here">
-</div>
-<div class="form-group">
-<label class="label15">Job Description*</label>
-<textarea class="textarea_input" name="discription" placeholder="Type Description"></textarea>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="requires">
-What are the job requirements
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Job Type*</label>
-<div class="ui fluid search selection">
-    <select name="jobtype" class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;" required id="">
-<option class="item" id="None">None</option>
-<option class="item" id="Marketing Head">Marketing Head</option>
-<option class="item" id="Business Head">Business Head</option>
-<option class="item" id="Business Executive">Business Executive</option>
-<option class="item" id="IT Head">IT Head</option>
-<option class="item" id="Sales Head">Sales Head</option>
-<option class="item" id="Team Lead">Team Lead</option>
-<option class="item" id="Senior Developer">Senior Developer</option>
-<option class="item" id="Junior Developer">Junior Developer</option>
-<option class="item" id="Senior Executive">Senior Executive</option>
-<option class="item" id="Junior Executive">Junior Executive</option>
-<option class="item" id="Operation Head">Operation Head</option>
-<option class="item" id="Security">Security</option>
-<option class="item" id="Electrician">Electrician</option>
-<option class="item" id="Plumber">Plumber</option>
-<option class="item" id="Maid">Maid</option>
-</select>
-</div>
-</div>
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="main-heading bids_heading">
+          <h2>Post a Job</h2>
+          <div class="line-shape1">
+            <img src="/images/line.svg" alt="" />
+          </div>
+        </div>
+        <div class="post501">
+          <form
+            method="POST"
+            action="/employer/postjob"
+            id="postJob"
+            enctype="multipart/form-data"
+          >
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Job Name*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="jobname"
+                    placeholder="Job Name Here"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="label15">Job Description*</label>
+                  <textarea
+                    class="textarea_input"
+                    name="discription"
+                    placeholder="Type Description"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="requires">
+                  What are the job requirements
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Job Type*</label>
+                  <div class="ui fluid search selection">
+                    <select
+                      name="jobtype"
+                      class="form-control"
+                      style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"
+                      required
+                      id=""
+                    >
+                      <option class="item" id="None">None</option>
+                      <option class="item" id="Marketing Head">Marketing Head</option>
+                      <option class="item" id="Business Head">Business Head</option>
+                      <option class="item" id="Business Executive">Business
+                        Executive</option>
+                      <option class="item" id="IT Head">IT Head</option>
+                      <option class="item" id="Sales Head">Sales Head</option>
+                      <option class="item" id="Team Lead">Team Lead</option>
+                      <option class="item" id="Senior Developer">Senior
+                        Developer</option>
+                      <option class="item" id="Junior Developer">Junior
+                        Developer</option>
+                      <option class="item" id="Senior Executive">Senior
+                        Executive</option>
+                      <option class="item" id="Junior Executive">Junior
+                        Executive</option>
+                      <option class="item" id="Operation Head">Operation Head</option>
+                      <option class="item" id="Security">Security</option>
+                      <option class="item" id="Electrician">Electrician</option>
+                      <option class="item" id="Plumber">Plumber</option>
+                      <option class="item" id="Maid">Maid</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Job Category*</label>
-<div class="ui fluid search selection">
-<select name="category"  class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;" required id="">
-<option class="item" id="None">None</option>
-{{#each category}}
-<option class="item" id="{{this.category}}">{{this.category}}</option>
-{{/each}}
-{{!-- <option class="item" id="Data science & Analytics">Data science & Analytics</option>
-<option class="item" id="Admin Support">Admin Support</option>
-<option class="item" id="Design & Creative">Design & Creative</option>
-<option class="item" id="Accounting & Consulting">Accounting & Consulting</option>
-<option class="item" id="Writing">Writing</option>
-<option class="item" id="Legal">Legal</option>
-<option class="item" id="IT & Networking">IT & Networking</option>
-<option class="item" id="Sales & Marketing">Sales & Marketing</option>
-<option class="item" id="Customer Service">Customer Service</option>
-<option class="item" id="Translation">Translation</option>
-<option class="item" id="Engineering & Architecture">Engineering & Architecture</option> --}}
-</select>
-</div>
-</div>
-</div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Job Category*</label>
+                  <div class="ui fluid search selection">
+                    <select
+                      name="category"
+                      class="form-control"
+                      style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"
+                      required
+                      id=""
+                    >
+                      <option class="item" id="None">None</option>
+                      {{#each category}}
+                        <option
+                          class="item"
+                          id="{{this.category}}"
+                        >{{this.category}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>
+              </div>
 
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Availability*</label>
+                  <div class="ui fluid search selection">
+                    <select
+                      class="form-control"
+                      style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"
+                      name="availability"
+                      required
+                      id="availability"
+                    >
+                      <option class="item" id="Full Time">Full Time</option>
+                      <option class="item" id="Part Time">Part Time</option>
+                      <option class="item" id="Not Available">Not Available</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Availability*</label>
-<div class="ui fluid search selection">
-<select  class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"  name="availability" required id="availability">
-<option class="item" id="Full Time">Full Time</option>
-<option class="item" id="Part Time">Part Time</option>
-<option class="item" id="Not Available">Not Available</option>
-</select>
-</div>
-</div>
-</div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Experience Level*</label>
+                  <div class="ui fluid search selection">
+                    <select
+                      class="form-control"
+                      style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"
+                      name="experience"
+                      required
+                      id="experience"
+                    >
+                      <option class="item" id="None">None</option>
+                      <option class="item" id="level 01">level 01</option>
+                      <option class="item" id="level 02">level 02</option>
+                      <option class="item" id="level 03">level 03</option>
+                      <option class="item" id="level 04">level 04</option>
+                      <option class="item" id="level 05">level 05</option>
+                      <option class="item" id="level 06">level 06</option>
+                      <option class="item" id="level 07">level 07</option>
+                      <option class="item" id="level 08">level 08</option>
+                      <option class="item" id="level 09">level 09</option>
+                      <option class="item" id="level 10">level 10</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Experience Level*</label>
-<div class="ui fluid search selection ">
-<select class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"  name="experience" required id="experience">
-<option class="item" id="None">None</option>
-<option class="item" id="level 01">level 01</option>
-<option class="item" id="level 02">level 02</option>
-<option class="item" id="level 03">level 03</option> 
-<option class="item" id="level 04">level 04</option>
-<option class="item" id="level 05">level 05</option>
-<option class="item" id="level 06">level 06</option>
-<option class="item" id="level 07">level 07</option>
-<option class="item" id="level 08">level 08</option>
-<option class="item" id="level 09">level 09</option>
-<option class="item" id="level 10">level 10</option>
-</select>
-</div>
-</div>
-</div>
-
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Salary Min*</label>
-<div class="smm_input">
-<input type="number" min="0" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="job-input" name="min_salary" placeholder="Min" required>
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Salary Max*</label>
-<div class="smm_input">
-<input type="number" min="0" class="job-input" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="max_salary" placeholder="Max" required>
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Location*</label>
-<div class="smm_input">
-<input type="text" class="job-input" name="location" placeholder="Type Address" required>
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Language*</label>
-<input type="text" class="job-input" name="language" placeholder="Enter the language you prefer eg:English,Hindi" required value="">
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Skills*</label>
-<input type="text" class="job-input" name="skills" placeholder="Enter the skills you prefer eg: Nodejs,python" required value="">
-</div>
-</div>
-{{!-- <div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Upload Files*</label>
-<div class="image-upload-wrap1">
-<input class="file-upload-input1" id="jobimage" name="image" type="file" >
-<div class="drag-text1">
-Upload Files
-</div>
-</div>
-<p class="upload_dt">Advertisement Image or Company Logo</p>
-</div>
-</div> --}}
-<div class="col-lg-12">
-<button class="post_jp_btn" type="submit">Choose a plan</button>
-</div>
-</div>
-</form>
-</div>
-</div>
-<div class="col-md-4">
-<div class="main-heading bids_heading pjfaq80">
-<h2>FAQ</h2>
-</div>
-<div class="jp_faq">
-<div class="jp_faq_item">
-<h4>01. Is there a fee to post a job?</h4>
-<p>There are pricing plans monthly and yearly for jobs on Jobby. It is a paid service that we offer bith for the employer and the freelancer.</p>
-</div>
-<div class="jp_faq_item">
-<h4>02. How do I find freelancers for my job?</h4>
-<p>Posting a job on Jobby will get your job in front of the most qualified freelancers and agencies. You will then get applications for the job with the applicant’s details and reasons why they are the best fit for the job. You can also search for freelancers and invite them to apply.</p>
-</div>
-<div class="jp_faq_item">
-<h4>03. How do I pay freelancers and agencies?</h4>
-<p>You’re free to pay your freelancer and agencies. you can pay automatically for their work through Paypal, Payoneer, or (which allows you to pay via credit card, debit card).</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Salary Min*</label>
+                  <div class="smm_input">
+                    <input
+                      type="number"
+                      min="0"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      class="job-input"
+                      name="min_salary"
+                      placeholder="Min"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Salary Max*</label>
+                  <div class="smm_input">
+                    <input
+                      type="number"
+                      min="0"
+                      class="job-input"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      name="max_salary"
+                      placeholder="Max"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Location*</label>
+                  <div class="smm_input">
+                    <input
+                      type="text"
+                      class="job-input"
+                      name="location"
+                      placeholder="Type Address"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Language*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="language"
+                    placeholder="Enter the language you prefer eg:English,Hindi"
+                    required
+                    value=""
+                  />
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Skills*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="skills"
+                    placeholder="Enter the skills you prefer eg: Nodejs,python"
+                    required
+                    value=""
+                  />
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <button class="post_jp_btn" type="submit">Choose a plan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="main-heading bids_heading pjfaq80">
+          <h2>FAQ</h2>
+        </div>
+        <div class="jp_faq">
+          <div class="jp_faq_item">
+            <h4>01. Is there a fee to post a job?</h4>
+            <p>There are pricing plans monthly and yearly for jobs on Jobby. It
+              is a paid service that we offer bith for the employer and the
+              freelancer.</p>
+          </div>
+          <div class="jp_faq_item">
+            <h4>02. How do I find freelancers for my job?</h4>
+            <p>Posting a job on Jobby will get your job in front of the most
+              qualified freelancers and agencies. You will then get applications
+              for the job with the applicant’s details and reasons why they are
+              the best fit for the job. You can also search for freelancers and
+              invite them to apply.</p>
+          </div>
+          <div class="jp_faq_item">
+            <h4>03. How do I pay freelancers and agencies?</h4>
+            <p>You’re free to pay your freelancer and agencies. you can pay
+              automatically for their work through Paypal, Payoneer, or (which
+              allows you to pay via credit card, debit card).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <script>
 
-$(document).ready(()=>{
-    
-  $("#postJob").validate({ 
-
-      rules: {
-        jobname: {
-          required: true,
-          minlength: 4,
-        },
-        min_salary: {
-          required: true,
-          number: true,
-        },
-        max_salary:{
-          required:true,
-          number:true,
-        },
-        discription:{
-          required:true,
-          minlength:140,
-        },
-        skills: {
-          required: true,
-        },
-        language:{
-          required:true,
-        },
-        location:{
-          required:true,
-        }   
-      }
-    })
-     })
+  $(document).ready(()=>{ $("#postJob").validate({ rules: { jobname: { required:
+  true, minlength: 4, }, min_salary: { required: true, number: true, },
+  max_salary:{ required:true, number:true, }, discription:{ required:true,
+  minlength:140, }, skills: { required: true, }, language:{ required:true, },
+  location:{ required:true, } } }) })
 </script>

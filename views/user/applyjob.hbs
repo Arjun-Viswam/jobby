@@ -1,256 +1,371 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script> 
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"
+></script>
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+/>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"
+></script>
 
 <main class="browse-section">
-<div class="container">
-<div class="row">
-<div class="col-md-8">
-<div class="main-heading bids_heading">
-<h2>Apply</h2>
-<div class="line-shape1">
-<img src="images/line.svg" alt="">
-</div>
-</div>
-<div class="post501">
-<form method="POST" action="/applyjob" id="applyJob" enctype="multipart/form-data">
-<div class="row">
-    <div class="col-lg-12">
-<div class="requires">
-Personal Information
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">First Name*</label>
-<input type="text" name="firstname" value="{{userDetails.firstname}}" class="job-input" placeholder="Enter your First Name Here" >
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Last Name*</label>
-<input type="text" name="lastname" value="{{userDetails.lastname}}" class="job-input" placeholder="Enter your Last Name Here" >
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Address*</label>
-<input type="text" name="address" class="job-input" placeholder="Enter your address here" >
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Street*</label>
-<input type="text" name="street" class="job-input" placeholder="Enter your street Here" >
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Gender*</label>
-<div class="ui fluid search selection">
-<select  class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"  name="gender" id="availability" >
-<option class="item" id="Male">Male</option>
-<option class="item" id="Female">Female</option>
-<option class="item" id="Other">Other</option>
-</select>
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Nationality*</label>
-<input type="text" name="nationality" class="job-input" placeholder="Enter your Nationality Here" >
-</div>
-</div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="main-heading bids_heading">
 
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">District*</label>
-<input type="text" name="district" class="job-input" placeholder="Enter your District Here" >
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Postal Code*</label>
-<input type="text" name="postalcode" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="job-input" placeholder="Enter your postal code Here" >
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Mobile*</label>
-<div class="smm_input">
-<input type="text" name="mobile" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="phone" value="{{userDetails.mobile}}" class="job-input" placeholder="Enter your Mobile Number Here" >
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Email*</label>
-<input type="text" name="email" class="job-input" value="{{userDetails.email}}" placeholder="Enter your Email Here" >
-</div>
-</div>
-<div class="col-lg-12">
-<div class="requires">
-Education and other Information
-</div>
-</div>
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Qualification*</label>
-<input type="text" name="qualification" class="job-input" value="" placeholder="Enter your Qualification Here" >
-<div class="smm_input">
-</div>
-</div>
-</div>
+          <h2>Apply</h2>
+          <div class="line-shape1">
+            <img src="images/line.svg" alt="" />
+          </div>
+        </div>
+        <div class="post501">
+          <form id="checkapply" enctype="multipart/form-data">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="requires">
+                  Personal Information
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">First Name*</label>
+                  <input
+                    type="text"
+                    name="firstname"
+                    value="{{userDetails.firstname}}"
+                    class="job-input"
+                    placeholder="Enter your First Name Here"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Last Name*</label>
+                  <input
+                    type="text"
+                    name="lastname"
+                    value="{{userDetails.lastname}}"
+                    class="job-input"
+                    placeholder="Enter your Last Name Here"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Address*</label>
+                  <input
+                    type="text"
+                    name="address"
+                    class="job-input"
+                    placeholder="Enter your address here"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Street*</label>
+                  <input
+                    type="text"
+                    name="street"
+                    class="job-input"
+                    placeholder="Enter your street Here"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Gender*</label>
+                  <div class="ui fluid search selection">
+                    <select
+                      class="form-control"
+                      style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"
+                      name="gender"
+                      id="availability"
+                    >
+                      <option class="item" id="Male">Male</option>
+                      <option class="item" id="Female">Female</option>
+                      <option class="item" id="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Nationality*</label>
+                  <input
+                    type="text"
+                    name="nationality"
+                    class="job-input"
+                    placeholder="Enter your Nationality Here"
+                  />
+                </div>
+              </div>
 
-<div class="col-lg-6">
-<div class="form-group">
-<label class="label15">Experience Level*</label>
-<div class="ui fluid search selection ">
-<select  class="form-control" style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"  name="experience" id="experience" >
-<option class="item" id="None">None</option>
-<option class="item" id="level 01">level 01</option>
-<option class="item" id="level 02">level 02</option>
-<option class="item" id="level 03">level 03</option> 
-<option class="item" id="level 04">level 04</option>
-<option class="item" id="level 05">level 05</option>
-<option class="item" id="level 06">level 06</option>
-<option class="item" id="level 07">level 07</option>
-<option class="item" id="level 08">level 08</option>
-<option class="item" id="level 09">level 09</option>
-<option class="item" id="level 10">level 10</option>
-</select>
-</div>
-</div>
-</div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">District*</label>
+                  <input
+                    type="text"
+                    name="district"
+                    class="job-input"
+                    placeholder="Enter your District Here"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Postal Code*</label>
+                  <input
+                    type="text"
+                    name="postalcode"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                    class="job-input"
+                    placeholder="Enter your postal code Here"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Mobile*</label>
+                  <div class="smm_input">
+                    <input
+                      type="text"
+                      name="mobile"
+                      onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                      id="phone"
+                      value="{{userDetails.mobile}}"
+                      class="job-input"
+                      placeholder="Enter your Mobile Number Here"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Email*</label>
+                  <input
+                    type="text"
+                    name="email"
+                    class="job-input"
+                    value="{{userDetails.email}}"
+                    placeholder="Enter your Email Here"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="requires">
+                  Education and other Information
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Qualification*</label>
+                  <input
+                    type="text"
+                    name="qualification"
+                    class="job-input"
+                    value=""
+                    placeholder="Enter your Qualification Here"
+                  />
+                  <div class="smm_input">
+                  </div>
+                </div>
+              </div>
 
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Languages*</label>
-<div class="smm_input">
-<input type="text" class="job-input" name="language" value="{{userDetails.language}}" placeholder="Enter the Languages you know" >
-</div>
-</div>
-</div>
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Skills*</label>
-<input type="text" name="skills" class="job-input" value="{{userDetails.skills}}" placeholder="Enter the Skills Here" >
-</div>
-</div>
-<input hidden name="jobId" value="{{jobId}}">
-<input hidden name="userId" value="{{users._id}}">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label class="label15">Experience Level*</label>
+                  <div class="ui fluid search selection">
+                    <select
+                      class="form-control"
+                      style="height: 3em; -webkit-appearance:none; border: 1px solid #e5e5e5;"
+                      name="experience"
+                      id="experience"
+                    >
+                      <option class="item" id="None">None</option>
+                      <option class="item" id="level 01">level 01</option>
+                      <option class="item" id="level 02">level 02</option>
+                      <option class="item" id="level 03">level 03</option>
+                      <option class="item" id="level 04">level 04</option>
+                      <option class="item" id="level 05">level 05</option>
+                      <option class="item" id="level 06">level 06</option>
+                      <option class="item" id="level 07">level 07</option>
+                      <option class="item" id="level 08">level 08</option>
+                      <option class="item" id="level 09">level 09</option>
+                      <option class="item" id="level 10">level 10</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
 
-<div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Upload Files*</label>
-<div class="image-upload-wrap1">
-<input class="file-upload-input1" id="file" name="resume" type="file" onchange="return fileValidationResume()" required >
-<div class="drag-text1">
-Upload Files
-</div>
-</div>
-<p class="upload_dt">upload your CV as pdf</p>
-</div>
-</div>
-<div class="col-lg-12">
-<button class="post_jp_btn" type="submit">Apply</button>
-</div>
-</div>
-</form>
-</div>
-</div>
-<div class="col-md-4">
-<div class="main-heading bids_heading pjfaq80">
-<h2>FAQ</h2>
-</div>
-<div class="jp_faq">
-<div class="jp_faq_item">
-<h4>01. Is there a fee to post a job?</h4>
-<p>There are pricing plans monthly and yearly for jobs on Jobby. It is a paid service that we offer bith for the employer and the freelancer.</p>
-</div>
-<div class="jp_faq_item">
-<h4>02. How do I find freelancers for my job?</h4>
-<p>Posting a job on Jobby will get your job in front of the most qualified freelancers and agencies. You will then get applications for the job with the applicant’s details and reasons why they are the best fit for the job. You can also search for freelancers and invite them to apply.</p>
-</div>
-<div class="jp_faq_item">
-<h4>03. How do I pay freelancers and agencies?</h4>
-<p>You’re free to pay your freelancer and agencies. you can pay automatically for their work through Paypal, Payoneer, or (which allows you to pay via credit card, debit card).</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Languages*</label>
+                  <div class="smm_input">
+                    <input
+                      type="text"
+                      class="job-input"
+                      name="language"
+                      value="{{userDetails.language}}"
+                      placeholder="Enter the Languages you know"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Skills*</label>
+                  <input
+                    type="text"
+                    name="skills"
+                    class="job-input"
+                    value="{{userDetails.skills}}"
+                    placeholder="Enter the Skills Here"
+                  />
+                </div>
+              </div>
+              <input hidden name="jobId" value="{{jobId}}" />
+              <input hidden name="userId" value="{{users._id}}" />
+
+              <div class="col-lg-12">
+                <div class="form-group">
+                  <label class="label15">Upload Files*</label>
+                  <div class="image-upload-wrap1">
+                    <input
+                      class="file-upload-input1"
+                      id="file"
+                      name="resume"
+                      type="file"
+                      onchange="return fileValidationResume()"
+                      required
+                    />
+                    <div class="drag-text1">
+                      Upload Files
+                    </div>
+                  </div>
+                  <p class="upload_dt">upload your CV as pdf</p>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <button class="post_jp_btn" type="submit">Apply</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-4">
+
+        <div class="browser-job-filters">
+          <div class="filter-heading">
+            <div class="">
+              <div class="job-left-dt">
+                <img src="/profile-photos/{{job.empId}}.jpg" alt="" />
+                <div class="job-ut-dts">
+                  <a href="/job-singleview/{{job._id}}"><h4
+                    >{{job.jobname}}</h4></a>
+                  <span><i class="fas fa-map-marker-alt"></i>
+                    {{job.location}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fltr-group">
+            <div class="fltr-items-heading">
+              <div class="fltr-item-left">
+                <h6>Skills</h6>
+              </div>
+
+            </div>
+            <div class="job-skills">
+              {{#each_upto job.skills 5}}
+                <a class="more-skills">{{this}}</a>
+              {{/each_upto}}
+            </div>
+          </div>
+          <div class="fltr-group">
+            <div class="fltr-items-heading">
+              <div class="fltr-item-left">
+                <h6>discription</h6>
+              </div>
+            </div>
+            <p>{{job.discription}}</p>
+          </div>
+          <div class="fltr-group">
+            <div class="fltr-items-heading">
+              <div class="fltr-item-left">
+                <h6>Other Details</h6>
+              </div>
+            </div>
+            <div class="job-rice">
+              <h3><i class="fas fa-rupee-sign"></i>{{job.min_salary}}-
+                <i class="fas fa-rupee-sign"></i>{{job.max_salary}}</h3></div>
+            <h6>&nbsp</h6>
+            <div class="job-fp">{{job.availability}}</div>
+          </div>
+
+        </div>
+
+        <h4>
+          &nbsp;
+        </h4>
+        <div class="main-heading bids_heading pjfaq80">
+          <h2>FAQ</h2>
+        </div>
+        <div class="jp_faq">
+          <div class="jp_faq_item">
+            <h4>01. Is there a fee to post a job?</h4>
+            <p>There are pricing plans monthly and yearly for jobs on Jobby. It
+              is a paid service that we offer bith for the employer and the
+              freelancer.</p>
+          </div>
+          <div class="jp_faq_item">
+            <h4>02. How do I find freelancers for my job?</h4>
+            <p>Posting a job on Jobby will get your job in front of the most
+              qualified freelancers and agencies. You will then get applications
+              for the job with the applicant’s details and reasons why they are
+              the best fit for the job. You can also search for freelancers and
+              invite them to apply.</p>
+          </div>
+          <div class="jp_faq_item">
+            <h4>03. How do I pay freelancers and agencies?</h4>
+            <p>You’re free to pay your freelancer and agencies. you can pay
+              automatically for their work through Paypal, Payoneer, or (which
+              allows you to pay via credit card, debit card).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 <script>
 
- function fileValidationResume() {
-        var fileInput = document.getElementById('file');
-        
-        var filePath = fileInput.value;
-        var allowedExtensions = /(\.pdf)$/i;
-        if (!allowedExtensions.exec(filePath)) {
-            alert('Please upload file having extensions .pdf only.');
-            fileInput.value = '';
-            return false;
-        } 
-    }
+  function fileValidationResume() { var fileInput =
+  document.getElementById('file'); var filePath = fileInput.value; var
+  allowedExtensions = /(\\.pdf)$/i; if (!allowedExtensions.exec(filePath)) {
+  alert('Please upload file having extensions .pdf only.'); fileInput.value =
+  ''; return false; } }
 
 </script>
 <script src="/main/js/user-profile.js"></script>
 
 <script>
-$(document).ready(()=>{
-    
-  $("#applyJob").validate({ 
-
-      rules: {
-        firstname: {
-          required: true,
-          minlength: 4,
-        },
-        lastname: {
-          required: true,
-          minlength: 4,
-        },
-        email:{
-          required:true,
-          email:true,
-        },
-        mobile:{
-          required:true,
-          minlength:10,
-          maxlength:10,
-          number:true
-        },
-        address:{
-          required:true,
-        },
-        street:{
-          required:true,
-         ,
-        },
-        skills: {
-          required: true,
-        },
-        language:{
-          required:true,
-        },
-        gender:{
-          required:true,
-        },
-        nationality:{
-          required:true,
-        },
-        district:{
-          required:true,
-        },
-        qualification:{
-          required:true,
-        }   
-      }
-    })
-     })
+  $("#checkapply").submit((e) => { e.preventDefault() $.ajax({ url:'/applyjob',
+  method:'POST', enctype: "multipart/form-data", data:
+  $('#checkapply').serialize(), success: (response) =>{ if(response.status){
+  alert("aaaaaaaaa") } } }) })
+</script>
+<script>
+  $(document).ready(()=>{ $("#applyTheJob").validate({ rules: { firstname: {
+  required: true, minlength: 4, }, lastname: { required: true, minlength: 4, },
+  email:{ required:true, email:true, }, mobile:{ required:true, minlength:10,
+  maxlength:10, number:true }, address:{ required:true, }, street:{
+  required:true, , }, skills: { required: true, }, language:{ required:true, },
+  gender:{ required:true, }, nationality:{ required:true, }, district:{
+  required:true, }, qualification:{ required:true, } } }) })
 </script>

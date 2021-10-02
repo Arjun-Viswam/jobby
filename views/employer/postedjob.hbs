@@ -49,12 +49,10 @@
 <li>
 <div class="applied_item">
 <a href="#">{{this.jobname}}</a>
-{{!-- <span class="badge_alrt">Pending Approval</span> --}}
 <ul class="view_dt_job">
 <li><div class="vw1254"><i class="far fa-clock"></i>Posted on : {{this.Date}}</div></li>
 <li><div class="vw1254">salary : {{this.min_salary}} - {{this.max_salary}}</div></li>
 <li><div class="vw1254">Availability : {{this.availability}} </div></li>
-{{!-- <input id="CandidateId" value="{{this._id}}" hidden> --}}
 </ul>
 <div class="btn_link23">
 
@@ -73,73 +71,6 @@
 <h2>No jobs posted yet</h2>
 {{/if}}
 </div>
-{{!-- <div class="tab-pane fade" id="applied_jobs">
- <div class="view_chart">
-<div class="view_chart_header">
-<h4>Applied Jobs</h4>
-</div>
-<div class="job_bid_body">
-<ul class="all_applied_jobs jobs_bookmarks">
-<li>
-<div class="applied_item">
-<a href="#">Wordpress Developer</a>
-<ul class="view_dt_job">
-<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
-<li><div class="vw1254"><i class="fas fa-briefcase"></i>Full Time</div></li>
-<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$599 - Manual</div></li>
-<li><div class="vw1254"><i class="far fa-clock"></i>1 day ago</div></li>
-</ul>
-<div class="btn_link23">
-<button class="apled_btn50">Applied</button>
-</div>
-</div>
-</li>
-<li>
-<div class="applied_item">
-<a href="#">Front End Developer</a>
-<ul class="view_dt_job">
-<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
-<li><div class="vw1254"><i class="fas fa-briefcase"></i>Part Time</div></li>
-<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$50 / hr</div></li>
-<li><div class="vw1254"><i class="far fa-clock"></i>2 day ago</div></li>
-</ul>
-<div class="btn_link23">
-<button class="apled_btn50">Applied</button>
-</div>
-</div>
-</li>
-<li>
-<div class="applied_item">
-<a href="#">Back End Developer</a>
-<ul class="view_dt_job">
-<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>India</div></li>
-<li><div class="vw1254"><i class="fas fa-briefcase"></i>Full Time</div></li>
-<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$1200 - Fixed</div></li>
-<li><div class="vw1254"><i class="far fa-clock"></i>4 day ago</div></li>
-</ul>
-<div class="btn_link23">
-<button class="apled_btn50">Applied</button>
-</div>
-</div>
-</li>
-<li>
-<div class="applied_item">
-<a href="#">Ui / UX Designer</a>
-<ul class="view_dt_job">
-<li><div class="vw1254"><i class="fas fa-map-marker-alt"></i>Australia</div></li>
-<li><div class="vw1254"><i class="fas fa-briefcase"></i>Part Time</div></li>
-<li><div class="vw1254"><i class="far fa-money-bill-alt"></i>$50 / hr</div></li>
-<li><div class="vw1254"><i class="far fa-clock"></i>2 day ago</div></li>
-</ul>
-<div class="btn_link23">
-<button class="apled_btn50">Applied</button>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div> --}}
 <div class="tab-pane fade" id="applied_candidates">
 <div class="view_chart">
 <div class="view_chart_header">
@@ -351,18 +282,6 @@ What are the job requirements
 <input type="text" class="job-input" name="skills" placeholder="Enter the skills you prefer eg: Nodejs,python" value="">
 </div>
 </div>
-{{!-- <div class="col-lg-12">
-<div class="form-group">
-<label class="label15">Upload Files*</label>
-<div class="image-upload-wrap1">
-<input class="file-upload-input1" id="jobimage" name="image" type="file" >
-<div class="drag-text1">
-Upload Files
-</div>
-</div>
-<p class="upload_dt">Advertisement Image or Company Logo</p>
-</div>
-</div> --}}
 <div class="col-lg-12">
 <button class="post_jp_btn" type="submit">Post a Job</button>
 </div>

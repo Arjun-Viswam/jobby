@@ -1,37 +1,53 @@
-
 <main class="browse-section">
-<div class="container">
-<div class="row justify-content-md-center">
-<div class="col-md-6">
-<div class="lg_form">
-<div class="main-heading">
-<h2>Sign in with OTP</h2>
-<div class="line-shape1">
-<img src="images/line.svg" alt="">
-</div>
-</div>
-<form method="POST" action="/signup-code">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="lg_form">
+          <div class="main-heading">
+            <h2>Sign in with OTP</h2>
+            <div class="line-shape1">
+              <img src="images/line.svg" alt="" />
+            </div>
+          </div>
+          <form method="POST" action="/signup-code">
 
-<div class="form-group">
-<input type="tel" class="job-input" style="max-width: 26em;" name="token" placeholder="Enter the code" required>
-<button style="width: 89px; height: 40px; margin-top: 0;" class="view-links">Send</button>
-<input type="hidden" name="firstname" value="{{data.firstname}}" />
-<input type="hidden" name="lastname" value="{{data.lastname}}" />
-<input type="hidden" name="email" value="{{data.email}}" />
-<input type="hidden" name="mobile" value="{{data.full}}" />
-<input type="hidden" name="password" value="{{data.password}}" />	
-<input type="hidden" name="password2" value="{{data.password2}}" />								
+            <div class="form-group">
+              <input
+                type="tel"
+                class="job-input"
+                style="max-width: 26em;"
+                name="token"
+                placeholder="Enter the code"
+                required
+              />
+              <button
+                style="width: 89px; height: 40px; margin-top: 0;"
+                class="view-links"
+              >Send</button>
+              <input
+                type="hidden"
+                name="firstname"
+                value="{{data.firstname}}"
+              />
+              <input type="hidden" name="lastname" value="{{data.lastname}}" />
+              <input type="hidden" name="email" value="{{data.email}}" />
+              <input type="hidden" name="mobile" value="{{data.full}}" />
+              <input type="hidden" name="password" value="{{data.password}}" />
+              <input
+                type="hidden"
+                name="password2"
+                value="{{data.password2}}"
+              />
 
+            </div>
+            {{#if loginErr}}
+              <p style="color: red;">{{loginErr}}</p>
+            {{/if}}
+          </form>
 
-</div>
-{{#if loginErr}}
-<p style="color: red;">{{loginErr}}</p>
-{{/if}}
-</form>
+        </div>
+      </div>
+    </div>
 
-</div>
-</div>
-</div>
-
-</div>
+  </div>
 </main>

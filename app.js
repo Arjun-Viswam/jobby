@@ -25,7 +25,7 @@ const { Strategy } = require("passport");
 const userHelpers = require("./helpers/user-helpers");
 const collection = require("./config/collection");
 const { SafeString } = require("handlebars");
-require('dotenv').config()
+require("dotenv").config();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -95,7 +95,7 @@ passport.use(
             .collection(collection.USER_COLLECTION)
             .insertOne(userData)
             .then((users) => {
-              let user = users.ops[0]
+              let user = users.ops[0];
               return done(null, user);
             });
         }
@@ -126,8 +126,8 @@ passport.use(
           .collection(collection.USER_COLLECTION)
           .insertOne(userData)
           .then((users) => {
-            let user = users.ops[0]
-            let err = null
+            let user = users.ops[0];
+            let err = null;
             return cb(err, user);
           });
       }
@@ -146,8 +146,7 @@ passport.deserializeUser(function (id, cb) {
 passport.use(
   new GoogleStrategy(
     {
-      clientID:
-       process.env.GOOGLE_ID,
+      clientID: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
       callbackURL: "http://jobby.arjunviswam.ml/auth/google/callback",
     },
@@ -166,86 +165,13 @@ passport.use(
           .collection(collection.USER_COLLECTION)
           .insertOne(userData)
           .then((users) => {
-            let user = users.ops[0]
+            let user = users.ops[0];
             return cb(null, user);
           });
       }
     }
   )
 );
-
-//employer side
-
-// passport.use(new LinkedInStrategy({
-//   clientID: "86n67zqy2omotz",
-//   clientSecret:"KK0eNA2GbrJgE2Ug",
-//   callbackURL: "http://localhost:5550/employer/auth/linkedin/callback",
-//   scope: ['r_emailaddress', 'r_liteprofile'],
-// }, function(accessToken, refreshToken, profile, done) {
-//   // asynchronous verification, for effect...
-//   process.nextTick(async function () {
-//     let userData = {}
-//   userData.companyname = profile.displayName
-//   userData.linkedId = profile.id
-//   let user = await db.get().collection(collection.EMPLOYER_COLLECTION).findOne({ linkedId : profile.id})
-//   if(user){
-//     return done(null, user);
-//   }else{
-//   db.get().collection(collection.EMPLOYER_COLLECTION).insertOne(userData).then((err, user)=>{
-//     return done(null, user);
-//   })
-// }
-//   });
-// }));
-
-// passport.use(new GitHubStrategy({
-//   clientID: "10ced24de3b02b0f02ab",
-//   clientSecret: "3eddd2cbb73fcfdc3f6b166f684d7607aff0a72a",
-//   callbackURL: "http://localhost:5550/employer/auth/github/callback"
-// },
-// async function(accessToken, refreshToken, profile, cb) {
-//   let userData = {}
-//   userData.companyname = profile.username
-//   userData.githubId = profile.id
-//   let user = await db.get().collection(collection.EMPLOYER_COLLECTION).findOne({ githubId : profile.id})
-//   if(user){
-//     return cb(null,user)
-//   }else{
-//   db.get().collection(collection.EMPLOYER_COLLECTION).insertOne(userData).then((err, user)=>{
-//     return cb(err,user);
-//   })
-// }
-// }
-// ));
-
-//   passport.serializeUser(function (user, cb) {
-//   cb(null, user);
-// });
-
-// passport.deserializeUser(function (id, cb) {
-//   cb(null, id);
-// });
-
-// passport.use(new GoogleStrategy({
-//   clientID: "456302544556-gom956k9qc0idda7d21akktm814o64ua.apps.googleusercontent.com",
-//   clientSecret: "e1VFgyLl4lYxRyGdBTd0_SXs",
-//   callbackURL: "http://localhost:5550/employer/auth/google/callback"
-// },
-// async function(accessToken, refreshToken, profile, cb) {
-//   console.log(profile);
-//   let userData = {}
-//   userData.companyname = profile.displayName
-//   userData.googleId = profile.id
-//   let user = await db.get().collection(collection.EMPLOYER_COLLECTION).findOne({ googleId : profile.id})
-//   if(user){
-//     return cb(null,user)
-//   }else{
-//   db.get().collection(collection.EMPLOYER_COLLECTION).insertOne(userData).then((err, user)=>{
-//     return cb(err,user);
-//   })
-// }
-// }
-// ));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -263,9 +189,8 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
-handlebars.registerHelper("inc", function(value, options)
-{
-    return parseInt(value) + 1;
+handlebars.registerHelper("inc", function (value, options) {
+  return parseInt(value) + 1;
 });
 
 handlebars.registerHelper("formatDate", function (date, format) {
@@ -286,24 +211,23 @@ handlebars.registerHelper("each_upto", function (ary, max, options) {
   return result.join("");
 });
 
-handlebars.registerHelper("discript", function (discription){
-  let str = discription.slice(0,140)
-  return str
-})
+handlebars.registerHelper("discript", function (discription) {
+  let str = discription.slice(0, 140);
+  return str;
+});
 
 handlebars.registerHelper("button", function (jobId, applicant, user) {
   if (user && applicant[0]) {
-    for(var i=0; i<applicant.length; i++){
-      if(user == applicant[i]){
+    for (var i = 0; i < applicant.length; i++) {
+      if (user == applicant[i]) {
         var btn = ` <a class="link-j1" style="color: green"  title="Apply Now"  >APPLIED </a>`;
         return new handlebars.SafeString(btn);
-      }else {
-            var btn = ` <a href="/apply/${jobId}" class="link-j1" title="Apply Now"  >APPLY NOW</a>`;
-            return new handlebars.SafeString(btn);
-     }
-    } 
-  } 
-  else {
+      } else {
+        var btn = ` <a href="/apply/${jobId}" class="link-j1" title="Apply Now"  >APPLY NOW</a>`;
+        return new handlebars.SafeString(btn);
+      }
+    }
+  } else {
     var btn = ` <a href="/apply/${jobId}" class="link-j1" title="Apply Now"  >APPLY NOW</a>`;
     return new handlebars.SafeString(btn);
   }
@@ -312,17 +236,16 @@ handlebars.registerHelper("button", function (jobId, applicant, user) {
 handlebars.registerHelper("viewthejob", function (jobId, applicant, user) {
   console.log(jobId, applicant, user);
   if (user && applicant[0]) {
-    for(var i=0; i<applicant.length; i++){
-      if(user == applicant[i]){
+    for (var i = 0; i < applicant.length; i++) {
+      if (user == applicant[i]) {
         var btn = ` <a style="color: white" >APPLIED </a>`;
         return new handlebars.SafeString(btn);
-      }else {
-            var btn = `<a style="color: white;" href="/apply/${jobId}">APPLY NOW</a>`;
-            return new handlebars.SafeString(btn);
-     }
-    } 
-  } 
-  else {
+      } else {
+        var btn = `<a style="color: white;" href="/apply/${jobId}">APPLY NOW</a>`;
+        return new handlebars.SafeString(btn);
+      }
+    }
+  } else {
     var btn = `<a style="color: white;" href="/apply/${jobId}">APPLY NOW</a>`;
     return new handlebars.SafeString(btn);
   }
@@ -330,54 +253,93 @@ handlebars.registerHelper("viewthejob", function (jobId, applicant, user) {
 
 handlebars.registerHelper("jobview", function (jobId, applicant, user) {
   if (user && applicant[0]) {
-    for(var i=0; i<applicant.length; i++){
-      if(user == applicant[i]){
+    for (var i = 0; i < applicant.length; i++) {
+      if (user == applicant[i]) {
         var btn = ` <a ><button class="apled_btn60">APPLIED</button></a>`;
         return new handlebars.SafeString(btn);
-      }else {
-            var btn = `<a href="/apply/${jobId}"><button class="apled_btn60">APPLY</button></a>`;
-            return new handlebars.SafeString(btn);
-     }
-    } 
-  } 
-  else {
+      } else {
+        var btn = `<a href="/apply/${jobId}"><button class="apled_btn60">APPLY</button></a>`;
+        return new handlebars.SafeString(btn);
+      }
+    }
+  } else {
     var btn = `<a href="/apply/${jobId}"><button class="apled_btn60">APPLY</button></a>`;
     return new handlebars.SafeString(btn);
   }
 });
 
-handlebars.registerHelper("priorty", function(priority){
+handlebars.registerHelper("priorty", function (priority) {
   console.log(priority);
-  if(priority == "Medium priorty"){
+  if (priority == "Medium priorty") {
     var btn = `<div class="priorty priorty_medium">Medium Priorty</div>`;
     return new handlebars.SafeString(btn);
-  }else if(priority == "Low priorty"){
+  } else if (priority == "Low priorty") {
     var btn = `<div class="priorty priorty_low">Low Priorty</div> `;
     return new handlebars.SafeString(btn);
-  }else{
+  } else {
     var btn = `<div class="priorty">High Priorty</div> `;
     return new handlebars.SafeString(btn);
   }
-})
+});
 
-handlebars.registerHelper("statuscheck", function(status,empId,candidates){
-  if(status == "active"){
-    var btn = `<a href="/employer/appliedCandidates/${empId}"><button class="apled_btn60"><span class="badge badge-light" >${candidates}</span>APPLIED CANDIDATES</button></a> <a href="/employer/edit-postedjob/${empId}" class="delete_icon1"><i class="far fa-edit"></i></a>`
-    return new handlebars.SafeString(btn)
-  }else{
-    var btn = `<button class="apled_btn60"><span class="badge badge-light" ></span>EXPIRED</button>`
-    return new handlebars.SafeString(btn)
+handlebars.registerHelper("statuscheck", function (status, empId, candidates) {
+  if (status == "active") {
+    var btn = `<a href="/employer/appliedCandidates/${empId}"><button class="apled_btn60"><span class="badge badge-light" >${candidates}</span>APPLIED CANDIDATES</button></a> <a href="/employer/edit-postedjob/${empId}" class="delete_icon1"><i class="far fa-edit"></i></a>`;
+    return new handlebars.SafeString(btn);
+  } else {
+    var btn = `<button class="apled_btn60"><span class="badge badge-light" ></span>EXPIRED</button>`;
+    return new handlebars.SafeString(btn);
   }
-})
+});
 
-handlebars.registerHelper("category", function(count){
-  if(count == "0"){
-    var btn = ` <p>No Jobs</p>`
-    return new handlebars.SafeString(btn)
-  }else{
-    var btn = ` <p>${count} Jobs</p>`
-    return new handlebars.SafeString(btn)
+handlebars.registerHelper("category", function (count) {
+  if (count == "0") {
+    var btn = ` <p>No Jobs</p>`;
+    return new handlebars.SafeString(btn);
+  } else {
+    var btn = ` <p>${count} Jobs</p>`;
+    return new handlebars.SafeString(btn);
   }
-})
+});
+
+handlebars.registerHelper("facebook", function (facebook) {
+  let str = facebook.slice(25, 100);
+  if (str) {
+    let btn = `<li><a href="${facebook}" class="social_links"><i class="fab fa-facebook-f f1"></i>${str}</a></li>`;
+    return new handlebars.SafeString(btn);
+  }
+});
+
+handlebars.registerHelper("twitter", function (twitter) {
+  let str = twitter.slice(24, 100);
+  if (str) {
+    let btn = `<li><a href="${twitter}" class="social_links"><i class="fab fa-twitter t1"></i>${str}</a></li>`;
+    return new handlebars.SafeString(btn);
+  }
+});
+
+handlebars.registerHelper("linkedin", function (linkedin) {
+  let str = linkedin.slice(25, 100);
+  if (str) {
+    let btn = `<li><a href="${linkedin}" class="social_links"><i class="fab fa-linkedin-in l1"></i>${str}</a></li>`;
+    return new handlebars.SafeString(btn);
+  }
+});
+
+handlebars.registerHelper("instagram", function (instagram) {
+  let str = instagram.slice(26, 100);
+  if (str) {
+    let btn = `<li><a href="${instagram}" class="social_links"><i class="fab fa-dribbble d1"></i>${str}</a></li>`;
+    return new handlebars.SafeString(btn);
+  }
+});
+
+handlebars.registerHelper("github", function (github) {
+  let str = github.slice(23, 100);
+  if (str) {
+    let btn = `<li><a href="${github}" class="social_links"><i class="fab fa-github g1"></i>${str}</a></li>`;
+    return new handlebars.SafeString(btn);
+  }
+});
 
 module.exports = { app, socketapi };

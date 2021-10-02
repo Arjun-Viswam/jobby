@@ -269,23 +269,9 @@ router.post('/postjob',verifyLogin,async(req,res)=>{
         success_url: `http://localhost:5550/employer/success`,
         cancel_url: `http://localhost:5550/employer/failure`,
         
-    });console.log(session);
-     res.json({ id: session.id })
-    }
+    })
+  }
   });
-
-// router.get("/stripeVerification",(req,res)=>{
-//   console.log("sasi dharan");
-//   stripe.retrievePaymentIntent('sk_test_51JPhYfSDNOZxdKbLY7t5fAMBRKanw7XWNckuKZNsSw18Rvrwy4OeP8K9LWzKzWlocXU3jvUYdokiZuve4QuDfFeO00O7jRJRjX').then(function(response) {
-//     if (response.paymentIntent && response.paymentIntent.status === 'succeeded') {
-//       // Handle successful payment here
-//       console.log("sssssss");
-//     } else {
-//       console.log("dddddddd");
-//       // Handle unsuccessful, processing, or canceled payments and API errors here
-//     }
-//   });
-// })
 
   router.post("/verify-payment", (req, res) => {
     let jobDetails = req.session.jobDetails
@@ -473,6 +459,13 @@ router.get('/answerkey/:userId/:jobId',verifyLogin,async(req,res)=>{
   let employers = await employerHelpers.getEmployerDetails(req.session.emp._id)
   employerHelpers.getAnswerKeys(req.params.userId,req.params.jobId).then((answerkeys)=>{
     res.render('employer/answerkey',{employer:true,answerkeys,employers})
+  })
+})
+
+router.get("/removeCandidate/:userId/:jobId",(req,res)=>{
+  let jobId = req.params.jobId
+  employerHelpers.removeCandidate(req.params.userId,req.params.jobId).then(()=>{
+    res.redirect(`/employer/appliedCandidates/${jobId}`)
   })
 })
 

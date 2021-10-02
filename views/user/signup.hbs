@@ -1,112 +1,127 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"
+></script>
 
 <main class="browse-section">
-<div class="container">
-<div class="row justify-content-md-center">
-<div class="col-md-6">
-<div class="lg_form">
-<div class="main-heading">
-<h2>Sign Up to Jobby</h2>
-<div class="line-shape1">
-<img src="images/line.svg" alt="">
-</div>
-</div>
-<form method="POST" id="userSignup" action="/signup">
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-6">
-<label class="label15">First Name*</label>
-<input type="text" class="job-input" name="firstname" placeholder="Enter the First Name">
-</div>
-<div class="col-md-6">
-<label class="label15">Last Name*</label>
-<input type="text" class="job-input" name="lastname" placeholder="Enter the Last Name">
-</div>
-</div>
-</div>
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-6">
-            <label class="label15">Mobile*</label>
-<input type="tel" id="phone" class="job-input" onkeypress='return event.charCode >= 48 && event.charCode <= 57' name="mobile" placeholder="Enter the Mobile Number">
-<div>
-    <label style="display: none;" id="phone-error" class="error" for="phone">This field is required.</label>
-    {{#if mobileExist}}
-<p style="color: red;">Mobile Already Exist</p>
-{{/if}}
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-6">
+        <div class="lg_form">
+          <div class="main-heading">
+            <h2>Sign Up to Jobby</h2>
+            <div class="line-shape1">
+              <img src="images/line.svg" alt="" />
+            </div>
+          </div>
+          <form method="POST" id="userSignup" action="/signup">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="label15">First Name*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="firstname"
+                    placeholder="Enter the First Name"
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label class="label15">Last Name*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="lastname"
+                    placeholder="Enter the Last Name"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="label15">Mobile*</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    class="job-input"
+                    onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                    name="mobile"
+                    placeholder="Enter the Mobile Number"
+                  />
+                  <div>
+                    <label
+                      style="display: none;"
+                      id="phone-error"
+                      class="error"
+                      for="phone"
+                    >This field is required.</label>
+                    {{#if mobileExist}}
+                      <p style="color: red;">Mobile Already Exist</p>
+                    {{/if}}
 
-</div>
-</div>
-<div class="col-md-6">
-    <label class="label15">Email*</label>
-<input type="text" class="job-input" name="email" placeholder="Enter the Email">
-{{#if existing}}
-<p style="color: red;">Email Already exist</p>
-{{/if}}
-</div>
-</div>
-</div>
-<div class="form-group">
-<label class="label15">Password*</label>
-<input type="password" class="job-input" name="password" placeholder="Enter Password">
-</div>
-<div class="form-group">
-<label class="label15">Confirm Password*</label>
-<input type="password" class="job-input" name="password2" placeholder="Enter Confirm Password">
-</div>
-{{#if nomatch}}
-<p style="color: red;">password does not match</p>
-{{/if}}
-<div class="ui checkbox apply_check check_out checked">
-<input type="checkbox" tabindex="0" class="hidden" required>
-<label style="color:#242424 !important;">I accept the Terms of Services</label>
-</div>
-<button class="lr_btn" type="submit">Submit</button>
-</form>
-<div class="done140">
-Already have an account?<a href="/login">Sign in Now<i class="fas fa-angle-double-right"></i></a>
-</div>
-</div>
-</div>
-</div>
-</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <label class="label15">Email*</label>
+                  <input
+                    type="text"
+                    class="job-input"
+                    name="email"
+                    placeholder="Enter the Email"
+                  />
+                  {{#if existing}}
+                    <p style="color: red;">Email Already exist</p>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="label15">Password*</label>
+              <input
+                type="password"
+                class="job-input"
+                name="password"
+                placeholder="Enter Password"
+              />
+            </div>
+            <div class="form-group">
+              <label class="label15">Confirm Password*</label>
+              <input
+                type="password"
+                class="job-input"
+                name="password2"
+                placeholder="Enter Confirm Password"
+              />
+            </div>
+            {{#if nomatch}}
+              <p style="color: red;">password does not match</p>
+            {{/if}}
+            <div class="ui checkbox apply_check check_out checked">
+              <input type="checkbox" tabindex="0" class="hidden" required />
+              <label style="color:#242424 !important;">I accept the Terms of
+                Services</label>
+            </div>
+            <button class="lr_btn" type="submit">Submit</button>
+          </form>
+          <div class="done140">
+            Already have an account?<a href="/login">Sign in Now<i
+                class="fas fa-angle-double-right"
+              ></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <script>
-    
-$(document).ready(()=>{
-    
-  $("#userSignup").validate({ 
 
-      rules: {
-        firstname: {
-          required: true,
-          minlength: 4,
-        },
-        lastname: {
-          required: true,
-          minlength: 4,
-        },
-        email:{
-          required:true,
-          email:true,
-        },
-        mobile:{
-          required:true,
-          minlength:10,
-          maxlength:10,
-          number:true
-        },
-        password:{
-          required:true,
-          minlength:6,
-        },
-        password2:{
-          required:true,
-          minlength:6,
-        },  
-      }
-    })
-     })
+  $(document).ready(()=>{ $("#userSignup").validate({ rules: { firstname: {
+  required: true, minlength: 4, }, lastname: { required: true, minlength: 4, },
+  email:{ required:true, email:true, }, mobile:{ required:true, minlength:10,
+  maxlength:10, number:true }, password:{ required:true, minlength:6, },
+  password2:{ required:true, minlength:6, }, } }) })
 </script>

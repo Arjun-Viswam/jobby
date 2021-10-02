@@ -1,75 +1,90 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="/main/css/stylemade.css">
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+></script>
+<link rel="stylesheet" href="/main/css/stylemade.css" />
 
 <main class="browse-section" style="padding-top: 0;">
-<div class="container">
-<div class="row">
+  <div class="container">
+    <div class="row">
 
-<div class="col-lg-12 col-md-12 mainpage">
+      <div class="col-lg-12 col-md-12 mainpage">
 
-<div class="main-tabs">
-<div class="res-tabs">
-<div class="mtab-left">
-<ul class="browsr-project">
-<li>
-<span class="nav-link active">Active Companies</span>
-</li>
-</ul>
-</div>
+        <div class="main-tabs">
+          <div class="res-tabs">
+            <div class="mtab-left">
+              <ul class="browsr-project">
+                <li>
+                  <span class="nav-link active">Active Companies</span>
+                </li>
+              </ul>
+            </div>
 
-</div>
-<div class="prjoects-content">
-<div class="row view-group" id="freelancers">
-{{#each companies}}
-<div class="lg-item5 col-lg-6 col-xs-6 grid-group-item5">
-<div class="job-item mt-30">
-<div class="job-top-dt1 text-center">
-<div class="job-center-dt">
-<img src="/profile-photos/{{this._id}}.jpg" alt="">
-<div class="job-urs-dts">
-<a href="/emp-profileview/{{this._id}}"><h4>{{this.companyname}}</h4></a>
-<a href="{{this.link1}}" class="avialable c-link">{{this.link1}}</a>
-</div>
-</div>
-</div>
-<div class="rating-location">
-<div class="left-rating">
-<div class="rtitle">Contact</div>
-<div class="star">
-<span>{{this.mobile}}</span>
-</div>
-</div>
-<div class="right-location">
-<div class="text-left">
-<div class="rtitle">Location</div>
-<span><i class="fas fa-map-marker-alt"></i>{{this.location}}</span>
-</div>
-</div>
-</div>
-<div class="job-buttons">
-<ul class="link-btn">
-<li class="cpy-btn"><a href="/emp-profileview/{{this._id}}" class="link-j1" title="View Profile">View Profile</a></li>
-<li class="bkd-pm"><button class="bookmark1" onclick="saveCompany('{{this._id}}')" title="bookmark"><i class="fas fa-heart"></i></button></li>
-</ul>
-</div>
-</div>
-</div>
-{{/each}}
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>  
-  <div class="flash">
-  <div class="flash__icon">
-   <i class="far fa-check-circle" style="padding: 10px;"></i>
+          </div>
+          <div class="prjoects-content">
+            <div class="row view-group" id="freelancers">
+              {{#each companies}}
+                <div class="lg-item5 col-lg-6 col-xs-6 grid-group-item5">
+                  <div class="job-item mt-30">
+                    <div class="job-top-dt1 text-center">
+                      <div class="job-center-dt">
+                        <img src="/profile-photos/{{this._id}}.jpg" alt="" />
+                        <div class="job-urs-dts">
+                          <a href="/emp-profileview/{{this._id}}"><h4
+                            >{{this.companyname}}</h4></a>
+                          <a
+                            href="{{this.link1}}"
+                            class="avialable c-link"
+                          >{{this.link1}}</a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="rating-location">
+                      <div class="left-rating">
+                        <div class="rtitle">Contact</div>
+                        <div class="star">
+                          <span>{{this.mobile}}</span>
+                        </div>
+                      </div>
+                      <div class="right-location">
+                        <div class="text-left">
+                          <div class="rtitle">Location</div>
+                          <span><i
+                              class="fas fa-map-marker-alt"
+                            ></i>{{this.location}}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="job-buttons">
+                      <ul class="link-btn">
+                        <li class="cpy-btn"><a
+                            href="/emp-profileview/{{this._id}}"
+                            class="link-j1"
+                            title="View Profile"
+                          >View Profile</a></li>
+                        <li class="bkd-pm"><button
+                            class="bookmark1"
+                            onclick="saveCompany('{{this._id}}')"
+                            title="bookmark"
+                          ><i class="fas fa-heart"></i></button></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <p class="flash__body">
-    Success!
-  </p>
-</div>
+  <div class="flash">
+    <div class="flash__icon">
+      <i class="far fa-check-circle" style="padding: 10px;"></i>
+    </div>
+    <p class="flash__body">
+      Success!
+    </p>
+  </div>
 </main>
 
 <script src="/main/js/scriptmade.js"></script>
-
